@@ -39,6 +39,7 @@ public class GameScreen extends ScreenAdapter {
     private void setupCamera() {
         camera = new OrthographicCamera();
         camera.position.set(0, 0, 0);
+        camera.zoom +=3;
         camera.update();
     }
 
@@ -65,7 +66,7 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
-        debugCameraZoom();
+        //debugCameraZoom();
 
         demoSequence.update();
         gameWorld.update();
