@@ -30,9 +30,10 @@ public class GraphicsComponent {
      * @param batch SpriteBatch used to render on the screen
      */
     public void update(SpriteBatch batch) {
-        if (character.getInventory().getSelectedItem() != null) {
-            renderSelectedItem(batch);
-        }
+       //todo
+        // if (character.getInventory().getSelectedItem() != null) {
+        //    renderSelectedItem(batch);
+        // }
         renderCharacter(batch);
     }
 
@@ -42,7 +43,8 @@ public class GraphicsComponent {
      * @param batch SpriteBatch used to render on the screen
      */
     private void renderSelectedItem(SpriteBatch batch) {
-        character.getInventory().getSelectedItem().renderAtCharacter(character, batch);
+        //todo
+        //character.getInventory().getSelectedItem().renderAtCharacter(character, batch);
     }
 
     /**

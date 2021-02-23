@@ -41,19 +41,17 @@ public abstract class Character implements Disposable {
     private float healthPoints;
     private final float maxHealthPoints;
     private final float movementSpeed;
-    protected final InventoryComponent inventory;
 
-    public Character(GameWorld gameWorld, InputComponent inputComponent, float maxHealthPoints, float movementSpeed, int inventorySize) {
+    public Character(GameWorld gameWorld, InputComponent inputComponent, float maxHealthPoints, float movementSpeed) {
         this.gameWorld = gameWorld;
         this.inputComponent = inputComponent;
         this.healthPoints = this.maxHealthPoints = maxHealthPoints;
         this.movementSpeed = movementSpeed;
-
-        this.inventory = new InventoryComponent(inventorySize);
         this.graphicsComponent = new GraphicsComponent(this, setupIdleAnimation(), setupRunAnimation());
     }
 
     //todo loot from chest
+    //todo add inventory
 
     /**
      * Characters are setting up their specific idle animation
@@ -70,9 +68,6 @@ public abstract class Character implements Disposable {
     protected abstract Animation setupRunAnimation();
 
     public void update() {
-        if (!inventory.isEmpty() && inventory.getSelectedItem() == null) {
-            inventory.setSelectedItem(0);
-        }
         if (punched) {
             updatePositionWhilePunchBack();
         }
@@ -159,15 +154,6 @@ public abstract class Character implements Disposable {
     }
 
     /**
-     * Delegates item use to equipped item, if there is one
-     */
-    public void useSelectedItem() {
-        if (movementEnabled && inventory.getSelectedItem() != null) {
-            inventory.getSelectedItem().use(this);
-        }
-    }
-
-    /**
      * Interacts with nearest interactable, if there is one
      */
     public void interact() {
@@ -177,14 +163,6 @@ public abstract class Character implements Disposable {
         }
     }
 
-    /**
-     * Sets the selected item
-     *
-     * @param index Index in the inventory of the item that should be equipped
-     */
-    public void selectItem(int index) {
-        inventory.setSelectedItem(index);
-    }
 
     /**
      * Determines the nearest character
@@ -319,10 +297,6 @@ public abstract class Character implements Disposable {
 
     public boolean isIdle() {
         return idle;
-    }
-
-    public InventoryComponent getInventory() {
-        return inventory;
     }
 
     public float getCharacterWidth() {

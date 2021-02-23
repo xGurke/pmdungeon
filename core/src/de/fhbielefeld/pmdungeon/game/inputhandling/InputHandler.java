@@ -15,14 +15,9 @@ public class InputHandler {
     private static final Command buttonA = new MoveLeftCommand();
     private static final Command buttonS = new MoveDownCommand();
     private static final Command buttonD = new MoveRightCommand();
-
     private static final Command buttonE = new InteractCommand();
 
-    private static final Command buttonMouseLeft = new UseSelectedItemCommand();
-
-    private static final Command buttonNum1 = new InventorySelectSlot1Command();
-    private static final Command buttonNum2 = new InventorySelectSlot2Command();
-    private static final Command buttonNum3 = new InventorySelectSlot3Command();
+    //todo add inventory controll
 
     /**
      * Handles the user input.
@@ -38,11 +33,7 @@ public class InputHandler {
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) commandList.add(buttonE);
 
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) commandList.add(buttonMouseLeft);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) commandList.add(buttonNum1);
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) commandList.add(buttonNum2);
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_3)) commandList.add(buttonNum3);
 
         return commandList.toArray(new Command[0]);
     }

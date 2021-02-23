@@ -56,7 +56,6 @@ public class HeadUpDisplay implements Disposable {
         hudBatch.begin();
         if (gameWorld.getHero() != null) {
             drawHealthPoints();
-            drawInventory();
         }
         Chest openChest = findOpenChest();
         if (openChest != null) {
@@ -85,9 +84,10 @@ public class HeadUpDisplay implements Disposable {
     }
 
     /**
+     * todo how to remove this?
      * Draws the inventory at the bottom of the screen.
      */
-    private void drawInventory() {
+   /* private void drawInventory() {
         Texture highlight = createInventoryHighlight();
         InventoryComponent inventory = gameWorld.getHero().getInventory();
 
@@ -104,7 +104,7 @@ public class HeadUpDisplay implements Disposable {
                 hudBatch.draw(items[i].getTexture(), (originX + i * INVENTORY_ITEM_SIZE) + itemOffset, 0, calculateItemWidth(items[i]), INVENTORY_ITEM_SIZE);
             }
         }
-    }
+    }*/
 
     /**
      * Creates a black, slightly translucent background texture for the inventory.

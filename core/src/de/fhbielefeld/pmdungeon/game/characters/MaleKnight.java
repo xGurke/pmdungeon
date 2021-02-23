@@ -8,11 +8,10 @@ public class MaleKnight extends Character {
 
     private static final float MOVEMENT_SPEED = 5;
     private static final float MAX_HEALTH = 5f;
-    public static final int INVENTORY_SIZE = 3;
     public static final int TEXTURE_COUNT = 4;
 
     public MaleKnight(GameWorld gameWorld, InputComponent inputComponent) {
-        super(gameWorld, inputComponent, MAX_HEALTH, MOVEMENT_SPEED, INVENTORY_SIZE);
+        super(gameWorld, inputComponent, MAX_HEALTH, MOVEMENT_SPEED);
     }
 
     /**
