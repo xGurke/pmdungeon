@@ -26,8 +26,7 @@ public class Chest implements Interactable {
     public Chest(Coordinate coordinate) {
         this.positionX = coordinate.getX() + 0.5f;
         this.positionY = coordinate.getY() + 0.5f;
-        this.content = new Item[CHEST_SIZE];
-        this.content[0] = new HealthPotion();
+        this.content = null;
         this.textures = new Texture[TEXTURE_COUNT];
         for (int i = 0; i < textures.length; i++) {
             this.textures[i] = new Texture("textures/chest/chest_full_open_anim_f" + i + ".png");
@@ -62,18 +61,6 @@ public class Chest implements Interactable {
      */
     @Override
     public void interact(Character character) {
-        switch (this.state) {
-            case CLOSED:
-                open();
-                character.disableMovement();
-                break;
-            case OPEN:
-                close();
-                character.enableMovement();
-                break;
-            default:
-                break;
-        }
     }
 
     /**

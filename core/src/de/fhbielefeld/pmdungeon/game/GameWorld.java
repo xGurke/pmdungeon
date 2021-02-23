@@ -9,7 +9,6 @@ import de.fhbielefeld.pmdungeon.game.characters.MaleKnight;
 import de.fhbielefeld.pmdungeon.game.characters.components.AiInputComponent;
 import de.fhbielefeld.pmdungeon.game.characters.components.PlayerInputComponent;
 import de.fhbielefeld.pmdungeon.game.dungeon.Dungeon;
-import de.fhbielefeld.pmdungeon.game.interactable.Chest;
 import de.fhbielefeld.pmdungeon.game.interactable.Interactable;
 import de.fhbielefeld.pmdungeon.game.items.HealthPotion;
 import de.fhbielefeld.pmdungeon.game.items.NpcAttack;
@@ -60,7 +59,6 @@ public class GameWorld implements Disposable {
             imp.getInventory().add(new NpcAttack(1, 0.5f, 300));
             characterList.add(imp);
         }
-        setupLoot();
     }
 
     /**
@@ -82,13 +80,6 @@ public class GameWorld implements Disposable {
         hero.getInventory().add(new HealthPotion());
     }
 
-    /**
-     * Hiding a chest with loot in the dungeon.
-     */
-    private void setupLoot() {
-        interactables.clear();
-        interactables.add(new Chest(dungeon.getRandomLocationInDungeon()));
-    }
 
     /**
      * Part of the gameloop. Updates everything in the dungeon, that needs to be updated.

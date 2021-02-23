@@ -10,7 +10,6 @@ import de.fhbielefeld.pmdungeon.game.characters.components.InputComponent;
 import de.fhbielefeld.pmdungeon.game.characters.components.InventoryComponent;
 import de.fhbielefeld.pmdungeon.game.dungeon.dungeonconverter.Coordinate;
 import de.fhbielefeld.pmdungeon.game.dungeon.tiles.Tile;
-import de.fhbielefeld.pmdungeon.game.interactable.Chest;
 import de.fhbielefeld.pmdungeon.game.interactable.Interactable;
 
 /**
@@ -278,17 +277,6 @@ public abstract class Character implements Disposable {
         }
     }
 
-    /**
-     * Grab an item from the chest and add it to characters inventory. Doesn't take the item when inventory is full.
-     *
-     * @param chest Chest from which the item is taken
-     * @param index Index of the item in the chest
-     */
-    public void takeFromChest(Chest chest, int index) {
-        if (chest.getState() == Chest.State.OPEN && chest.getItemAt(index) != null && this.inventory.add(chest.getItemAt(index))) {
-            chest.removeItemAt(index);
-        }
-    }
 
     public void setPosition(Coordinate position) {
         this.positionX = position.getX();

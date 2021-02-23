@@ -195,7 +195,7 @@ public class HeadUpDisplay implements Disposable {
         for (Map.Entry<Rectangle, Integer> entry : chestInventoryInputs.entrySet()) {
             Vector3 inputPos = hudCamera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             if (entry.getKey().contains(inputPos.x, inputPos.y)) {
-                gameWorld.getHero().takeFromChest(openChest, entry.getValue());
+               //todo take item from chest
             }
         }
     }
