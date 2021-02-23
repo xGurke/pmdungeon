@@ -2,9 +2,7 @@ package de.fhbielefeld.pmdungeon.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
-import de.fhbielefeld.pmdungeon.game.characters.BigDemon;
 import de.fhbielefeld.pmdungeon.game.characters.Character;
-import de.fhbielefeld.pmdungeon.game.characters.Imp;
 import de.fhbielefeld.pmdungeon.game.characters.MaleKnight;
 import de.fhbielefeld.pmdungeon.game.characters.components.AiInputComponent;
 import de.fhbielefeld.pmdungeon.game.characters.components.PlayerInputComponent;
@@ -57,20 +55,6 @@ public class GameWorld implements Disposable {
         characterList.clear();
         hero.setPosition(dungeon.getStartingLocation());
         characterList.add(hero);
-        for (int i = 1; i < dungeon.getRooms().length; i += 2) {
-            Character imp = new Imp(this, new AiInputComponent(this, 6));
-            imp.setPosition(dungeon.getRandomLocationInDungeon());
-            characterList.add(imp);
-        }
-    }
-
-    /**
-     * Sets up the boss, if there should be one in the current level.
-     */
-    public void setupBoss() {
-        Character bigDemon = new BigDemon(this, new AiInputComponent(this, 10));
-        bigDemon.setPosition(dungeon.getBossStartingLocation());
-        characterList.add(bigDemon);
     }
 
     /**

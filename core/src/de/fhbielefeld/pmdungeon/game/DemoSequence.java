@@ -38,14 +38,6 @@ public class DemoSequence {
                 gameWorld.populate();
                 stage = Stage.A;
                 break;
-            case C:
-                gameWorld.setupDungeon(dungeonConverter.dungeonFromJson("simple_dungeon_2.json"));
-                gameWorld.populate();
-                gameWorld.setupBoss();
-                stage = Stage.D;
-                break;
-            case D:
-                break;
         }
 
     }
