@@ -3,7 +3,7 @@ package de.fhbielefeld.pmdungeon.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import de.fhbielefeld.pmdungeon.game.characters.Character;
-import de.fhbielefeld.pmdungeon.game.characters.MaleKnight;
+import de.fhbielefeld.pmdungeon.game.characters.DummyCharacter;
 import de.fhbielefeld.pmdungeon.game.dungeon.Dungeon;
 import de.fhbielefeld.pmdungeon.game.interactable.Interactable;
 
@@ -19,17 +19,16 @@ public class GameWorld implements Disposable {
     private final List<Character> characterList = new ArrayList<>();
     private final List<Interactable> interactables = new ArrayList<>();
     private Dungeon dungeon;
-    private Character hero;
     private boolean nextLevelTriggered = false;
-
+    private Character hero;
     public GameWorld(SpriteBatch batch) {
         this.batch = batch;
-        setupHero();
+        hero=new DummyCharacter(this);
     }
 
     //todo place chest
-
-
+    //todo setup player
+    //todo populate dungeon
 
 
 
@@ -47,27 +46,11 @@ public class GameWorld implements Disposable {
     }
 
     /**
-     * Adds characters and loot to the dungeon.
-     */
-    public void populate() {
-        characterList.clear();
-        hero.setPosition(dungeon.getStartingLocation());
-        characterList.add(hero);
-    }
-
-    /**
-     * Setting up the playable character.
-     */
-    private void setupHero() {
-        hero = new MaleKnight(this);
-    }
-
-
-    /**
      * Part of the gameloop. Updates everything in the dungeon, that needs to be updated.
      */
     public void update() {
-        if (hero.currentTile() == dungeon.getNextLevelTrigger()) nextLevelTriggered = true;
+        //todo activate if player is implemented
+        //if (hero.currentTile() == dungeon.getNextLevelTrigger()) nextLevelTriggered = true;
         for (Interactable interactable : interactables) {
             interactable.update();
         }
@@ -87,7 +70,9 @@ public class GameWorld implements Disposable {
         for (Interactable interactable : interactables) {
             interactable.render(batch);
         }
+
         dungeon.renderWalls(dungeon.getHeight() - 1, (int) getHero().getPositionY(), batch);
+
         for (Character character : characterList) {
             character.render();
         }
@@ -121,10 +106,6 @@ public class GameWorld implements Disposable {
         return dungeon;
     }
 
-    public Character getHero() {
-        return hero;
-    }
-
     public List<Character> getCharacterList() {
         return characterList;
     }
@@ -137,6 +118,9 @@ public class GameWorld implements Disposable {
         return nextLevelTriggered;
     }
 
+    public Character getHero(){
+        return hero;
+    }
     @Override
     public void dispose() {
         dungeon.dispose();

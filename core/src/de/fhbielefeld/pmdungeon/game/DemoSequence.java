@@ -30,12 +30,10 @@ public class DemoSequence {
         switch (stage) {
             case A:
                 gameWorld.setupDungeon(dungeonConverter.dungeonFromJson("small_dungeon.json"));
-                gameWorld.populate();
                 stage = Stage.B;
                 break;
             case B:
                 gameWorld.setupDungeon(dungeonConverter.dungeonFromJson("simple_dungeon.json"));
-                gameWorld.populate();
                 stage = Stage.A;
                 break;
         }
