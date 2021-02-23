@@ -1,4 +1,19 @@
 # PM Dungeon
+
+## How to navigate
+The dungeon was gradually dismantled.
+
+0. Master (complete Game)
+1. removeLoot (remove Chests)
+2. removeItems (+remove items like weapons)
+3. removeMonster (+remove monster) 
+4. removeInventory (+remove inventory and inventory ui)
+5. removeControlls (+remove controlls for player and monster)
+6. removePlayer (+remove player character) 
+7. removeTooMuch (Only a basic implementation of the levels, camera, transitions and ui, not much more. Requires a lot of own animation and sprite handling)  
+
+
+
 The PM Dungeon is a 2D rogue-like dungeon RPG which uses generated dungeons.
 
 ## Controls:
