@@ -4,8 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import de.fhbielefeld.pmdungeon.game.characters.Character;
 import de.fhbielefeld.pmdungeon.game.characters.MaleKnight;
-import de.fhbielefeld.pmdungeon.game.characters.components.AiInputComponent;
-import de.fhbielefeld.pmdungeon.game.characters.components.PlayerInputComponent;
 import de.fhbielefeld.pmdungeon.game.dungeon.Dungeon;
 import de.fhbielefeld.pmdungeon.game.interactable.Interactable;
 
@@ -61,7 +59,7 @@ public class GameWorld implements Disposable {
      * Setting up the playable character.
      */
     private void setupHero() {
-        hero = new MaleKnight(this, new PlayerInputComponent());
+        hero = new MaleKnight(this);
     }
 
 

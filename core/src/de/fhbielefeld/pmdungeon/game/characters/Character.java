@@ -6,8 +6,6 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
 import de.fhbielefeld.pmdungeon.game.GameWorld;
 import de.fhbielefeld.pmdungeon.game.characters.components.GraphicsComponent;
-import de.fhbielefeld.pmdungeon.game.characters.components.InputComponent;
-import de.fhbielefeld.pmdungeon.game.characters.components.InventoryComponent;
 import de.fhbielefeld.pmdungeon.game.dungeon.dungeonconverter.Coordinate;
 import de.fhbielefeld.pmdungeon.game.dungeon.tiles.Tile;
 import de.fhbielefeld.pmdungeon.game.interactable.Interactable;
@@ -23,7 +21,6 @@ public abstract class Character implements Disposable {
     private static final float PUNCH_BACK_DURATION = 100;
 
     protected GameWorld gameWorld;
-    protected InputComponent inputComponent;
     protected GraphicsComponent graphicsComponent;
 
     protected boolean idle = true;
@@ -42,9 +39,8 @@ public abstract class Character implements Disposable {
     private final float maxHealthPoints;
     private final float movementSpeed;
 
-    public Character(GameWorld gameWorld, InputComponent inputComponent, float maxHealthPoints, float movementSpeed) {
+    public Character(GameWorld gameWorld, float maxHealthPoints, float movementSpeed) {
         this.gameWorld = gameWorld;
-        this.inputComponent = inputComponent;
         this.healthPoints = this.maxHealthPoints = maxHealthPoints;
         this.movementSpeed = movementSpeed;
         this.graphicsComponent = new GraphicsComponent(this, setupIdleAnimation(), setupRunAnimation());
@@ -72,8 +68,6 @@ public abstract class Character implements Disposable {
             updatePositionWhilePunchBack();
         }
         if (dead) dispose();
-        if (inputComponent != null) inputComponent.update(this);
-
         checkForIdle();
     }
 

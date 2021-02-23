@@ -2,7 +2,7 @@ package de.fhbielefeld.pmdungeon.game.characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import de.fhbielefeld.pmdungeon.game.GameWorld;
-import de.fhbielefeld.pmdungeon.game.characters.components.InputComponent;
+
 
 public class MaleKnight extends Character {
 
@@ -10,8 +10,8 @@ public class MaleKnight extends Character {
     private static final float MAX_HEALTH = 5f;
     public static final int TEXTURE_COUNT = 4;
 
-    public MaleKnight(GameWorld gameWorld, InputComponent inputComponent) {
-        super(gameWorld, inputComponent, MAX_HEALTH, MOVEMENT_SPEED);
+    public MaleKnight(GameWorld gameWorld) {
+        super(gameWorld, MAX_HEALTH, MOVEMENT_SPEED);
     }
 
     /**
