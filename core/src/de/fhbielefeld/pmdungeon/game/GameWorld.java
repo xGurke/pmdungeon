@@ -10,9 +10,6 @@ import de.fhbielefeld.pmdungeon.game.characters.components.AiInputComponent;
 import de.fhbielefeld.pmdungeon.game.characters.components.PlayerInputComponent;
 import de.fhbielefeld.pmdungeon.game.dungeon.Dungeon;
 import de.fhbielefeld.pmdungeon.game.interactable.Interactable;
-import de.fhbielefeld.pmdungeon.game.items.HealthPotion;
-import de.fhbielefeld.pmdungeon.game.items.NpcAttack;
-import de.fhbielefeld.pmdungeon.game.items.Sword;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +60,6 @@ public class GameWorld implements Disposable {
         for (int i = 1; i < dungeon.getRooms().length; i += 2) {
             Character imp = new Imp(this, new AiInputComponent(this, 6));
             imp.setPosition(dungeon.getRandomLocationInDungeon());
-            imp.getInventory().add(new NpcAttack(1, 0.5f, 300));
             characterList.add(imp);
         }
     }
@@ -74,7 +70,6 @@ public class GameWorld implements Disposable {
     public void setupBoss() {
         Character bigDemon = new BigDemon(this, new AiInputComponent(this, 10));
         bigDemon.setPosition(dungeon.getBossStartingLocation());
-        bigDemon.getInventory().add(new NpcAttack(1, 2, 750));
         characterList.add(bigDemon);
     }
 
@@ -83,8 +78,6 @@ public class GameWorld implements Disposable {
      */
     private void setupHero() {
         hero = new MaleKnight(this, new PlayerInputComponent());
-        hero.getInventory().add(new Sword());
-        hero.getInventory().add(new HealthPotion());
     }
 
 

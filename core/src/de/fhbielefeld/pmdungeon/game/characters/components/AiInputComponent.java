@@ -48,9 +48,11 @@ public class AiInputComponent implements InputComponent {
                 }
             }
         }
-        Weapon weapon = (Weapon) character.getInventory().getSelectedItem();
-        if (path.getCount() <= weapon.getRange()) {
-            character.useSelectedItem();
-        }
+
+        //todo what is this?
+        //Weapon weapon = (Weapon) character.getInventory().getSelectedItem();
+        //if (path.getCount() <= weapon.getRange()) {
+        //    character.useSelectedItem();
+        //}
     }
 }
