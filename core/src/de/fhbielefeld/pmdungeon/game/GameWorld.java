@@ -34,6 +34,13 @@ public class GameWorld implements Disposable {
         setupHero();
     }
 
+    //todo place chest
+
+
+
+
+
+
     /**
      * Setting up a new dungeon. Gets also called when the level changes and the dungeon gets replaced.
      *

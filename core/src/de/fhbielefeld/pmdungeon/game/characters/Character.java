@@ -53,6 +53,8 @@ public abstract class Character implements Disposable {
         this.graphicsComponent = new GraphicsComponent(this, setupIdleAnimation(), setupRunAnimation());
     }
 
+    //todo loot from chest
+
     /**
      * Characters are setting up their specific idle animation
      *

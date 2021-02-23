@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import de.fhbielefeld.pmdungeon.game.characters.Character;
 import de.fhbielefeld.pmdungeon.game.dungeon.dungeonconverter.Coordinate;
-import de.fhbielefeld.pmdungeon.game.items.HealthPotion;
 import de.fhbielefeld.pmdungeon.game.items.Item;
 
 /**
@@ -13,12 +12,10 @@ import de.fhbielefeld.pmdungeon.game.items.Item;
  */
 public class Chest implements Interactable {
 
-    private static final int CHEST_SIZE = 9;
     private static final int TEXTURE_COUNT = 3;
     private static final long TRANSITION_TIME = 200;
     private final float positionX;
     private final float positionY;
-    private final Item[] content;
     private final Texture[] textures;
     private State state = State.CLOSED;
     private long transitionStartTime;
@@ -26,7 +23,7 @@ public class Chest implements Interactable {
     public Chest(Coordinate coordinate) {
         this.positionX = coordinate.getX() + 0.5f;
         this.positionY = coordinate.getY() + 0.5f;
-        this.content = null;
+        //todo add content
         this.textures = new Texture[TEXTURE_COUNT];
         for (int i = 0; i < textures.length; i++) {
             this.textures[i] = new Texture("textures/chest/chest_full_open_anim_f" + i + ".png");
@@ -61,6 +58,7 @@ public class Chest implements Interactable {
      */
     @Override
     public void interact(Character character) {
+        //todo implement interaction
     }
 
     /**
@@ -107,15 +105,17 @@ public class Chest implements Interactable {
      * @param index Index of the item that should be removed
      */
     public void removeItemAt(int index) {
-        content[index] = null;
+       //todo
     }
 
     public Item[] getContent() {
-        return content;
+        //todo
+        return null;
     }
 
     public Item getItemAt(int index) {
-        return content[index];
+        //todo
+        return null;
     }
 
     public State getState() {
