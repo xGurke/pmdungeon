@@ -49,8 +49,7 @@ public class GameWorld implements Disposable {
      * Part of the gameloop. Updates everything in the dungeon, that needs to be updated.
      */
     public void update() {
-        //todo activate if player is implemented
-        //if (hero.currentTile() == dungeon.getNextLevelTrigger()) nextLevelTriggered = true;
+        if (hero.currentTile() == dungeon.getNextLevelTrigger()) nextLevelTriggered = true;
         for (Interactable interactable : interactables) {
             interactable.update();
         }
