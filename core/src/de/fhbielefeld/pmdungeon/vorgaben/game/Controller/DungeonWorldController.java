@@ -102,11 +102,12 @@ public class DungeonWorldController {
     private void nextStage() throws InvocationTargetException, IllegalAccessException {
         switch (nextStage) {
             case A:
-                setupDungeon(dungeonConverter.dungeonFromJson("small_dungeon.json"));
+                setupDungeon(dungeonConverter.dungeonFromJson("core/assets/small_dungeon.json"));
+                System.out.println("Move levle");
                 nextStage = Stage.B;
                 break;
             case B:
-                setupDungeon(dungeonConverter.dungeonFromJson("simple_dungeon_2.json"));
+                setupDungeon(dungeonConverter.dungeonFromJson("core/assets/simple_dungeon_2.json"));
                 nextStage = Stage.A;
                 break;
         }

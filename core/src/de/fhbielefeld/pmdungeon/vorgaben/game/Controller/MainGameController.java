@@ -46,7 +46,7 @@ public class MainGameController extends ScreenAdapter {
             Method functionToPass = MainGameController.class.getMethod("onLevelLoad");
             Object [] arguments = new Object[0];
             this.dungeonWorldController= new DungeonWorldController(gameSetup.getBatch(),functionToPass,this,arguments);
-            dungeonWorldController.setupDungeon(new DungeonConverter().dungeonFromJson("small_dungeon.json"));
+            dungeonWorldController.setupDungeon(new DungeonConverter().dungeonFromJson("core/assets/small_dungeon.json"));
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -82,6 +82,7 @@ public class MainGameController extends ScreenAdapter {
      * Usefull to place new monster and items and remove old ones from the entityController
      */
     public void onLevelLoad(){
+        System.out.println("Level loaded");
         h.updateLevel(dungeonWorldController.getDungeon());
 
     }

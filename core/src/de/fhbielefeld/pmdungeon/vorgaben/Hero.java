@@ -35,6 +35,7 @@ public class Hero implements IAnimatable, IUpdateable {
 
     public void updateLevel(DungeonWorld level){
         this.level=level;
+        this.position=new Point(level.getRandomLocationInDungeon());
     }
     public void setPosition(Point p){
         this.position=p;
