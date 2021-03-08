@@ -106,7 +106,7 @@ public class DungeonWorldController {
                 nextStage = Stage.B;
                 break;
             case B:
-                setupDungeon(dungeonConverter.dungeonFromJson("simple_dungeon.json"));
+                setupDungeon(dungeonConverter.dungeonFromJson("simple_dungeon_2.json"));
                 nextStage = Stage.A;
                 break;
         }

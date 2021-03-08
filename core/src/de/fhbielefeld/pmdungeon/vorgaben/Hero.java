@@ -29,7 +29,7 @@ public class Hero implements IAnimatable, IUpdateable {
         idleTextures.add(idle2);
         idleTextures.add(idle3);
         idleAnimation = new Animation(idleTextures,8);
-        this.position=new Point(5f,4f);
+        this.position= new Point (level.getRandomLocationInDungeon());
     }
 
 
