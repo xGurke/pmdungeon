@@ -38,13 +38,9 @@ public interface IDrawable extends Disposable{
 		Texture texture=this.getTexture();
 		Sprite sprite = new Sprite(texture);
 
-		//sprite.setSize(texture.getWidth(), texture.getHeight());
-		//ToDo
-		// getCharacterWidth allways returns 1. So what is happening here?
+		//this will resize the texture. this is setuped for the textures used in the thesis
 		sprite.setSize(1, ((float) texture.getHeight() / (float) texture.getWidth()) * 1);
-
 		sprite.setPosition(this.getPosition().x+xOffset, this.getPosition().y+yOffset);
-
 		batch.begin();
 		sprite.draw(batch);
 		batch.end();

@@ -3,6 +3,7 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonWorld;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
+import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,7 +19,7 @@ public class DungeonWorldController {
     private final SpriteBatch batch;
     private Method onLevelLoad;
     private final DungeonConverter dungeonConverter = new DungeonConverter();
-    private Stage stage = Stage.A;
+    private Stage nextStage = Stage.A;
     private Object klass;
     private Object[] args;
 
@@ -69,6 +70,15 @@ public class DungeonWorldController {
     }
 
     /**
+     * Check if given Point is (rounded) a TriggerTile
+     * @param p point check
+     * @return result of check
+     */
+    public boolean checkIfTileIsTriggerTile(Point p){
+        return (int)p.x==dungeonWorld.getNextLevelTrigger().getX() && (int)p.y==dungeonWorld.getNextLevelTrigger().getY();
+    }
+
+    /**
      * Used to set the trigger if the next level should be loaded
      */
     public void triggerNextStage(){
@@ -90,14 +100,14 @@ public class DungeonWorldController {
      * If next stage is triggered, change the dungeon.
      */
     private void nextStage() throws InvocationTargetException, IllegalAccessException {
-        switch (stage) {
+        switch (nextStage) {
             case A:
                 setupDungeon(dungeonConverter.dungeonFromJson("small_dungeon.json"));
-                stage = Stage.B;
+                nextStage = Stage.B;
                 break;
             case B:
                 setupDungeon(dungeonConverter.dungeonFromJson("simple_dungeon.json"));
-                stage = Stage.A;
+                nextStage = Stage.A;
                 break;
         }
     }
@@ -122,4 +132,5 @@ public class DungeonWorldController {
     public SpriteBatch getBatch() {
         return batch;
     }
+
 }

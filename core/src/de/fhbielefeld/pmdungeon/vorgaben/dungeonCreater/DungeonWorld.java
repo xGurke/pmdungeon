@@ -8,6 +8,7 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.Coordinate;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.Room;
@@ -21,7 +22,7 @@ import java.util.Random;
 /**
  * Data structure of a dungeon
  */
-public class DungeonWorld implements IndexedGraph<Tile> {
+public class DungeonWorld implements IndexedGraph<Tile>, Disposable {
 
     private Room[] rooms;
 

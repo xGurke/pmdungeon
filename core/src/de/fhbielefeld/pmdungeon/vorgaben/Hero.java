@@ -22,21 +22,24 @@ public class Hero implements IAnimatable, IUpdateable {
         this.level=level;
         this.batch=batch;
         ArrayList <Texture> idleTextures = new ArrayList<Texture>();
-        Texture idle1= new Texture("textures/characters/playercharacters/knight_m_idle_anim_f0.png");
-        Texture idle2= new Texture("textures/characters/playercharacters/knight_m_idle_anim_f1.png");
-        Texture idle3= new Texture("textures/characters/playercharacters/knight_m_idle_anim_f2.png");
-        Texture idle4= new Texture("textures/characters/playercharacters/knight_m_idle_anim_f3.png");
+        Texture idle1= new Texture("textures/chest/chest_full_open_anim_f0.png");
+        Texture idle2= new Texture("textures/chest/chest_full_open_anim_f1.png");
+        Texture idle3= new Texture("textures/chest/chest_full_open_anim_f2.png");
         idleTextures.add(idle1);
         idleTextures.add(idle2);
         idleTextures.add(idle3);
-        idleTextures.add(idle4);
-        idleTextures.add(idle1);
         idleAnimation = new Animation(idleTextures,8);
-        this.position=new Point(5,4);
-
-
-
+        this.position=new Point(5f,4f);
     }
+
+
+    public void updateLevel(DungeonWorld level){
+        this.level=level;
+    }
+    public void setPosition(Point p){
+        this.position=p;
+    }
+
     @Override
     public Animation getActiveAnimation() {
         return idleAnimation;
@@ -60,7 +63,11 @@ public class Hero implements IAnimatable, IUpdateable {
     @Override
     public void update() {
 
-        if (counter==120 && level.isTileAccessible(position.x, position.y)) position.x++;
+        if (counter>120 && level.isTileAccessible((int)position.x, (int)position.y)) {
+            position.x=level.getNextLevelTrigger().getX();
+            position.y=level.getNextLevelTrigger().getY();
+            counter=0;
+        }
         counter++;
 
         this.draw(0,0,batch);
