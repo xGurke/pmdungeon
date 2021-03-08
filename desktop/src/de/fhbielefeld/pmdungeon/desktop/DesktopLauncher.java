@@ -2,7 +2,8 @@ package de.fhbielefeld.pmdungeon.desktop;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import de.fhbielefeld.pmdungeon.PMDungeon;
+import game.PMDungeon;
+
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
