@@ -4,16 +4,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonWorld;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class DungeonWorldController {
 
     private DungeonWorld dungeonWorld;
     private boolean nextLevelTriggered = false;
     private final SpriteBatch batch;
+    private Method onLevelLoad;
     private final DungeonConverter dungeonConverter = new DungeonConverter();
     private Stage stage = Stage.A;
+    private Object klass;
+    private Object[] args;
 
-    public DungeonWorldController(SpriteBatch batch) {
+    public DungeonWorldController(SpriteBatch batch, Method onLevelLoad, Object klass, Object [] args) {
         this.batch = batch;
+        this.onLevelLoad=onLevelLoad;
+        this.klass=klass;
+        this.args=args;
     }
 
     /**
@@ -22,15 +31,24 @@ public class DungeonWorldController {
      *
      * @param dungeon new Dungeon
      */
-    public void setupDungeon(DungeonWorld dungeon) {
+    public void setupDungeon(DungeonWorld dungeon) throws InvocationTargetException, IllegalAccessException {
         this.dungeonWorld = dungeon;
         this.nextLevelTriggered = false;
         this.dungeonWorld.makeConnections();
+        onLevelLoad.invoke(klass,args);
     }
 
     public void update(){
         //load next stage if triggered
-        if (isNextLevelTriggered()) nextStage();
+        if (isNextLevelTriggered()) {
+            try {
+                nextStage();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
         render();
 
     }
@@ -56,7 +74,7 @@ public class DungeonWorldController {
     /**
      * If next stage is triggered, change the dungeon.
      */
-    private void nextStage() {
+    private void nextStage() throws InvocationTargetException, IllegalAccessException {
         switch (stage) {
             case A:
                 setupDungeon(dungeonConverter.dungeonFromJson("small_dungeon.json"));

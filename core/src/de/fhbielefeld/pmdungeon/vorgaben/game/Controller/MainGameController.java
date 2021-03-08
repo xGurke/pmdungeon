@@ -6,6 +6,9 @@ import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.Dungeon
 import de.fhbielefeld.pmdungeon.vorgaben.game.DungeonGame;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.DungeonCamera;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /**
@@ -15,19 +18,28 @@ public class MainGameController extends ScreenAdapter {
 
     public static final float VIRTUAL_HEIGHT = 5f;
 
-    private final DungeonGame dungeonGame;
-    private DungeonCamera camera;
-    private final DungeonEntityController dungeonEntityController;
-    private final DungeonWorldController dungeonWorldController;
+    private  DungeonGame dungeonGame;
+    private  DungeonEntityController dungeonEntityController;
+    private  DungeonCamera camera;
+    private  DungeonWorldController dungeonWorldController;
 
 
     public MainGameController(final DungeonGame dungeonGame) {
         this.dungeonGame = dungeonGame;
         this.dungeonEntityController = new DungeonEntityController(dungeonGame.getBatch());
-        this.dungeonWorldController= new DungeonWorldController(dungeonGame.getBatch());
+
         // todo this.hud = new HeadUpDisplay(gameWorld);
         //load startlevel
-        dungeonWorldController.setupDungeon(new DungeonConverter().dungeonFromJson("small_dungeon.json"));
+
+        try {
+            Method functionToPass = MainGameController.class.getMethod("onLevelLoad");
+            Object [] arguments = new Object[0];
+            this.dungeonWorldController= new DungeonWorldController(dungeonGame.getBatch(),functionToPass,this,arguments);
+            dungeonWorldController.setupDungeon(new DungeonConverter().dungeonFromJson("small_dungeon.json"));
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
         setupCamera();
         //your setup
         setup();
@@ -40,6 +52,9 @@ public class MainGameController extends ScreenAdapter {
         //create hero
         //cam follow hero
         //place hero gameworld.getstartingposition
+    }
+    public void onLevelLoad(){
+        System.out.println("Level loadad");
     }
 
     //----------------- stop adding -----------------
