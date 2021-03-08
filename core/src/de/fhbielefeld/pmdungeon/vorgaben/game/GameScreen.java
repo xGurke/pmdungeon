@@ -1,4 +1,4 @@
-package game;
+package de.fhbielefeld.pmdungeon.vorgaben.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -17,14 +17,14 @@ public class GameScreen extends ScreenAdapter {
     private final PMDungeon pmDungeon;
     private OrthographicCamera camera;
 
-    private final GameWorld gameWorld;
+    private final GameController gameController;
     private final DemoSequence demoSequence;
 
     public GameScreen(final PMDungeon pmDungeon) {
         this.pmDungeon = pmDungeon;
-        this.gameWorld = new GameWorld(pmDungeon.getBatch());
+        this.gameController = new GameController(pmDungeon.getBatch());
        // this.hud = new HeadUpDisplay(gameWorld);
-        this.demoSequence = new DemoSequence(gameWorld);
+        this.demoSequence = new DemoSequence(gameController);
         setupCamera();
     }
 
@@ -64,7 +64,7 @@ public class GameScreen extends ScreenAdapter {
         //debugCameraZoom();
 
         demoSequence.update();
-        gameWorld.update();
+        gameController.update();
 
        // camera.position.set(gameWorld.getHero().getPositionX(), gameWorld.getHero().getPositionY(), 0);
         camera.position.set(0,0,0);
@@ -72,7 +72,7 @@ public class GameScreen extends ScreenAdapter {
         pmDungeon.getBatch().setProjectionMatrix(camera.combined);
 
         pmDungeon.getBatch().begin();
-        gameWorld.render();
+        gameController.render();
         pmDungeon.getBatch().end();
     }
 
@@ -90,6 +90,6 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        gameWorld.dispose();
+        gameController.dispose();
     }
 }

@@ -1,4 +1,4 @@
-package game;
+package de.fhbielefeld.pmdungeon.vorgaben.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
@@ -9,14 +9,14 @@ import de.fhbielefeld.pmdungeon.vorgaben.dungeon.DungeonWorld;
  * This is where all the strings run together. Handles every character,
  * interactable und the dungeon itself.
  */
-public class GameWorld implements Disposable {
+public class GameController implements Disposable {
 
 	private final SpriteBatch batch;
 	private DungeonWorld dungeon;
 	private boolean nextLevelTriggered = false;
 	private Character hero;
 
-	public GameWorld(SpriteBatch batch) {
+	public GameController(SpriteBatch batch) {
 		this.batch = batch;
 	}
 

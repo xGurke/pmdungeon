@@ -1,4 +1,4 @@
-package game;
+package de.fhbielefeld.pmdungeon.vorgaben.game;
 
 import de.fhbielefeld.pmdungeon.vorgaben.dungeon.dungeonconverter.DungeonConverter;
 
@@ -7,12 +7,12 @@ import de.fhbielefeld.pmdungeon.vorgaben.dungeon.dungeonconverter.DungeonConvert
  */
 public class DemoSequence {
 
-    private final GameWorld gameWorld;
+    private final GameController gameController;
     private final DungeonConverter dungeonConverter = new DungeonConverter();
     private Stage stage = Stage.A;
 
-    public DemoSequence(GameWorld gameWorld) {
-        this.gameWorld = gameWorld;
+    public DemoSequence(GameController gameController) {
+        this.gameController = gameController;
         nextStage();
     }
 
@@ -20,7 +20,7 @@ public class DemoSequence {
      * Polling if next stage got triggered.
      */
     public void update() {
-        if (gameWorld.isNextLevelTriggered()) nextStage();
+        if (gameController.isNextLevelTriggered()) nextStage();
     }
 
     /**
@@ -29,11 +29,11 @@ public class DemoSequence {
     private void nextStage() {
         switch (stage) {
             case A:
-                gameWorld.setupDungeon(dungeonConverter.dungeonFromJson("small_dungeon.json"));
+                gameController.setupDungeon(dungeonConverter.dungeonFromJson("small_dungeon.json"));
                 stage = Stage.B;
                 break;
             case B:
-                gameWorld.setupDungeon(dungeonConverter.dungeonFromJson("simple_dungeon.json"));
+                gameController.setupDungeon(dungeonConverter.dungeonFromJson("simple_dungeon.json"));
                 stage = Stage.A;
                 break;
         }
