@@ -3,8 +3,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.fhbielefeld.pmdungeon.vorgaben.game.Controller.MainGameController;
 
-
-public class DungeonGame extends Game {
+/**
+ * ApplicationListener that delegates to the MainGameController.
+ * Just some setup.
+ */
+public class GameSetup extends Game {
 
     private SpriteBatch batch;
 

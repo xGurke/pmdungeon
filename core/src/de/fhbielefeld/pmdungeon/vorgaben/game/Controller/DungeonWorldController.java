@@ -7,6 +7,10 @@ import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.Dungeon
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+
+/**
+ * loads and renders the level. Does NOT controll Entitys.
+ */
 public class DungeonWorldController {
 
     private DungeonWorld dungeonWorld;
@@ -18,6 +22,13 @@ public class DungeonWorldController {
     private Object klass;
     private Object[] args;
 
+    /**
+     *
+     * @param batch global spriteBatch
+     * @param onLevelLoad Method that will be called if a new level get load
+     * @param klass Instance of the MainControllerClass
+     * @param args Arguments for onLevelLoaded
+     */
     public DungeonWorldController(SpriteBatch batch, Method onLevelLoad, Object klass, Object [] args) {
         this.batch = batch;
         this.onLevelLoad=onLevelLoad;
@@ -26,10 +37,10 @@ public class DungeonWorldController {
     }
 
     /**
-     * Setting up a new dungeon. Gets also called when the level changes and the
-     * dungeon gets replaced.
-     *
-     * @param dungeon new Dungeon
+     * Load a new dungeon. Call onLevelLoad
+     * @param dungeon DungeonWorld to load
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
      */
     public void setupDungeon(DungeonWorld dungeon) throws InvocationTargetException, IllegalAccessException {
         this.dungeonWorld = dungeon;
@@ -38,6 +49,10 @@ public class DungeonWorldController {
         onLevelLoad.invoke(klass,args);
     }
 
+    /**
+     * If next level is triggered, this will load it.
+     * Also calls the render method.
+     */
     public void update(){
         //load next stage if triggered
         if (isNextLevelTriggered()) {
@@ -54,7 +69,7 @@ public class DungeonWorldController {
     }
 
     /**
-     * used to set trigger
+     * Used to set the trigger if the next level should be loaded
      */
     public void triggerNextStage(){
         this.nextLevelTriggered=true;
@@ -92,17 +107,15 @@ public class DungeonWorldController {
         B
     }
 
-
-
-
-
-
-
+    /**
+     * Return the current level.
+     * @return
+     */
     public DungeonWorld getDungeon() {
         return dungeonWorld;
     }
 
-    public boolean isNextLevelTriggered() {
+    private boolean isNextLevelTriggered() {
         return nextLevelTriggered;
     }
 

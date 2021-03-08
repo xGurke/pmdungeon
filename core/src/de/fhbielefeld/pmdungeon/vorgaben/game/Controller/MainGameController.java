@@ -1,40 +1,49 @@
 package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
-import de.fhbielefeld.pmdungeon.vorgaben.game.DungeonGame;
+import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.DungeonCamera;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
-
 /**
- * Class for setting up the basics like window height and camera. Is also holding the gameworld instance and is handling the demo sequence.
+ * Controlls the game.
+ * Setup for all important objects.
+ * Contains gameloop.
+ *
  */
 public class MainGameController extends ScreenAdapter {
 
     public static final float VIRTUAL_HEIGHT = 5f;
 
-    private  DungeonGame dungeonGame;
+    // for setup reasons
+    private GameSetup gameSetup;
+
+    //controlls all entitys
     private  DungeonEntityController dungeonEntityController;
+    //the camera
     private  DungeonCamera camera;
+    //controlls the level
     private  DungeonWorldController dungeonWorldController;
 
-
-    public MainGameController(final DungeonGame dungeonGame) {
-        this.dungeonGame = dungeonGame;
-        this.dungeonEntityController = new DungeonEntityController(dungeonGame.getBatch());
+    /**
+     * Creates new MainGameController
+     * @param gameSetup setup class with SpriteBatch
+     */
+    public MainGameController(final GameSetup gameSetup) {
+        this.gameSetup = gameSetup;
+        this.dungeonEntityController = new DungeonEntityController(gameSetup.getBatch());
 
         // todo this.hud = new HeadUpDisplay(gameWorld);
-        //load startlevel
 
+
+        //setup the WorldController. Uses reflection to manage stuff after a new level is loaded
         try {
             Method functionToPass = MainGameController.class.getMethod("onLevelLoad");
             Object [] arguments = new Object[0];
-            this.dungeonWorldController= new DungeonWorldController(dungeonGame.getBatch(),functionToPass,this,arguments);
+            this.dungeonWorldController= new DungeonWorldController(gameSetup.getBatch(),functionToPass,this,arguments);
             dungeonWorldController.setupDungeon(new DungeonConverter().dungeonFromJson("small_dungeon.json"));
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
@@ -49,10 +58,13 @@ public class MainGameController extends ScreenAdapter {
 
     //Here you can do stuff you want to do at the beginning of the game
     public void setup(){
-        //create hero
-        //cam follow hero
-        //place hero gameworld.getstartingposition
+        System.out.println("Game started");
     }
+
+    /**
+     * This methode will be called by the DungeonWorldController every time a new level is loaded.
+     * Usefull to place new monster and items and remove old ones from the entityController
+     */
     public void onLevelLoad(){
         System.out.println("Level loadad");
     }
@@ -67,19 +79,20 @@ public class MainGameController extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClearColor(0, 0, 0, 1);
+        //Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
         //updates all objects in the dungeon
         dungeonEntityController.update();
         //updates camera
         camera.update();
 
-        dungeonGame.getBatch().setProjectionMatrix(camera.combined);
-        dungeonGame.getBatch().begin();
+        //need to be called before stuff can be drawn
+        gameSetup.getBatch().setProjectionMatrix(camera.combined);
+        gameSetup.getBatch().begin();
         //updates the level
         dungeonWorldController.update();
-        dungeonGame.getBatch().end();
+        gameSetup.getBatch().end();
 
     }
 
@@ -104,7 +117,7 @@ public class MainGameController extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         camera.setToOrtho(false, VIRTUAL_HEIGHT * width / (float) height, VIRTUAL_HEIGHT);
-        dungeonGame.getBatch().setProjectionMatrix(camera.combined);
+        gameSetup.getBatch().setProjectionMatrix(camera.combined);
     }
 
 }
