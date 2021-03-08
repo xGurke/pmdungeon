@@ -34,17 +34,20 @@ public interface IDrawable extends Disposable{
 	 */
 
 
-	default public void draw(int xOffset, int yOffset, SpriteBatch batch) {	
+	default public void draw(int xOffset, int yOffset, SpriteBatch batch) {
 		Texture texture=this.getTexture();
 		Sprite sprite = new Sprite(texture);
-		
-		sprite.setSize(texture.getWidth(), texture.getHeight());		
-		//ToDo 
-		// getCharacterWidth allways returns 1. So what is happening here? 
-		// sprite.setSize(character.getCharacterWidth(), ((float) texture.getHeight() / (float) texture.getWidth()) * character.getCharacterWidth());
-			
+
+		//sprite.setSize(texture.getWidth(), texture.getHeight());
+		//ToDo
+		// getCharacterWidth allways returns 1. So what is happening here?
+		sprite.setSize(1, ((float) texture.getHeight() / (float) texture.getWidth()) * 1);
+
 		sprite.setPosition(this.getPosition().x+xOffset, this.getPosition().y+yOffset);
+
+		batch.begin();
 		sprite.draw(batch);
+		batch.end();
 	}
 
 

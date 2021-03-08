@@ -1,6 +1,7 @@
 package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import com.badlogic.gdx.ScreenAdapter;
+import de.fhbielefeld.pmdungeon.vorgaben.Hero;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.DungeonCamera;
@@ -59,6 +60,9 @@ public class MainGameController extends ScreenAdapter {
     //Here you can do stuff you want to do at the beginning of the game
     public void setup(){
         System.out.println("Game started");
+        Hero h = new Hero(dungeonWorldController.getDungeon(),gameSetup.getBatch());
+        camera.follow(h);
+        dungeonEntityController.addEntity(h);
     }
 
     /**
@@ -82,17 +86,17 @@ public class MainGameController extends ScreenAdapter {
         //Gdx.gl.glClearColor(0, 0, 0, 1);
         //Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
-        //updates all objects in the dungeon
-        dungeonEntityController.update();
-        //updates camera
-        camera.update();
-
         //need to be called before stuff can be drawn
         gameSetup.getBatch().setProjectionMatrix(camera.combined);
         gameSetup.getBatch().begin();
         //updates the level
         dungeonWorldController.update();
         gameSetup.getBatch().end();
+
+        //updates all objects in the dungeon
+        dungeonEntityController.update();
+        //updates camera
+        camera.update();
 
     }
 
