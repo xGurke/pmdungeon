@@ -6,27 +6,39 @@ import java.util.ArrayList;
 
 /**
  * A set of textures to build an animation.
- * 
- * @author Andre Matutat
+ *
  *
  */
 public class Animation {
 
-	// The set of textures that build the animation.
+	/**
+	 * 	The set of textures that build the animation.
+ 	 */
 	private final ArrayList<Texture> animationFrames;
-	// The count of textures for the animation
+	/**
+	 * 	The count of textures for the animation
+ 	 */
 	private final int frames;
-	// The count that represents the index of the NEXT texture that will be returned
+
+	/**
+	 * 	The count that represents the index of the NEXT texture that will be returned
+ 	 */
 	private int currentFrameIndex = 0;
 
+	/**
+	 * How many frame to wait before switching to the next one
+	 */
 	private final int frameTime;
+	/**
+	 * How many frames since the last texture switching
+	 */
 	private int frameTimeCounter=0;
 
 	/**
-	 * Creates an animation
+	 * Creates an animation.
 	 * 
 	 * @param animationFrames The list of textures that builds the animation. Must be in order.
-	 * @param frameTime How many frames to wait, before switching to the next frame
+	 * @param frameTime How many frames to wait, before switching to the next texture
 	 */
 	public Animation(ArrayList<Texture> animationFrames, int frameTime) {
 		if (animationFrames.isEmpty())
@@ -38,20 +50,11 @@ public class Animation {
 	}
 
 	/**
-	 * 
-	 * @return the number of frames that this animation has.
-	 */
-	public int getAnimationLength() {
-		return this.frames;
-	}
-
-	/**
 	 * Automatically updates currentFrame to next frame
 	 * @return the texture of the next animation step (draw this)
 	 */
 	public Texture getNextAnimationTexture() {
 		int returnFrame = currentFrameIndex;
-
 		//is it time to switch frame?
 		if (frameTimeCounter==frameTime){
 			// after the last frame is returned, go back to the first frame
@@ -60,18 +63,8 @@ public class Animation {
 		}
 		else
 			frameTimeCounter++;
-
 		return animationFrames.get(returnFrame);
-
 	}
 
-	/**
-	 * Use this if you need access to the texture. Do not draw this.
-	 * Does NOT update currentFrame to next frame.
-	 * @return currentTexture
-	 */
-	public Texture getCurrentAnimationTexture() {
-		return animationFrames.get(currentFrameIndex);
-	}
 
 }

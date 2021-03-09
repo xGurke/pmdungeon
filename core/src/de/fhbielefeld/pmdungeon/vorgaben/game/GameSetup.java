@@ -9,6 +9,9 @@ import de.fhbielefeld.pmdungeon.vorgaben.game.Controller.MainGameController;
  */
 public class GameSetup extends Game {
 
+    /**
+     * This INSTANCE is necessary to draw ALL the stuff. Every Object that uses draw need to know THIS INSTANCE
+     */
     private SpriteBatch batch;
 
     @Override
@@ -22,6 +25,10 @@ public class GameSetup extends Game {
         batch.dispose();
     }
 
+    /**
+     *
+     * @return The global SpriteBatch
+     */
     public SpriteBatch getBatch() {
         return batch;
     }
