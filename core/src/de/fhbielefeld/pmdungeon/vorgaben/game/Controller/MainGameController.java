@@ -3,6 +3,7 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import de.fhbielefeld.pmdungeon.vorgaben.Hero;
+import de.fhbielefeld.pmdungeon.vorgaben.Monster;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.DungeonCamera;
@@ -60,11 +61,15 @@ public class MainGameController extends ScreenAdapter {
 
     //Here you can do stuff you want to do at the beginning of the game
     Hero h;
+    Monster m;
     public void setup(){
         System.out.println("Game started");
         h = new Hero(dungeonWorldController.getDungeon(),gameSetup.getBatch());
-        camera.follow(h);
+        m = new Monster(dungeonWorldController.getDungeon(),gameSetup.getBatch());
+
+        camera.follow(m);
         dungeonEntityController.addEntity(h);
+        dungeonEntityController.addEntity(m);
     }
 
     //things you want to do at the begin of every frame
@@ -84,6 +89,7 @@ public class MainGameController extends ScreenAdapter {
     public void onLevelLoad(){
         System.out.println("Level loaded");
         h.updateLevel(dungeonWorldController.getDungeon());
+        m.updateLevel(dungeonWorldController.getDungeon());
 
     }
 
