@@ -1,7 +1,6 @@
 package de.fhbielefeld.pmdungeon.vorgaben.interfaces;
 import com.badlogic.gdx.graphics.Texture;
 import de.fhbielefeld.pmdungeon.vorgaben.graphic.Animation;
-import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IDrawable;
 
 
 /**
@@ -17,7 +16,7 @@ public interface IAnimatable extends IDrawable {
 
 	@Override
 	default public Texture getTexture() {
-		return this.getActiveAnimation().getCurrentAnimationTexture();		
+		return this.getActiveAnimation().getNextAnimationTexture();
 	}
 
 }

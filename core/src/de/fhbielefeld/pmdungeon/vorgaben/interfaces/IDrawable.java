@@ -49,7 +49,6 @@ public interface IDrawable extends Disposable{
 	 * @param batch the global SpriteBatch that is used all over the dungeon
 	 */
 	default public void draw(SpriteBatch batch ){
-
 		//found offset by try and error
 		this.draw(-0.85f,-0.5f,batch);
 	}

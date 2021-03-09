@@ -46,9 +46,10 @@ public class Animation {
 	}
 
 	/**
-	 * @return the texture of the current animation step (draw this)
+	 * Automatically updates currentFrame to next frame
+	 * @return the texture of the next animation step (draw this)
 	 */
-	public Texture getCurrentAnimationTexture() {
+	public Texture getNextAnimationTexture() {
 		int returnFrame = currentFrameIndex;
 
 		//is it time to switch frame?
@@ -62,6 +63,15 @@ public class Animation {
 
 		return animationFrames.get(returnFrame);
 
+	}
+
+	/**
+	 * Use this if you need access to the texture. Do not draw this.
+	 * Does NOT update currentFrame to next frame.
+	 * @return currentTexture
+	 */
+	public Texture getCurrentAnimationTexture() {
+		return animationFrames.get(currentFrameIndex);
 	}
 
 }
