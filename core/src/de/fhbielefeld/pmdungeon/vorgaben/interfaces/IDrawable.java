@@ -22,9 +22,9 @@ public interface IDrawable extends Disposable{
 	/**
 	 * @return the (current)texture of the object. 
 	 */	
-	public Texture getTexture(); 
+	public Texture getTexture();
 
-	
+
 
 	/**
 	 * Draws the instance based on its position. 
@@ -32,9 +32,7 @@ public interface IDrawable extends Disposable{
 	 * @param yOffset sometimes it can be helpful to use a small offset
 	 * @param batch the global SpriteBatch that is used all over the dungeon 
 	 */
-
-
-	default public void draw(int xOffset, int yOffset, SpriteBatch batch) {
+	default public void draw(float xOffset, float yOffset, SpriteBatch batch) {
 		Texture texture=this.getTexture();
 		Sprite sprite = new Sprite(texture);
 
@@ -44,6 +42,14 @@ public interface IDrawable extends Disposable{
 		batch.begin();
 		sprite.draw(batch);
 		batch.end();
+	}
+
+	/**
+	 * Draws the instance based on its position with default offset.
+	 * @param batch the global SpriteBatch that is used all over the dungeon
+	 */
+	default public void draw(SpriteBatch batch ){
+		this.draw(-0.85f,-0.5f,batch);
 	}
 
 

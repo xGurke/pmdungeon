@@ -23,10 +23,10 @@ public class Monster implements IAnimatable, IUpdateable {
         this.level=level;
         this.batch=batch;
         ArrayList<Texture> idleTextures = new ArrayList<Texture>();
-        Texture idle1= new Texture("textures/characters/playercharacters/knight_m_run_anim_f0.png");
-        Texture idle2= new Texture("textures/characters/playercharacters/knight_m_run_anim_f1.png");
-        Texture idle3= new Texture("textures/characters/playercharacters/knight_m_run_anim_f2.png");
-        Texture idle4= new Texture("textures/characters/playercharacters/knight_m_run_anim_f3.png");
+        Texture idle1= new Texture("textures/characters/demons/imp/imp_run_anim_f0.png");
+        Texture idle2= new Texture("textures/characters/demons/imp/imp_run_anim_f1.png");
+        Texture idle3= new Texture("textures/characters/demons/imp/imp_run_anim_f2.png");
+        Texture idle4= new Texture("textures/characters/demons/imp/imp_run_anim_f3.png");
         idleTextures.add(idle1);
         idleTextures.add(idle2);
         idleTextures.add(idle3);
@@ -78,6 +78,6 @@ public class Monster implements IAnimatable, IUpdateable {
         }
         System.out.println(x+" "+y);
 
-        this.draw(0,0,batch);
+        this.draw(batch);
     }
 }
