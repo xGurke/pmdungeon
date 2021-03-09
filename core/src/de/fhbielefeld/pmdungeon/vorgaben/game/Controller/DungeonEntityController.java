@@ -10,50 +10,46 @@ import java.util.ArrayList;
 /**
  * Handles every entity in the dungeon.
  */
-public class DungeonEntityController{
+public class DungeonEntityController {
 
-	private final SpriteBatch batch;
-	private ArrayList<IUpdateable> dungeonEntitys;
+    /**
+     * Contains all the entitys this controller handles.
+     */
+    private ArrayList<IUpdateable> dungeonEntitys;
 
-	public DungeonEntityController(SpriteBatch batch) {
-		this.batch = batch;
-		this.dungeonEntitys=new ArrayList<IUpdateable>();
-	}
+    public DungeonEntityController() {
+        this.dungeonEntitys = new ArrayList<IUpdateable>();
+    }
 
-	/**
-	 * calls the update method for every entity in the list.
-	 * removes entity if deletable is set true
-	 */
-	public void update() {
-		for (IUpdateable obj: dungeonEntitys){
-			if (obj.deleteable()) removeEntity(obj);
-			else obj.update();
-		}
+    /**
+     * calls the update method for every entity in the list.
+     * removes entity if deletable is set true
+     */
+    public void update() {
+        for (IUpdateable obj : dungeonEntitys) {
+            if (obj.deleteable()) removeEntity(obj);
+            else obj.update();
+        }
+    }
 
-	}
+    /**
+     * add an entity to the list
+     *
+     * @param entity
+     */
+    public void addEntity(IUpdateable entity) {
+        if (!dungeonEntitys.contains(entity))
+            this.dungeonEntitys.add(entity);
+    }
 
-	/**
-	 * add an entity to the list
-	 * @param entity
-	 */
-	public void addEntity (IUpdateable entity){
-		if(!dungeonEntitys.contains(entity))
-		this.dungeonEntitys.add(entity);
-	}
-
-	/**
-	 * removes entity from the list
-	 * @param entity
-	 */
-	public void removeEntity (IUpdateable entity){
-		if (dungeonEntitys.contains(entity))
-			this.dungeonEntitys.remove(entity);
-	}
-
-	public SpriteBatch getBatch() {
-		return batch;
-	}
-
-
+    /**
+     * removes entity from the list
+     *
+     * @param entity
+     */
+    public void removeEntity(IUpdateable entity) {
+        if (dungeonEntitys.contains(entity))
+            this.dungeonEntitys.remove(entity);
+    }
 
 }

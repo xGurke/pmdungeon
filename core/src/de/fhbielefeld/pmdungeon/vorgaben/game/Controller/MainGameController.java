@@ -37,7 +37,7 @@ public class MainGameController extends ScreenAdapter {
      */
     public MainGameController(final GameSetup gameSetup) {
         this.gameSetup = gameSetup;
-        this.dungeonEntityController = new DungeonEntityController(gameSetup.getBatch());
+        this.dungeonEntityController = new DungeonEntityController();
 
         // todo this.hud = new HeadUpDisplay(gameWorld);
 
