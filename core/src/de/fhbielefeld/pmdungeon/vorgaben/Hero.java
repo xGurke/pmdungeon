@@ -18,7 +18,7 @@ public class Hero implements IAnimatable, IUpdateable {
     private SpriteBatch batch;
     int counter=0;
 
-    public Hero (DungeonWorld level, SpriteBatch batch) {
+    public Hero (SpriteBatch batch) {
         this.level=level;
         this.batch=batch;
         ArrayList <Texture> idleTextures = new ArrayList<Texture>();
@@ -29,7 +29,7 @@ public class Hero implements IAnimatable, IUpdateable {
         idleTextures.add(idle2);
         idleTextures.add(idle3);
         idleAnimation = new Animation(idleTextures,8);
-        this.position= new Point (level.getRandomLocationInDungeon());
+
     }
 
 
@@ -63,6 +63,7 @@ public class Hero implements IAnimatable, IUpdateable {
 
     @Override
     public void update() {
+        if(level==null) return;
 
         if (counter>120 && level.isTileAccessible((int)position.x, (int)position.y)) {
             position.x=level.getNextLevelTrigger().getX();

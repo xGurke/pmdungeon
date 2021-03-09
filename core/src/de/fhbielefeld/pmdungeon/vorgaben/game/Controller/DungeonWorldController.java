@@ -136,7 +136,6 @@ public class DungeonWorldController {
         switch (nextStage) {
             case A:
                 setupDungeon(dungeonConverter.dungeonFromJson("core/assets/small_dungeon.json"));
-                System.out.println("Move levle");
                 nextStage = Stage.B;
                 break;
             case B:

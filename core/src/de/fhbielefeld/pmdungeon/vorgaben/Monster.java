@@ -19,7 +19,7 @@ public class Monster implements IAnimatable, IUpdateable {
     private SpriteBatch batch;
     int counter=0;
 
-    public Monster(DungeonWorld level, SpriteBatch batch){
+    public Monster(SpriteBatch batch){
         this.level=level;
         this.batch=batch;
         ArrayList<Texture> idleTextures = new ArrayList<Texture>();
@@ -32,7 +32,7 @@ public class Monster implements IAnimatable, IUpdateable {
         idleTextures.add(idle3);
         idleTextures.add(idle4);
         idleAnimation = new Animation(idleTextures,4);
-        this.position= new Point (level.getRandomLocationInDungeon());
+
 
     }
 
@@ -63,20 +63,16 @@ public class Monster implements IAnimatable, IUpdateable {
 
     @Override
     public void update() {
+        if(level==null) return;
 
         double x=-0.1;
         double y=0;
-
-        //if (new Random().nextBoolean())
-            //x = -0.1 + Math.random() * (0.1 + 0.1);
-       // else
-         //   y = -0.1 + Math.random() * (0.1 + 0.1);
 
         if (level.isTileAccessible((int)(position.x+x),(int)(position.y+y))){
             this.position.x+=x;
             this.position.y+=y;
         }
-        System.out.println(x+" "+y);
+
 
         this.draw(batch);
     }

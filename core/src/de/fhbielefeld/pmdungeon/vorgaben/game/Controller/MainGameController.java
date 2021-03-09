@@ -48,8 +48,13 @@ public class MainGameController extends ScreenAdapter {
         this.dungeonEntityController = new DungeonEntityController();
         // todo this.hud = new HeadUpDisplay(gameWorld);
 
-        setupWorldController();
+        setupCamera();
 
+        //your setup
+        setup();
+
+        setupWorldController();
+        //load first level
         try {
             dungeonWorldController.setupDungeon(new DungeonConverter().dungeonFromJson("core/assets/small_dungeon.json"));
         } catch (InvocationTargetException e) {
@@ -57,10 +62,6 @@ public class MainGameController extends ScreenAdapter {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        setupCamera();
-
-        //your setup
-        setup();
     }
 
     //----------------- add your stuff -----------------
@@ -71,8 +72,8 @@ public class MainGameController extends ScreenAdapter {
 
     public void setup() {
         System.out.println("Game started");
-        h = new Hero(dungeonWorldController.getDungeon(), gameSetup.getBatch());
-        m = new Monster(dungeonWorldController.getDungeon(), gameSetup.getBatch());
+        h = new Hero(gameSetup.getBatch());
+        m = new Monster(gameSetup.getBatch());
 
         camera.follow(m);
         dungeonEntityController.addEntity(h);
@@ -95,8 +96,8 @@ public class MainGameController extends ScreenAdapter {
      * This methode will be called by the DungeonWorldController every time a new level is loaded.
      * Useful to place new monster and items and remove old ones from the entityController
      */
+
     public void onLevelLoad() {
-        System.out.println("Level loaded");
         h.updateLevel(dungeonWorldController.getDungeon());
         m.updateLevel(dungeonWorldController.getDungeon());
 
@@ -108,6 +109,7 @@ public class MainGameController extends ScreenAdapter {
     /**
      * Main gameloop.
      * Redraws the dungeon and calls all the update methods.
+     *
      * @param delta Time since last loop. (since the PM-Dungeon is frame based, this isn't very usefull)
      */
     @Override
