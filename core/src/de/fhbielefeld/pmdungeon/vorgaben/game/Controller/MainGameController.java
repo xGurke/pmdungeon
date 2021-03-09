@@ -80,7 +80,7 @@ public class MainGameController extends ScreenAdapter {
     //things you want to do at the end of every frame
     public void endFrame(){
             //trigger next stage
-            if (dungeonWorldController.checkIfTileIsTriggerTile(h.getPosition())) dungeonWorldController.triggerNextStage();
+            if (dungeonWorldController.checkForTrigger(h.getPosition())) dungeonWorldController.triggerNextStage();
     }
     /**
      * This methode will be called by the DungeonWorldController every time a new level is loaded.
@@ -103,20 +103,26 @@ public class MainGameController extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
+        //clears the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
         beginFrame();
+
         //need to be called before stuff can be drawn
-        gameSetup.getBatch().setProjectionMatrix(camera.combined);
         gameSetup.getBatch().begin();
+
         //updates the level
         dungeonWorldController.update();
+
+        //need to be called after stuff has been drawn
         gameSetup.getBatch().end();
 
         //updates all objects in the dungeon
         dungeonEntityController.update();
+
         //updates camera
+        gameSetup.getBatch().setProjectionMatrix(camera.combined);
         camera.update();
 
         endFrame();

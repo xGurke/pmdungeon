@@ -38,9 +38,14 @@ public interface IDrawable extends Disposable{
 
 		//this will resize the texture. this is setuped for the textures used in the thesis
 		sprite.setSize(1, ((float) texture.getHeight() / (float) texture.getWidth()) * 1);
+
+		//where to draw the sprite
 		sprite.setPosition(this.getPosition().x+xOffset, this.getPosition().y+yOffset);
+		//need to be called before drawing
 		batch.begin();
+		//draw sprite
 		sprite.draw(batch);
+		//need to be called after drawing
 		batch.end();
 	}
 

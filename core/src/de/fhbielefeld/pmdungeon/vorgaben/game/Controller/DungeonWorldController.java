@@ -10,35 +10,61 @@ import java.lang.reflect.Method;
 
 
 /**
- * loads and renders the level. Does NOT controll Entitys.
+ * Use this to controll the level itself.
  */
 public class DungeonWorldController {
 
-    private DungeonWorld dungeonWorld;
-    private boolean nextLevelTriggered = false;
+    /**
+     * the global SpriteBatch
+     */
     private final SpriteBatch batch;
-    private Method onLevelLoad;
+    /**
+     * Method to call after a new level is loaded
+     */
+    private final Method onLevelLoad;
+    /**
+     * Instance of the class that contains onLevelLoad (should be MainGameController)
+     */
+    private final Object klass;
+    /**
+     * Arguments for onLevelLoad
+     */
+    private final Object[] args;
+    /**
+     * the convertert that generates the dungeon out of a json
+     */
+
     private final DungeonConverter dungeonConverter = new DungeonConverter();
+    /**
+     * if this is true, the next level will get load
+     */
+    private boolean nextLevelTriggered = false;
+    /**
+     * the current level
+     */
+    private DungeonWorld dungeonWorld;
+    /**
+     * the next level
+     */
     private Stage nextStage = Stage.A;
-    private Object klass;
-    private Object[] args;
+
 
     /**
-     *
-     * @param batch global spriteBatch
+     * @param batch       global spriteBatch
      * @param onLevelLoad Method that will be called if a new level get load
-     * @param klass Instance of the MainControllerClass
-     * @param args Arguments for onLevelLoaded
+     * @param klass       Instance of the MainControllerClass
+     * @param args        Arguments for onLevelLoaded
      */
-    public DungeonWorldController(SpriteBatch batch, Method onLevelLoad, Object klass, Object [] args) {
+    public DungeonWorldController(SpriteBatch batch, Method onLevelLoad, Object klass, Object[] args) {
         this.batch = batch;
-        this.onLevelLoad=onLevelLoad;
-        this.klass=klass;
-        this.args=args;
+        this.onLevelLoad = onLevelLoad;
+        this.klass = klass;
+        this.args = args;
     }
 
     /**
-     * Load a new dungeon. Call onLevelLoad
+     * Load a new dungeon. Calls onLevelLoad
+     *
      * @param dungeon DungeonWorld to load
      * @throws InvocationTargetException
      * @throws IllegalAccessException
@@ -47,16 +73,16 @@ public class DungeonWorldController {
         this.dungeonWorld = dungeon;
         this.nextLevelTriggered = false;
         this.dungeonWorld.makeConnections();
-        onLevelLoad.invoke(klass,args);
+        onLevelLoad.invoke(klass, args);
     }
 
     /**
      * If next level is triggered, this will load it.
-     * Also calls the render method.
+     * Also draws the level.
      */
-    public void update(){
+    public void update() {
         //load next stage if triggered
-        if (isNextLevelTriggered()) {
+        if (nextLevelTriggered) {
             try {
                 nextStage();
             } catch (InvocationTargetException e) {
@@ -65,37 +91,44 @@ public class DungeonWorldController {
                 e.printStackTrace();
             }
         }
-        render();
-
+        draw();
     }
 
     /**
      * Check if given Point is (rounded) a TriggerTile
+     *
      * @param p point check
      * @return result of check
      */
-    public boolean checkIfTileIsTriggerTile(Point p){
-        return (int)p.x==dungeonWorld.getNextLevelTrigger().getX() && (int)p.y==dungeonWorld.getNextLevelTrigger().getY();
+    public boolean checkForTrigger(Point p) {
+        return (int) p.x == dungeonWorld.getNextLevelTrigger().getX() && (int) p.y == dungeonWorld.getNextLevelTrigger().getY();
     }
 
     /**
      * Used to set the trigger if the next level should be loaded
      */
-    public void triggerNextStage(){
-        this.nextLevelTriggered=true;
+    public void triggerNextStage() {
+        this.nextLevelTriggered = true;
     }
 
     /**
-     * Renders the dungeon itself.
+     * Return the current level.
+     *
+     * @return
      */
-    public void render() {
-        dungeonWorld.renderFloor(batch);
-        dungeonWorld.renderWalls(dungeonWorld.getHeight() - 1, 0, batch);
-        //dungeon.renderWalls(dungeon.getHeight() - 1, (int) getHero().getPositionY(), batch);
-        //dungeon.renderWalls((int) getHero().getPositionY(), 0, batch);
+    public DungeonWorld getDungeon() {
+        return dungeonWorld;
     }
 
+    /**
+     * Draws the dungeon itself.
+     */
+    public void draw() {
+        dungeonWorld.renderFloor(batch);
+        dungeonWorld.renderWalls(dungeonWorld.getHeight() - 1, 0, batch);
+    }
 
+    //Switch dungeon.
     /**
      * If next stage is triggered, change the dungeon.
      */
@@ -113,25 +146,11 @@ public class DungeonWorldController {
         }
     }
 
+    /**
+     * used to manage nextStage()
+     */
     enum Stage {
         A,
         B
     }
-
-    /**
-     * Return the current level.
-     * @return
-     */
-    public DungeonWorld getDungeon() {
-        return dungeonWorld;
-    }
-
-    private boolean isNextLevelTriggered() {
-        return nextLevelTriggered;
-    }
-
-    public SpriteBatch getBatch() {
-        return batch;
-    }
-
 }

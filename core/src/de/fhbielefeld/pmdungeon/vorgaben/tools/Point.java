@@ -20,6 +20,10 @@ public class Point {
 		this.y = y;
 	}
 
+	/**
+	 * The dungeontiles work with Coordinates. Use this to generate a Point out of a Coordinate-Instance.
+	 * @param c
+	 */
 	public Point (Coordinate c){
 		this.x=c.getX();
 		this.y=c.getY();
