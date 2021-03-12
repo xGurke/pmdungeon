@@ -16,12 +16,12 @@ public class Monster implements IAnimatable, IUpdateable {
     private Point position;
     private DungeonWorld level;
     private Animation idleAnimation;
-    private SpriteBatch batch;
+
     int counter=0;
 
-    public Monster(SpriteBatch batch){
+    public Monster(){
         this.level=level;
-        this.batch=batch;
+
         ArrayList<Texture> idleTextures = new ArrayList<Texture>();
         Texture idle1= new Texture("textures/characters/demons/imp/imp_run_anim_f0.png");
         Texture idle2= new Texture("textures/characters/demons/imp/imp_run_anim_f1.png");
@@ -74,6 +74,6 @@ public class Monster implements IAnimatable, IUpdateable {
         }
 
 
-        this.draw(batch);
+        this.draw();
     }
 }

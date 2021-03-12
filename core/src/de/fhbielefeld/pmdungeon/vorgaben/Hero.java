@@ -15,12 +15,10 @@ public class Hero implements IAnimatable, IUpdateable {
     private Point position;
     private DungeonWorld level;
     private Animation idleAnimation;
-    private SpriteBatch batch;
     int counter=0;
 
-    public Hero (SpriteBatch batch) {
+    public Hero () {
         this.level=level;
-        this.batch=batch;
         ArrayList <Texture> idleTextures = new ArrayList<Texture>();
         Texture idle1= new Texture("textures/chest/chest_full_open_anim_f0.png");
         Texture idle2= new Texture("textures/chest/chest_full_open_anim_f1.png");
@@ -72,7 +70,7 @@ public class Hero implements IAnimatable, IUpdateable {
         }
         counter++;
 
-        this.draw(0,0,batch);
+        this.draw();
 
     }
 }

@@ -12,11 +12,11 @@ public class GameSetup extends Game {
     /**
      * This INSTANCE is necessary to draw ALL the stuff. Every Object that uses draw need to know THIS INSTANCE
      */
-    private SpriteBatch batch;
+    public static SpriteBatch batch;
 
     @Override
     public void create() {
-        batch = new SpriteBatch();
+        batch= new SpriteBatch();
         this.setScreen(new MainGameController(this));
     }
 
@@ -25,11 +25,4 @@ public class GameSetup extends Game {
         batch.dispose();
     }
 
-    /**
-     *
-     * @return The global SpriteBatch
-     */
-    public SpriteBatch getBatch() {
-        return batch;
-    }
 }

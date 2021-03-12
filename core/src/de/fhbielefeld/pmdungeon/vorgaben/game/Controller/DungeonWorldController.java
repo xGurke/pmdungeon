@@ -3,6 +3,7 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonWorld;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
+import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,10 +15,6 @@ import java.lang.reflect.Method;
  */
 public class DungeonWorldController {
 
-    /**
-     * the global SpriteBatch
-     */
-    private final SpriteBatch batch;
     /**
      * Method to call after a new level is loaded
      */
@@ -50,13 +47,11 @@ public class DungeonWorldController {
 
 
     /**
-     * @param batch       global spriteBatch
      * @param onLevelLoad Method that will be called if a new level get load
      * @param klass       Instance of the MainControllerClass
      * @param args        Arguments for onLevelLoaded
      */
-    public DungeonWorldController(SpriteBatch batch, Method onLevelLoad, Object klass, Object[] args) {
-        this.batch = batch;
+    public DungeonWorldController(Method onLevelLoad, Object klass, Object[] args) {
         this.onLevelLoad = onLevelLoad;
         this.klass = klass;
         this.args = args;
@@ -69,7 +64,7 @@ public class DungeonWorldController {
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    public void setupDungeon(DungeonWorld dungeon) throws InvocationTargetException, IllegalAccessException {
+    public void loadDungeon(DungeonWorld dungeon) throws InvocationTargetException, IllegalAccessException {
         this.dungeonWorld = dungeon;
         this.nextLevelTriggered = false;
         this.dungeonWorld.makeConnections();
@@ -124,8 +119,8 @@ public class DungeonWorldController {
      * Draws the dungeon itself.
      */
     public void draw() {
-        dungeonWorld.renderFloor(batch);
-        dungeonWorld.renderWalls(dungeonWorld.getHeight() - 1, 0, batch);
+        dungeonWorld.renderFloor(GameSetup.batch);
+        dungeonWorld.renderWalls(dungeonWorld.getHeight() - 1, 0, GameSetup.batch);
     }
 
     //Switch dungeon.
@@ -135,11 +130,11 @@ public class DungeonWorldController {
     private void nextStage() throws InvocationTargetException, IllegalAccessException {
         switch (nextStage) {
             case A:
-                setupDungeon(dungeonConverter.dungeonFromJson("core/assets/small_dungeon.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson("core/assets/small_dungeon.json"));
                 nextStage = Stage.B;
                 break;
             case B:
-                setupDungeon(dungeonConverter.dungeonFromJson("core/assets/simple_dungeon_2.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson("core/assets/simple_dungeon_2.json"));
                 nextStage = Stage.A;
                 break;
         }

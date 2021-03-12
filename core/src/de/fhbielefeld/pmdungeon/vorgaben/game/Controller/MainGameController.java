@@ -48,6 +48,7 @@ public class MainGameController extends ScreenAdapter {
         this.dungeonEntityController = new DungeonEntityController();
         // todo this.hud = new HeadUpDisplay(gameWorld);
 
+
         setupCamera();
 
         //your setup
@@ -56,7 +57,7 @@ public class MainGameController extends ScreenAdapter {
         setupWorldController();
         //load first level
         try {
-            dungeonWorldController.setupDungeon(new DungeonConverter().dungeonFromJson("core/assets/small_dungeon.json"));
+            dungeonWorldController.loadDungeon(new DungeonConverter().dungeonFromJson("core/assets/small_dungeon.json"));
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -72,8 +73,8 @@ public class MainGameController extends ScreenAdapter {
 
     public void setup() {
         System.out.println("Game started");
-        h = new Hero(gameSetup.getBatch());
-        m = new Monster(gameSetup.getBatch());
+        h = new Hero();
+        m = new Monster();
 
         camera.follow(m);
         dungeonEntityController.addEntity(h);
@@ -121,19 +122,19 @@ public class MainGameController extends ScreenAdapter {
         beginFrame();
 
         //need to be called before stuff can be drawn
-        gameSetup.getBatch().begin();
+        GameSetup.batch.begin();
 
         //updates the level
         dungeonWorldController.update();
 
         //need to be called after stuff has been drawn
-        gameSetup.getBatch().end();
+        GameSetup.batch.end();
 
         //updates all objects in the dungeon
         dungeonEntityController.update();
 
         //updates camera
-        gameSetup.getBatch().setProjectionMatrix(camera.combined);
+        GameSetup.batch.setProjectionMatrix(camera.combined);
 
         //updates camera position
         camera.update();
@@ -162,7 +163,7 @@ public class MainGameController extends ScreenAdapter {
             Method functionToPass = MainGameController.class.getMethod("onLevelLoad");
             //if you need parameter four your method, add them here
             Object[] arguments = new Object[0];
-            this.dungeonWorldController = new DungeonWorldController(gameSetup.getBatch(), functionToPass, this, arguments);
+            this.dungeonWorldController = new DungeonWorldController(functionToPass, this, arguments);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -179,7 +180,7 @@ public class MainGameController extends ScreenAdapter {
         //was static but only used here
         float VIRTUAL_HEIGHT = 5f;
         camera.setToOrtho(false, VIRTUAL_HEIGHT * width / (float) height, VIRTUAL_HEIGHT);
-        gameSetup.getBatch().setProjectionMatrix(camera.combined);
+        GameSetup.batch.setProjectionMatrix(camera.combined);
     }
 
 }
