@@ -1,4 +1,5 @@
 package de.fhbielefeld.pmdungeon.vorgaben.game;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.fhbielefeld.pmdungeon.vorgaben.game.Controller.MainGameController;
@@ -16,8 +17,8 @@ public class GameSetup extends Game {
 
     @Override
     public void create() {
-        batch= new SpriteBatch();
-        this.setScreen(new MainGameController(this));
+        batch = new SpriteBatch();
+        this.setScreen(new MainGameController());
     }
 
     @Override

@@ -24,7 +24,6 @@ public class MainGameController extends ScreenAdapter {
      * Does some setup. Contains the global SpriteBatch.
      */
     private GameSetup gameSetup;
-
     /**
      * Controls all entity's
      */
@@ -37,22 +36,21 @@ public class MainGameController extends ScreenAdapter {
      * Controls the level
      */
     private DungeonWorldController dungeonWorldController;
-
-    HUD hud;
+    /**
+     * HUD
+     */
+    private HUD hud;
 
     /**
      * Creates new MainGameController
      *
-     * @param gameSetup setup class
      */
-    public MainGameController(final GameSetup gameSetup) {
-        this.gameSetup = gameSetup;
+    public MainGameController() {
         this.dungeonEntityController = new DungeonEntityController();
         this.hud = new HUD();
         setupCamera();
-        //your setup
-        setup();
         setupWorldController();
+        setup();
         //load first level
         try {
             dungeonWorldController.loadDungeon(new DungeonConverter().dungeonFromJson("core/assets/small_dungeon.json"));
@@ -63,10 +61,9 @@ public class MainGameController extends ScreenAdapter {
         }
     }
 
-    //----------------- add your stuff -----------------
+    //----------------- add your code -----------------
 
     //Here you can do stuff you want to do at the beginning of the game
-
     public void setup() {
     }
 
@@ -89,8 +86,6 @@ public class MainGameController extends ScreenAdapter {
     }
 
     //----------------- stop adding -----------------
-
-
     /**
      * Main gameloop.
      * Redraws the dungeon and calls all the update methods.
@@ -128,8 +123,6 @@ public class MainGameController extends ScreenAdapter {
         endFrame();
 
     }
-
-
     /**
      * Setting up the WorldController.
      */
@@ -144,7 +137,6 @@ public class MainGameController extends ScreenAdapter {
             e.printStackTrace();
         }
     }
-
     /**
      * Setting up the camera.
      */

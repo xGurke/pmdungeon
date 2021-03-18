@@ -25,11 +25,9 @@ import java.util.Random;
 public class DungeonWorld implements IndexedGraph<Tile>, Disposable {
 
     private Room[] rooms;
-
     private int width;
     private int height;
     private Tile[][] tiles;
-
     private final ObjectMap<DungeonTextures, Texture> textureMap;
     private final WallPatternFactory wallPatternFactory;
     private final Random random = new Random();

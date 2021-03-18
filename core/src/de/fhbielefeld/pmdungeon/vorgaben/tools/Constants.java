@@ -1,14 +1,24 @@
 package de.fhbielefeld.pmdungeon.vorgaben.tools;
 
-public class Constants
-
-{
-
-
-    // windo
-    public final static int WIDTH=640;
-    public final static int HEIGHT=480;
-    public final static int FRAMERATE=30;
-    public final static float VIRTUALHEIGHT=5;
-    public final static String WINDOWNAME="PM-Dungeon";
+public class Constants {
+    /**
+     * Window width
+     */
+    public final static int WIDTH = 640;
+    /**
+     * Window height
+     */
+    public final static int HEIGHT = 480;
+    /**
+     * Frames per seconds
+     */
+    public final static int FRAMERATE = 30;
+    /**
+     * used for hud rescaling
+     */
+    public final static float VIRTUALHEIGHT = 5;
+    /**
+     * Title of the application
+     */
+    public final static String WINDOWNAME = "PM-Dungeon";
 }

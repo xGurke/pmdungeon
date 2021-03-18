@@ -14,7 +14,6 @@ import java.lang.reflect.Method;
  * Use this to controll the level itself.
  */
 public class DungeonWorldController {
-
     /**
      * Method to call after a new level is loaded
      */
@@ -30,7 +29,6 @@ public class DungeonWorldController {
     /**
      * the convertert that generates the dungeon out of a json
      */
-
     private final DungeonConverter dungeonConverter = new DungeonConverter();
     /**
      * if this is true, the next level will get load
@@ -56,7 +54,6 @@ public class DungeonWorldController {
         this.klass = klass;
         this.args = args;
     }
-
     /**
      * Load a new dungeon. Calls onLevelLoad
      *
@@ -70,7 +67,6 @@ public class DungeonWorldController {
         this.dungeonWorld.makeConnections();
         onLevelLoad.invoke(klass, args);
     }
-
     /**
      * If next level is triggered, this will load it.
      * Also draws the level.
@@ -88,7 +84,6 @@ public class DungeonWorldController {
         }
         draw();
     }
-
     /**
      * Check if given Point is (rounded) a TriggerTile
      *
@@ -98,14 +93,12 @@ public class DungeonWorldController {
     public boolean checkForTrigger(Point p) {
         return (int) p.x == dungeonWorld.getNextLevelTrigger().getX() && (int) p.y == dungeonWorld.getNextLevelTrigger().getY();
     }
-
     /**
      * Used to set the trigger if the next level should be loaded
      */
     public void triggerNextStage() {
         this.nextLevelTriggered = true;
     }
-
     /**
      * Return the current level.
      *
@@ -114,7 +107,6 @@ public class DungeonWorldController {
     public DungeonWorld getDungeon() {
         return dungeonWorld;
     }
-
     /**
      * Draws the dungeon itself.
      */
@@ -122,7 +114,6 @@ public class DungeonWorldController {
         dungeonWorld.renderFloor(GameSetup.batch);
         dungeonWorld.renderWalls(dungeonWorld.getHeight() - 1, 0, GameSetup.batch);
     }
-
     //Switch dungeon.
     /**
      * If next stage is triggered, change the dungeon.
@@ -147,7 +138,6 @@ public class DungeonWorldController {
                 break;
         }
     }
-
     /**
      * used to manage nextStage()
      */

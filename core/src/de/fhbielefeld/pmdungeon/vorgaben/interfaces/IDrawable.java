@@ -25,8 +25,6 @@ public interface IDrawable extends Disposable{
 	 */	
 	public Texture getTexture();
 
-
-
 	/**
 	 * Draws the instance based on its position. 
 	 * @param xOffset sometimes it can be helpful to use a small offset
