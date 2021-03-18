@@ -63,9 +63,11 @@ public class Monster implements IAnimatable, IUpdateable {
 
     @Override
     public void update() {
+
+        System.out.println(position.x+" "+position.y);
         if(level==null) return;
 
-        double x=-0.1;
+        double x=-0.01;
         double y=0;
 
         if (level.isTileAccessible((int)(position.x+x),(int)(position.y+y))){

@@ -6,7 +6,9 @@ import de.fhbielefeld.pmdungeon.vorgaben.Hero;
 import de.fhbielefeld.pmdungeon.vorgaben.Monster;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
+import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.DungeonCamera;
+import de.fhbielefeld.pmdungeon.vorgaben.tools.HUD;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -38,6 +40,7 @@ public class MainGameController extends ScreenAdapter {
      */
     private DungeonWorldController dungeonWorldController;
 
+    HUD hud;
     /**
      * Creates new MainGameController
      *
@@ -46,8 +49,7 @@ public class MainGameController extends ScreenAdapter {
     public MainGameController(final GameSetup gameSetup) {
         this.gameSetup = gameSetup;
         this.dungeonEntityController = new DungeonEntityController();
-        // todo this.hud = new HeadUpDisplay(gameWorld);
-
+        this.hud=new HUD();
 
         setupCamera();
 
@@ -76,6 +78,7 @@ public class MainGameController extends ScreenAdapter {
         h = new Hero();
         m = new Monster();
 
+
         camera.follow(m);
         dungeonEntityController.addEntity(h);
         dungeonEntityController.addEntity(m);
@@ -91,6 +94,7 @@ public class MainGameController extends ScreenAdapter {
     public void endFrame() {
         //trigger next stage
         if (dungeonWorldController.checkForTrigger(h.getPosition())) dungeonWorldController.triggerNextStage();
+
     }
 
     /**
@@ -139,20 +143,13 @@ public class MainGameController extends ScreenAdapter {
         //updates camera position
         camera.update();
 
+        //updates and draw hud
+        hud.draw();
         endFrame();
 
     }
 
 
-    /**
-     * Setting up the camera.
-     */
-    private void setupCamera() {
-        camera = new DungeonCamera(null);
-        camera.position.set(0, 0, 0);
-        camera.zoom += 3;
-        camera.update();
-    }
 
     /**
      * Setting up the WorldController.
@@ -169,6 +166,20 @@ public class MainGameController extends ScreenAdapter {
         }
     }
 
+
+
+
+
+    /**
+     * Setting up the camera.
+     */
+    private void setupCamera() {
+        camera = new DungeonCamera(null);
+        camera.position.set(0, 0, 0);
+        camera.zoom += 3;
+        camera.update();
+    }
+
     /**
      * Resizing the camera according to the size of the window.
      *
@@ -177,9 +188,7 @@ public class MainGameController extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        //was static but only used here
-        float VIRTUAL_HEIGHT = 5f;
-        camera.setToOrtho(false, VIRTUAL_HEIGHT * width / (float) height, VIRTUAL_HEIGHT);
+        camera.setToOrtho(false, Constants.VIRTUALHEIGHT * width / (float) height, Constants.VIRTUALHEIGHT);
         GameSetup.batch.setProjectionMatrix(camera.combined);
     }
 

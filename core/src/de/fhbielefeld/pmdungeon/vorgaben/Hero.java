@@ -61,6 +61,9 @@ public class Hero implements IAnimatable, IUpdateable {
 
     @Override
     public void update() {
+
+
+
         if(level==null) return;
 
         if (counter>120 && level.isTileAccessible((int)position.x, (int)position.y)) {

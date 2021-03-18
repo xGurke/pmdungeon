@@ -28,5 +28,6 @@ public class Point {
 		this.x=c.getX();
 		this.y=c.getY();
 
+
 	}
 }
