@@ -2,9 +2,6 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import de.fhbielefeld.pmdungeon.vorgaben.Hero;
-import de.fhbielefeld.pmdungeon.vorgaben.Monster;
-import de.fhbielefeld.pmdungeon.vorgaben.TollesHudElement;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
@@ -42,6 +39,7 @@ public class MainGameController extends ScreenAdapter {
     private DungeonWorldController dungeonWorldController;
 
     HUD hud;
+
     /**
      * Creates new MainGameController
      *
@@ -50,13 +48,10 @@ public class MainGameController extends ScreenAdapter {
     public MainGameController(final GameSetup gameSetup) {
         this.gameSetup = gameSetup;
         this.dungeonEntityController = new DungeonEntityController();
-        this.hud=new HUD();
-
+        this.hud = new HUD();
         setupCamera();
-
         //your setup
         setup();
-
         setupWorldController();
         //load first level
         try {
@@ -71,19 +66,8 @@ public class MainGameController extends ScreenAdapter {
     //----------------- add your stuff -----------------
 
     //Here you can do stuff you want to do at the beginning of the game
-    Hero h;
-    Monster m;
 
     public void setup() {
-        System.out.println("Game started");
-        h = new Hero();
-        m = new Monster();
-        hud.addHudElement(new TollesHudElement());
-
-
-        camera.follow(h);
-       dungeonEntityController.addEntity(h);
-        dungeonEntityController.addEntity(m);
     }
 
     //things you want to do at the begin of every frame
@@ -94,8 +78,6 @@ public class MainGameController extends ScreenAdapter {
 
     //things you want to do at the end of every frame
     public void endFrame() {
-        //trigger next stage
-        if (dungeonWorldController.checkForTrigger(h.getPosition())) dungeonWorldController.triggerNextStage();
 
     }
 
@@ -103,11 +85,7 @@ public class MainGameController extends ScreenAdapter {
      * This methode will be called by the DungeonWorldController every time a new level is loaded.
      * Useful to place new monster and items and remove old ones from the entityController
      */
-
     public void onLevelLoad() {
-        h.updateLevel(dungeonWorldController.getDungeon());
-        m.updateLevel(dungeonWorldController.getDungeon());
-
     }
 
     //----------------- stop adding -----------------
@@ -139,8 +117,8 @@ public class MainGameController extends ScreenAdapter {
         //updates all objects in the dungeon
         dungeonEntityController.update();
 
-        //updates camera
-       GameSetup.batch.setProjectionMatrix(camera.combined);
+        //updates projectionsmatrix
+        GameSetup.batch.setProjectionMatrix(camera.combined);
 
         //updates camera position
         camera.update();
@@ -150,7 +128,6 @@ public class MainGameController extends ScreenAdapter {
         endFrame();
 
     }
-
 
 
     /**
@@ -174,7 +151,7 @@ public class MainGameController extends ScreenAdapter {
     private void setupCamera() {
         camera = new DungeonCamera(null, Constants.VIRTUALHEIGHT * Constants.WIDTH / (float) Constants.HEIGHT, Constants.VIRTUALHEIGHT);
         camera.position.set(0, 0, 0);
-       camera.zoom += 1;
+        camera.zoom += 1;
         camera.update();
     }
 }
