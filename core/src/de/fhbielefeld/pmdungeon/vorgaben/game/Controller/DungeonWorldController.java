@@ -135,6 +135,14 @@ public class DungeonWorldController {
                 break;
             case B:
                 loadDungeon(dungeonConverter.dungeonFromJson("core/assets/simple_dungeon_2.json"));
+                nextStage = Stage.C;
+                break;
+            case C:
+                loadDungeon(dungeonConverter.dungeonFromJson("core/assets/simple_dungeon.json"));
+                nextStage = Stage.D;
+                break;
+            case D:
+                loadDungeon(dungeonConverter.dungeonFromJson("core/assets/boss_dungeon.json"));
                 nextStage = Stage.A;
                 break;
         }
@@ -145,6 +153,8 @@ public class DungeonWorldController {
      */
     enum Stage {
         A,
-        B
+        B,
+        C,
+        D
     }
 }

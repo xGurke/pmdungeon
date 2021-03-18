@@ -1,5 +1,7 @@
 package de.fhbielefeld.pmdungeon.vorgaben;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonWorld;
@@ -8,10 +10,14 @@ import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IAnimatable;
 import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IUpdateable;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Monster implements IAnimatable, IUpdateable {
+public class Monster implements IAnimatable, IUpdateable{
 
     private Point position;
     private DungeonWorld level;
@@ -63,19 +69,14 @@ public class Monster implements IAnimatable, IUpdateable {
 
     @Override
     public void update() {
-
-        System.out.println(position.x+" "+position.y);
         if(level==null) return;
-
-        double x=-0.01;
-        double y=0;
-
+        double x=-0.1;
+        double y=0.1;
         if (level.isTileAccessible((int)(position.x+x),(int)(position.y+y))){
             this.position.x+=x;
             this.position.y+=y;
         }
-
-
         this.draw();
     }
+
 }

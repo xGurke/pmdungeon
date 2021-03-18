@@ -39,6 +39,7 @@ public interface IDrawable extends Disposable{
 		sprite.setSize(1, ((float) texture.getHeight() / (float) texture.getWidth()));
 		//where to draw the sprite
 		sprite.setPosition(this.getPosition().x+xOffset, this.getPosition().y+yOffset);
+
 		//need to be called before drawing
 		GameSetup.batch.begin();
 		//draw sprite

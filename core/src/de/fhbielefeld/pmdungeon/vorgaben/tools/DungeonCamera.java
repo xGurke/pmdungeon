@@ -14,8 +14,8 @@ public class DungeonCamera extends OrthographicCamera {
      * Creates a new camera.
      * @param follows the entity the camera should follow, null for defaul coordinates.
      */
-    public DungeonCamera(IDrawable follows){
-        super();
+    public DungeonCamera(IDrawable follows, float vw, float wh){
+        super(vw,wh);
         this.follows=follows;
     }
 

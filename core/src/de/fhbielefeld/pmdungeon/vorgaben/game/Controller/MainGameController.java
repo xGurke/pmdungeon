@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import de.fhbielefeld.pmdungeon.vorgaben.Hero;
 import de.fhbielefeld.pmdungeon.vorgaben.Monster;
+import de.fhbielefeld.pmdungeon.vorgaben.TollesHudElement;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
@@ -77,10 +78,11 @@ public class MainGameController extends ScreenAdapter {
         System.out.println("Game started");
         h = new Hero();
         m = new Monster();
+        hud.addHudElement(new TollesHudElement());
 
 
-        camera.follow(m);
-        dungeonEntityController.addEntity(h);
+        camera.follow(h);
+       dungeonEntityController.addEntity(h);
         dungeonEntityController.addEntity(m);
     }
 
@@ -138,7 +140,7 @@ public class MainGameController extends ScreenAdapter {
         dungeonEntityController.update();
 
         //updates camera
-        GameSetup.batch.setProjectionMatrix(camera.combined);
+       GameSetup.batch.setProjectionMatrix(camera.combined);
 
         //updates camera position
         camera.update();
@@ -166,30 +168,13 @@ public class MainGameController extends ScreenAdapter {
         }
     }
 
-
-
-
-
     /**
      * Setting up the camera.
      */
     private void setupCamera() {
-        camera = new DungeonCamera(null);
+        camera = new DungeonCamera(null, Constants.VIRTUALHEIGHT * Constants.WIDTH / (float) Constants.HEIGHT, Constants.VIRTUALHEIGHT);
         camera.position.set(0, 0, 0);
-        camera.zoom += 3;
+       camera.zoom += 1;
         camera.update();
     }
-
-    /**
-     * Resizing the camera according to the size of the window.
-     *
-     * @param width  Window width
-     * @param height Window height
-     */
-    @Override
-    public void resize(int width, int height) {
-        camera.setToOrtho(false, Constants.VIRTUALHEIGHT * width / (float) height, Constants.VIRTUALHEIGHT);
-        GameSetup.batch.setProjectionMatrix(camera.combined);
-    }
-
 }
