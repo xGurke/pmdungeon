@@ -1,4 +1,4 @@
-package de.fhbielefeld.pmdungeon.vorgaben.tools;
+package de.fhbielefeld.pmdungeon.vorgaben.graphic;
 
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IHUDElement;
+import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 
 
 import java.util.ArrayList;

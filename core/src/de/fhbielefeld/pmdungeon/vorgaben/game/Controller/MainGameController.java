@@ -6,7 +6,7 @@ import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.Dungeon
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.DungeonCamera;
-import de.fhbielefeld.pmdungeon.vorgaben.tools.HUD;
+import de.fhbielefeld.pmdungeon.vorgaben.graphic.HUD;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -94,11 +94,11 @@ public class MainGameController extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
+        beginFrame();
+
         //clears the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-
-        beginFrame();
 
         //need to be called before stuff can be drawn
         GameSetup.batch.begin();

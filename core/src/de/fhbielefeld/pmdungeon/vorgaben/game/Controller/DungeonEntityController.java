@@ -2,6 +2,7 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IEntity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -45,4 +46,8 @@ public class DungeonEntityController {
         if (dungeonEntitys.contains(entity))
             this.dungeonEntitys.remove(entity);
     }
+    /**
+     * returns entity list
+     */
+    public ArrayList<IEntity> getList(){ return this.dungeonEntitys;}
 }
