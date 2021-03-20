@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonWorld;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
+import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +14,7 @@ import java.lang.reflect.Method;
 /**
  * Use this to controll the level itself.
  */
-public class DungeonWorldController {
+public class LevelController {
     /**
      * Method to call after a new level is loaded
      */
@@ -49,7 +50,7 @@ public class DungeonWorldController {
      * @param klass       Instance of the MainControllerClass
      * @param args        Arguments for onLevelLoaded
      */
-    public DungeonWorldController(Method onLevelLoad, Object klass, Object[] args) {
+    public LevelController(Method onLevelLoad, Object klass, Object[] args) {
         this.onLevelLoad = onLevelLoad;
         this.klass = klass;
         this.args = args;
@@ -121,19 +122,19 @@ public class DungeonWorldController {
     private void nextStage() throws InvocationTargetException, IllegalAccessException {
         switch (nextStage) {
             case A:
-                loadDungeon(dungeonConverter.dungeonFromJson("core/assets/small_dungeon.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL+"small_dungeon.json"));
                 nextStage = Stage.B;
                 break;
             case B:
-                loadDungeon(dungeonConverter.dungeonFromJson("core/assets/simple_dungeon_2.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL+"simple_dungeon_2.json"));
                 nextStage = Stage.C;
                 break;
             case C:
-                loadDungeon(dungeonConverter.dungeonFromJson("core/assets/simple_dungeon.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL+"simple_dungeon.json"));
                 nextStage = Stage.D;
                 break;
             case D:
-                loadDungeon(dungeonConverter.dungeonFromJson("core/assets/boss_dungeon.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL+"boss_dungeon.json"));
                 nextStage = Stage.A;
                 break;
         }

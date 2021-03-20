@@ -9,13 +9,13 @@ import java.util.ArrayList;
 /**
  * Handles every entity in the dungeon.
  */
-public class DungeonEntityController {
+public class EntityController {
 
     /**
      * Contains all the entitys this controller handles.
      */
     private ArrayList<IEntity> dungeonEntitys;
-    public DungeonEntityController() {
+    public EntityController() {
         this.dungeonEntitys = new ArrayList<IEntity>();
     }
     /**

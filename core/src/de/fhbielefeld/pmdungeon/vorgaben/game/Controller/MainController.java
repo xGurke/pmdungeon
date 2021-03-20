@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
  * Setup for all important objects.
  * Contains gameloop.
  */
-public class MainGameController extends ScreenAdapter {
+public class MainController extends ScreenAdapter {
 
     /**
      * Does some setup. Contains the global SpriteBatch.
@@ -27,7 +27,7 @@ public class MainGameController extends ScreenAdapter {
     /**
      * Controls all entity's
      */
-    private DungeonEntityController dungeonEntityController;
+    private EntityController entityController;
     /**
      * The viewport for the dungeon
      */
@@ -35,7 +35,7 @@ public class MainGameController extends ScreenAdapter {
     /**
      * Controls the level
      */
-    private DungeonWorldController dungeonWorldController;
+    private LevelController levelController;
     /**
      * HUD
      */
@@ -45,15 +45,15 @@ public class MainGameController extends ScreenAdapter {
      * Creates new MainGameController
      *
      */
-    public MainGameController() {
-        this.dungeonEntityController = new DungeonEntityController();
+    public MainController() {
+        this.entityController = new EntityController();
         this.hud = new HUD();
         setupCamera();
         setupWorldController();
         setup();
         //load first level
         try {
-            dungeonWorldController.loadDungeon(new DungeonConverter().dungeonFromJson("core/assets/small_dungeon.json"));
+            levelController.loadDungeon(new DungeonConverter().dungeonFromJson(Constants.STARTLEVEL));
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -104,13 +104,13 @@ public class MainGameController extends ScreenAdapter {
         GameSetup.batch.begin();
 
         //updates the level
-        dungeonWorldController.update();
+        levelController.update();
 
         //need to be called after stuff has been drawn
         GameSetup.batch.end();
 
         //updates all objects in the dungeon
-        dungeonEntityController.update();
+        entityController.update();
 
         //updates projectionsmatrix
         GameSetup.batch.setProjectionMatrix(camera.combined);
@@ -129,10 +129,10 @@ public class MainGameController extends ScreenAdapter {
     private void setupWorldController() {
         try {
             //this method will be called every time a new level gets load
-            Method functionToPass = MainGameController.class.getMethod("onLevelLoad");
+            Method functionToPass = MainController.class.getMethod("onLevelLoad");
             //if you need parameter four your method, add them here
             Object[] arguments = new Object[0];
-            this.dungeonWorldController = new DungeonWorldController(functionToPass, this, arguments);
+            this.levelController = new LevelController(functionToPass, this, arguments);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
