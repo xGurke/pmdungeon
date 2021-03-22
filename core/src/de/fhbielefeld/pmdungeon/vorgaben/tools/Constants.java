@@ -23,6 +23,6 @@ public class Constants {
     public final static String WINDOWNAME = "PM-Dungeon";
 
 
-    public final static String PATHTOLEVEL="core/assets/level/";
+    public final static String PATHTOLEVEL="assets/level/";
     public final static String STARTLEVEL=Constants.PATHTOLEVEL+"small_dungeon.json";
 }

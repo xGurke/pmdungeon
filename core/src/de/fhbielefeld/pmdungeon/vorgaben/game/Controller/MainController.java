@@ -2,6 +2,8 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import de.fhbielefeld.pmdungeon.vorgaben.DungeonIntegrator;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonWorld;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
@@ -42,15 +44,33 @@ public class MainController extends ScreenAdapter {
     private HUD hud;
 
     /**
+     * This is the Main Instance of the students implementation
+      */
+    private DungeonIntegrator dungeonintegrator;
+
+    /**
+     * Marks if the firstFrame is already calculated or not (true= not caluulated)
+     */
+    private boolean firstFrame=true;
+
+
+    /**
      * Creates new MainGameController
      *
      */
-    public MainController() {
+    public MainController(DungeonIntegrator dungeonintegrator) {
+        this.dungeonintegrator = dungeonintegrator;
+    }
+
+    /**
+     * Setup for the MainController
+     */
+    private void firstFrame(){
         this.entityController = new EntityController();
         this.hud = new HUD();
         setupCamera();
         setupWorldController();
-        setup();
+        dungeonintegrator.setup();
         //load first level
         try {
             levelController.loadDungeon(new DungeonConverter().dungeonFromJson(Constants.STARTLEVEL));
@@ -59,33 +79,10 @@ public class MainController extends ScreenAdapter {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
+        firstFrame=false;
     }
 
-    //----------------- add your code -----------------
-
-    //Here you can do stuff you want to do at the beginning of the game
-    public void setup() {
-    }
-
-    //things you want to do at the begin of every frame
-    public void beginFrame() {
-
-
-    }
-
-    //things you want to do at the end of every frame
-    public void endFrame() {
-
-    }
-
-    /**
-     * This methode will be called by the DungeonWorldController every time a new level is loaded.
-     * Useful to place new monster and items and remove old ones from the entityController
-     */
-    public void onLevelLoad() {
-    }
-
-    //----------------- stop adding -----------------
     /**
      * Main gameloop.
      * Redraws the dungeon and calls all the update methods.
@@ -94,7 +91,9 @@ public class MainController extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        beginFrame();
+        if(firstFrame) this.firstFrame();
+
+        dungeonintegrator.beginFrame();
 
         //clears the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -120,7 +119,7 @@ public class MainController extends ScreenAdapter {
 
         //updates and draw hud
         hud.draw();
-        endFrame();
+        dungeonintegrator.endFrame();
 
     }
     /**
@@ -129,10 +128,11 @@ public class MainController extends ScreenAdapter {
     private void setupWorldController() {
         try {
             //this method will be called every time a new level gets load
-            Method functionToPass = MainController.class.getMethod("onLevelLoad");
+            Method functionToPass = dungeonintegrator.getClass().getMethod("onLevelLoad");
+            System.out.println("DEBUG: "+functionToPass);
             //if you need parameter four your method, add them here
             Object[] arguments = new Object[0];
-            this.levelController = new LevelController(functionToPass, this, arguments);
+            this.levelController = new LevelController(functionToPass, dungeonintegrator, arguments);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -145,5 +145,25 @@ public class MainController extends ScreenAdapter {
         camera.position.set(0, 0, 0);
         camera.zoom += 1;
         camera.update();
+    }
+
+
+
+//getter for own implementation
+
+    public DungeonCamera getCamera(){
+        return this.camera;
+    }
+
+    public LevelController getLevelController(){
+        return this.levelController;
+    }
+
+    public EntityController getEntityController(){
+        return this.entityController;
+    }
+
+    public HUD getHUD(){
+        return this.hud;
     }
 }

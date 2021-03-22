@@ -2,6 +2,7 @@ package de.fhbielefeld.pmdungeon.vorgaben.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import de.fhbielefeld.pmdungeon.vorgaben.DungeonIntegrator;
 import de.fhbielefeld.pmdungeon.vorgaben.game.Controller.MainController;
 
 /**
@@ -14,11 +15,15 @@ public class GameSetup extends Game {
      * This INSTANCE is necessary to draw ALL the stuff. Every Object that uses draw need to know THIS INSTANCE
      */
     public static SpriteBatch batch;
+    private MainController mc;
+    public GameSetup(MainController mc){
+        this.mc=mc;
+    }
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        this.setScreen(new MainController());
+        this.setScreen(mc);
     }
 
     @Override
