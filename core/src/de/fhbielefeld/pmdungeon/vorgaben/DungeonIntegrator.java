@@ -1,5 +1,7 @@
 package de.fhbielefeld.pmdungeon.vorgaben;
 
+import de.fhbielefeld.pmdungeon.vorgaben.game.Controller.MainController;
+
 public abstract class DungeonIntegrator {
 
     /**
@@ -21,5 +23,7 @@ public abstract class DungeonIntegrator {
      * Will be called if a new level gets loaded
      */
     public abstract void onLevelLoad();
+
+    public abstract MainController getMainController();
 
 }
