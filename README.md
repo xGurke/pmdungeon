@@ -3,7 +3,9 @@
 ## Installation
 
 - Donwload pmdungeon.jar
-- create new Java Project
+- Download the *asset* folder from this projects (in *core*)
+- create new Java project
+- add *asset* folder to project
 - import pmdungeon.jar as libary
 
 
