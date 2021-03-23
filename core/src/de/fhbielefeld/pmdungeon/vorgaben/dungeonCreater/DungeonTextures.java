@@ -23,7 +23,7 @@ public enum DungeonTextures {
     WALL_SIDE_TOP_RIGHT("wall/wall_side_top_right.png"),
     WALL_TOP_MID("wall/wall_top_mid.png");
 
-    private static final String PATH = "textures/dungeon/";
+    private static final String PATH = "assets/textures/dungeon/";
     private String filename = null;
 
     DungeonTextures() {

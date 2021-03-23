@@ -12,7 +12,7 @@ import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
  * Should be implement by all objects that are drawable but have no animation
  *
  */
-public interface IDrawable extends Disposable{
+public interface IDrawable{
 	
 	/**
 	 * @return  the exact position in the dungeon of this instance

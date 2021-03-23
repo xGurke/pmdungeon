@@ -2,6 +2,9 @@ package de.fhbielefeld.pmdungeon.vorgaben;
 
 import de.fhbielefeld.pmdungeon.vorgaben.game.Controller.MainController;
 
+/**
+ * Point for own integration
+ */
 public abstract class DungeonIntegrator {
 
     /**
