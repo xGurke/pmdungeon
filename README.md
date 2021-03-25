@@ -12,18 +12,15 @@
 
 ## Getting started
 
-- Create a new Class that extends *DungeonIntergrator* 
+- Create a new Class that extends *MainController* 
 
 - implement Methods
-
-- Create a new *MainController* with your class as parameter `new MainController(this);` 
 
 - add the main
 
   ```java
-     public static void main (String[]args){
-          YourClass m = new YourClass();
-          DesktopLauncher.run(m.getMainController());
+     public static void main (String[]args){      
+          DesktopLauncher.run(new YourClass());
       }
   ```
 
