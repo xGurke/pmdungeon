@@ -19,7 +19,7 @@ Zu Beginn einige Grundlegen Prinzipien, die Sie verstanden haben sollten, bevor 
 - Die API enthält bereits einige Level, Sie müssen sich daher nicht mit der Generierung von Dungeons auseinandersetzten. Level werden als 2D Array gespeichert, wobei jedes Feld entweder ein Boden, eine Wand oder *null* sein kann.
 - Zwar wird das Level als 2D Array gespeichert und daher sind Koordinaten auch als integer bestimmbar, allerdings verwendet die API virtuelle Einheiten. (Welche Vorteile dieses Vorgehen liefert können Sie [hier](https://xoppa.github.io/blog/pixels/) nachlesen). Daher lassen Sich Entitäten auch zwischen den Feldern zeichnen.
 
-![Positionen am Beispiel der X-Position](img\x+1.png)
+![Positionen am Beispiel der X-Position](./img/x+1.png)
 
 - GameLoop: Die GameLoop ist die wichtigste Komponente des Spieles. Sie ist eine Endlosschleife welche einmal pro [Frame](https://de.wikipedia.org/wiki/Bildfrequenz) aufgerufen wird. Das Spiel läuft in 30-FPS also 30 Frames per seconds zu Deutsch 30 Bildern pro Sekunde, die GameLoop wird also 30mal in der Sekunde aufgerufen. Alle Aktionen die wiederholt ausgeführt werden müssen, wie zum Beispiel das Bewegen und Zeichnen von Figuren, müssen innerhalb der GameLoop stattfinden. Die API ermöglicht es Ihnen eigene Aktionen in die GameLoop zu integrieren. Wie genau das geht, erfahren Sie im Laufe dieser Dokumentation.
 
@@ -221,7 +221,7 @@ Starten wir nun das Spiel, sollten wir in der Lage sein unseren Helden zu sehen 
 
 Unten sehen Sie eine vereinfachte Darstellung wie unser Dungeon jetzt funktioniert. Grün hinterlegte Felder müssen selbst implementiert werden, Weiß hinterlegte Felder sind bereits von der API implementiert. 
 
-![Vereinfachtes Sequenzdiagramm](img\ablauf.png)
+![Vereinfachtes Sequenzdiagramm](./img/ablauf.png)
 
 
 
