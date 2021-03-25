@@ -25,7 +25,14 @@ public class Point {
     public Point(Coordinate c) {
         this.x = c.getX();
         this.y = c.getY();
+    }
 
-
+    /**
+     * Copy Point
+     * @param p
+     */
+    public Point (Point p){
+        this.x=p.x;
+        this.y=p.y;
     }
 }

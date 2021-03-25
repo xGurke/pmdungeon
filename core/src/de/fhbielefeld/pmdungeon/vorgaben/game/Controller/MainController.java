@@ -2,8 +2,6 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import de.fhbielefeld.pmdungeon.vorgaben.DungeonIntegrator;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonWorld;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
@@ -16,51 +14,46 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * Controlls the game.
+ * Controls the game.
  * Setup for all important objects.
- * Contains gameloop.
+ * Contains Gameloop.
  */
 public class MainController extends ScreenAdapter {
 
     /**
-     * Does some setup. Contains the global SpriteBatch.
-     */
-    private GameSetup gameSetup;
-    /**
      * Controls all entity's
      */
-    private EntityController entityController;
+    protected EntityController entityController;
     /**
      * The viewport for the dungeon
      */
-    private DungeonCamera camera;
+    protected DungeonCamera camera;
     /**
      * Controls the level
      */
-    private LevelController levelController;
+    protected LevelController levelController;
     /**
      * HUD
      */
-    private HUD hud;
+    protected HUD hud;
 
     /**
-     * This is the Main Instance of the students implementation
-      */
-    private DungeonIntegrator dungeonintegrator;
-
-    /**
-     * Marks if the firstFrame is already calculated or not (true= not caluulated)
+     * Marks if the firstFrame is already calculated or not (true= not calculated)
      */
-    private boolean firstFrame=true;
+    protected boolean firstFrame=true;
 
 
-    /**
-     * Creates new MainGameController
-     *
-     */
-    public MainController(DungeonIntegrator dungeonintegrator) {
-        this.dungeonintegrator = dungeonintegrator;
-    }
+
+
+
+    //----------------------------- OWN IMPLEMENTATION -----------------------------
+    protected void setup(){}
+    protected void beginFrame(){}
+    protected void endFrame(){}
+    public void onLevelLoad(){}
+    //----------------------------- END OWN IMPLEMENTATION --------------------------
+
+
 
     /**
      * Setup for the MainController
@@ -70,7 +63,7 @@ public class MainController extends ScreenAdapter {
         this.hud = new HUD();
         setupCamera();
         setupWorldController();
-        dungeonintegrator.setup();
+        setup();
         //load first level
         try {
             levelController.loadDungeon(new DungeonConverter().dungeonFromJson(Constants.STARTLEVEL));
@@ -84,16 +77,16 @@ public class MainController extends ScreenAdapter {
     }
 
     /**
-     * Main gameloop.
+     * Main Gameloop.
      * Redraws the dungeon and calls all the update methods.
      *
-     * @param delta Time since last loop. (since the PM-Dungeon is frame based, this isn't very usefull)
+     * @param delta Time since last loop. (since the PM-Dungeon is frame based, this isn't very useful)
      */
     @Override
-    public void render(float delta) {
+    public final void render(float delta) {
         if(firstFrame) this.firstFrame();
 
-        dungeonintegrator.beginFrame();
+        beginFrame();
 
         //clears the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -119,7 +112,7 @@ public class MainController extends ScreenAdapter {
 
         //updates and draw hud
         hud.draw();
-        dungeonintegrator.endFrame();
+        endFrame();
 
     }
     /**
@@ -128,11 +121,11 @@ public class MainController extends ScreenAdapter {
     private void setupWorldController() {
         try {
             //this method will be called every time a new level gets load
-            Method functionToPass = dungeonintegrator.getClass().getMethod("onLevelLoad");
+            Method functionToPass = this.getClass().getMethod("onLevelLoad");
             System.out.println("DEBUG: "+functionToPass);
             //if you need parameter four your method, add them here
             Object[] arguments = new Object[0];
-            this.levelController = new LevelController(functionToPass, dungeonintegrator, arguments);
+            this.levelController = new LevelController(functionToPass, this, arguments);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -145,25 +138,5 @@ public class MainController extends ScreenAdapter {
         camera.position.set(0, 0, 0);
         camera.zoom += 1;
         camera.update();
-    }
-
-
-
-//getter for own implementation
-
-    public DungeonCamera getCamera(){
-        return this.camera;
-    }
-
-    public LevelController getLevelController(){
-        return this.levelController;
-    }
-
-    public EntityController getEntityController(){
-        return this.entityController;
-    }
-
-    public HUD getHUD(){
-        return this.hud;
     }
 }

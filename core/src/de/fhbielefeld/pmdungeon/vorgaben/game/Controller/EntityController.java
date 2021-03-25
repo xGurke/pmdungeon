@@ -1,8 +1,6 @@
 package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IEntity;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -12,11 +10,11 @@ import java.util.ArrayList;
 public class EntityController {
 
     /**
-     * Contains all the entitys this controller handles.
+     * Contains all the entity's this controller handles.
      */
-    private ArrayList<IEntity> dungeonEntitys;
+    private final ArrayList<IEntity> dungeonEntitys;
     public EntityController() {
-        this.dungeonEntitys = new ArrayList<IEntity>();
+        this.dungeonEntitys = new ArrayList<>();
     }
     /**
      * calls the update method for every entity in the list.

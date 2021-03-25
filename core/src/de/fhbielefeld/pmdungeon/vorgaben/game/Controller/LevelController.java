@@ -1,18 +1,17 @@
 package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonWorld;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
 /**
- * Use this to controll the level itself.
+ * Use this to control the level itself.
  */
 public class LevelController {
     /**
@@ -28,7 +27,7 @@ public class LevelController {
      */
     private final Object[] args;
     /**
-     * the convertert that generates the dungeon out of a json
+     * the converter that generates the dungeon out of a json
      */
     private final DungeonConverter dungeonConverter = new DungeonConverter();
     /**

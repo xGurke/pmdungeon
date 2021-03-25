@@ -14,15 +14,15 @@ public interface IHUDElement {
      *
      * @return
      */
-    public Point getPosition();
+    Point getPosition();
 
-    public Texture getTexture();
+    Texture getTexture();
 
-    public default float getWidth() {
+    default float getWidth() {
         return 0.5f;
     }
 
-    public default float getHeight() {
+    default float getHeight() {
         return getTexture().getHeight() / 2;
     }
 }

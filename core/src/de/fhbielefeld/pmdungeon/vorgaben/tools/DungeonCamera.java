@@ -13,8 +13,8 @@ public class DungeonCamera extends OrthographicCamera {
      * Creates a new camera.
      *
      * @param follows the entity the camera should follow, null for default coordinates.
-     * @param vw      Virtuele Width
-     * @param vh      virtuele Height
+     * @param vw      virtual Width
+     * @param vh      virtual Height
      */
     public DungeonCamera(IDrawable follows, float vw, float vh) {
         super(vw, vh);

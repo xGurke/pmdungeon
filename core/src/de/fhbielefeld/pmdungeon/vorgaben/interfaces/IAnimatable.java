@@ -12,10 +12,10 @@ public interface IAnimatable extends IDrawable {
     /**
      * @return the current active animation (example idle or run)
      */
-    public Animation getActiveAnimation();
+    Animation getActiveAnimation();
 
     @Override
-    default public Texture getTexture() {
+    default Texture getTexture() {
         return this.getActiveAnimation().getNextAnimationTexture();
     }
 

@@ -16,6 +16,7 @@ import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.tiles.Tile;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.tiles.TileHeuristic;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.wallpattern.WallPattern;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.wallpattern.WallPatternFactory;
+import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
 
 import java.util.Random;
 
@@ -183,6 +184,18 @@ public class DungeonWorld implements IndexedGraph<Tile>, Disposable {
     }
 
     /**
+     * Generates a random location in the dungeon. Position can't be in the first room of the dungeon
+     *
+     * @return Random position in the dungeon as Point
+     */
+    public Point getRandomPointInDungeon(){
+        int roomId = (this.random.nextInt(rooms.length - 1)) + 1;
+        Coordinate c=getRandomLocationInRoom(roomId);
+        return new Point(c.getX(),c.getY());
+    }
+
+
+    /**
      * Evaluates if the tile at the given coordinates is accessible
      *
      * @param x X coordinate of the tile
@@ -195,6 +208,17 @@ public class DungeonWorld implements IndexedGraph<Tile>, Disposable {
             return tile.isAccessible();
         }
         return false;
+    }
+
+
+    /**
+     * Evaluates if the tile at the given coordinates is accessible
+     *
+     * @param p Point to check
+     * @return true if tile is accessible; false if not
+     */
+    public boolean isTileAccessible (Point p){
+        return this.isTileAccessible((int)p.x,(int)p.y);
     }
 
     /**

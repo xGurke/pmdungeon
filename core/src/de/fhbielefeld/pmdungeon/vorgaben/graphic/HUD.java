@@ -2,16 +2,14 @@ package de.fhbielefeld.pmdungeon.vorgaben.graphic;
 
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IHUDElement;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 
-
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 public class HUD {
     private final SpriteBatch hudBatch;
     private final OrthographicCamera hudCamera;
-    private ArrayList<IHUDElement> hudElements;
+    private final List<IHUDElement> hudElements;
 
     public HUD() {
         hudBatch = new SpriteBatch();
