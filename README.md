@@ -81,7 +81,7 @@ private Hero(){
     //Laden der Texturen für die Animation (Pfad angeben)
     idle.add(new Texture(PATH_TO_TEXTURE_1.png));
     idle.add(new Texture(PATH_TO_TEXTURE_1.png));       
-	//Erstellen einer Animation, als Parameter wird die Liste mit den Texturen 
+    //Erstellen einer Animation, als Parameter wird die Liste mit den Texturen 
     //und die Wartezeit (in Frames) zwischen den Wechsel der Texturen angegeben
     idleAnimation  = new Animation(idle,8);
 }
@@ -109,7 +109,7 @@ public class MyHero implements IAnimatable, IEntity {
 	@Override
 	public void update() {
 	//zeichnet den Helden. 
-    //Wird als default Methode vom IAnimatable Interface mitgeliefert 
+        //Wird als default Methode vom IAnimatable Interface mitgeliefert 
 	this.draw();
 	}
 ```
@@ -132,7 +132,7 @@ public void setLevel (DungeonWorld level) {
 }
 //Dem Helden eine zufällige Position im Dungeon zuweisen
 public void findRandomPostion(){
-	//Die Methode gibt ein zufälliges Bodenfeld im Dungeon zurück
+    //Die Methode gibt ein zufälliges Bodenfeld im Dungeon zurück
     this.position=new Point(level.getRandomPointInDungeon());
 }
 ```
