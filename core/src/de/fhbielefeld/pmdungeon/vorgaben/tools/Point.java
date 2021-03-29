@@ -1,6 +1,6 @@
 package de.fhbielefeld.pmdungeon.vorgaben.tools;
 
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.Coordinate;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter.Coordinate;
 
 /**
  * For easy handling of positions in the dungeon. <br>

@@ -1,11 +1,11 @@
-package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.wallpattern;
+package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.wallpattern;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ObjectMap;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonTextures;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.Coordinate;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.tiles.Tile;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.DungeonTextures;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter.Coordinate;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.tiles.Tile;
 public class TCornerNorthWall extends WallPattern {
 
     public TCornerNorthWall(ObjectMap<DungeonTextures, Texture> textureMap) {

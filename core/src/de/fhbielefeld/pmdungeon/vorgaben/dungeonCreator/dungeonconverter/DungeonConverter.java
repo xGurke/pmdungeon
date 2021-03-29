@@ -1,10 +1,10 @@
-package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter;
+package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter;
 
 import com.badlogic.gdx.Gdx;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.DungeonWorld;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.tiles.Tile;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.DungeonWorld;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.tiles.Tile;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

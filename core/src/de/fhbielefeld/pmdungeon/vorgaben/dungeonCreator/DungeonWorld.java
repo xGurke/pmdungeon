@@ -1,4 +1,4 @@
-package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater;
+package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
@@ -10,12 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.Coordinate;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter.Room;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.tiles.Tile;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.tiles.TileHeuristic;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.wallpattern.WallPattern;
-import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.wallpattern.WallPatternFactory;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter.Coordinate;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter.Room;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.tiles.Tile;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.tiles.TileHeuristic;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.wallpattern.WallPattern;
+import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.wallpattern.WallPatternFactory;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
 
 import java.util.Random;

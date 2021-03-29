@@ -1,4 +1,4 @@
-package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.tiles;
+package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.tiles;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.math.Vector2;

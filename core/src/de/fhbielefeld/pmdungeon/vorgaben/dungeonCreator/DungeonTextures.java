@@ -1,4 +1,4 @@
-package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater;
+package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ObjectMap;

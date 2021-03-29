@@ -1,4 +1,4 @@
-package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreater.dungeonconverter;
+package de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter;
 
 import com.google.gson.annotations.SerializedName;
 
