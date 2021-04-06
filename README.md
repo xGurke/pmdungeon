@@ -105,7 +105,7 @@ Super, jetzt hat unser Held eine Animation. Nun muss diese noch im Spiel gezeich
 
 Da das Dungeon framebasiert ist, muss unser Held in jedem Frame (also 30-mal in der Sekunde) neu gezeichnet werden. Dazu verwenden Wir das `IEntity` Interface, welches uns erlaubt Objekte vom `EntityController` managen zu lassen.
 
-Der `EntityController` verwendet das *Visitor-Pattern* (vergleiche Vorlesung) um Instanzen vom Typen `IEntity` zu verwalten. Er sorgt dafür, dass die vom Interface bereitgestellte `update`-Methode jeder Entität in der Game-Loop aufgerufen wird. Dazu hält er eine Liste mit allen ihm übergebenen Entitäten. Weiter unten sehen Sie, wie Sie den `EntityController` verwenden können, um unseren Helden managen zu lassen.
+Der `EntityController` verwendet das *Listener-Pattern* (vergleiche Vorlesung) um Instanzen vom Typen `IEntity` zu verwalten. Er sorgt dafür, dass die vom Interface bereitgestellte `update`-Methode jeder Entität in der Game-Loop aufgerufen wird. Dazu hält er eine Liste mit allen ihm übergebenen Entitäten. Weiter unten sehen Sie, wie Sie den `EntityController` verwenden können, um unseren Helden managen zu lassen.
 
 *Hinweis: Der `MainController` verfügt bereits über einen `EntityController`, welchen Sie innerhalb der Klasse mit `entityController` ansprechen können*
 
