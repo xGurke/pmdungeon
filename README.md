@@ -68,7 +68,7 @@ public class MyHero implements IAnimatable {
 }
 ```
 
-<div style="page-break-after: always"></div>
+### Der bewegte (animierte) Held
 
 Fangen wir damit an, die Animation für unseren Helden zu erstellen. Eine Animation ist eine Liste mit verschieden Texturen, die nacheinander abgespielt werden.
 
@@ -117,7 +117,7 @@ public class MyHero implements IAnimatable, IEntity {
 }
 ```
 
-<div style="page-break-after: always"></div>
+### Wo bin ich?
 
 Jetzt ist unsere erste Version vom Helden fast fertig, wir benötigen lediglich noch ein paar kleinere Informationen. Zuerst muss unser Held wissen, wo er überhaupt im Dungeon steht, dafür benötigt er eine Position. Zusätzlich wäre es hilfreich, wenn unser Held das Level (die Dungeon-Ebene) kennen würde, da wir so vermeiden können, dass sich unser Held durch Wände bewegt oder sich außerhalb des eigentlichen Spielbereiches aufhält.
 
@@ -160,7 +160,7 @@ public void setup() {
 
 Die Kamera `camera` ist unser "Auge" im Dungeon. Mit `camera.follow` können wir ihr ein Objekt übergeben, welches von nun an immer im Mittelpunkt des Bildes sein soll.
 
-<div style="page-break-after: always"></div>
+### Sie werden platziert
 
 Jetzt müssen wir unseren Helden nur noch im Level platzieren. Dafür bietet Sich die Methode `onLevelLoad` an, diese wird immer dann automatisch aufgerufen, wenn der `LevelController` ein neues Level lädt. Der `LevelController` ist dafür zuständig, die Struktur des Dungeons zu laden und zu zeichnen. Er hält eine Referenz auf das eigentliche `DungeonWorld`-Level.
 
@@ -192,7 +192,7 @@ public void endFrame() {
 }
 ```
 
-<div style="page-break-after: always"></div>
+### WSDA oder die Steuerung des Helden über die Tastatur
 
 Damit wir unser Spiel auch richtig testen können, sollten wir unserem Helden noch die Möglichkeit zum Bewegen geben. Dafür fügen wir Steuerungsoptionen in der `Held.upate`-Methode hinzu:
 
@@ -221,13 +221,11 @@ if (level.isTileAccessible(newPosition))
 
 Starten wir nun das Spiel, sollten wir in der Lage sein, unseren Helden zu sehen und durch das Dungeon zu bewegen.
 
-<div style="page-break-after: always"></div>
+### Ein letzter Überblick
 
 Unten sehen Sie eine vereinfachte Darstellung wie unser Dungeon jetzt funktioniert. Grün hinterlegte Felder müssen selbst implementiert werden, weiß hinterlegte Felder sind bereits von der API implementiert.
 
 ![Vereinfachtes Sequenzdiagramm](./img/ablauf.png)
-
-
 
 ## Abschlusswort
 
