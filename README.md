@@ -5,7 +5,6 @@ lang: de-DE
 ...
 
 
-# PM-Dungeon
 
 ## Einleitung
 
