@@ -219,9 +219,8 @@ if (Gdx.input.isKeyPressed(Input.Keys.D))
 //Wenn die Taste A gedrückt ist, bewege dich nach links
 if (Gdx.input.isKeyPressed(Input.Keys.A))
     newPosition.x -= movementSpeed;
-//gibt dann true zurück, wenn der übergebene Punkt betretbar ist
+//Wenn der übergebene Punkt betretbar ist, ist das nun die aktuelle Position
 if (level.isTileAccessible(newPosition))
-   //wenn die neue Position gültig ist, ist das nun die aktuelle Position
    this.position = newPosition;
 ```
 
