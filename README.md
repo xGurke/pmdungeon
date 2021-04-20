@@ -273,7 +273,7 @@ public class YourClass extends MainController {
 }
 ```
 
-![HUD mit Herz](.\img\hudExample.PNG)
+![HUD mit Herz](./img/hudExample.PNG)
 
 
 
