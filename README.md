@@ -234,37 +234,37 @@ Unten sehen Sie eine vereinfachte Darstellung wie unser Dungeon jetzt funktionie
 
 
 
-## HUD
+## Head-up-Display (HUD)
 
-Dieser Abschnitt soll Ihnen die Werkzeuge nahebringen, welche Sie für die Darstellung eines Head-up-Display benötigen. Anders als im bereits bekannten Vorgehen, verwendet das HUD Koordinaten im Bereich von `x: 0 bis 6` und `y: 0 bis 5` , dabei stehen ihnen auch float Werte zur Verfügung. 
+Dieser Abschnitt soll Ihnen die Werkzeuge nahebringen, welche Sie für die Darstellung eines HUD benötigen. Anders als im bereits bekannten Vorgehen, verwendet das HUD Koordinaten im Bereich von `x: 0 bis 6` und `y: 0 bis 5`, dabei stehen ihnen auch float-Werte zur Verfügung. 
 
-Um eine Grafik auf den HUD anzeigen zu können, erstellen wir zuerst eine neue Klasse welche das Interface `IHUDElement` implementiert. 
+Um eine Grafik auf den HUD anzeigen zu können, erstellen wir zuerst eine neue Klasse, welche das Interface `IHUDElement` implementiert. 
 
 ```java
 public class HeartIcon implements IHUDElement {
 	@Override
 	public Point getPosition() {
-         //festlegen der Position 
+        	//festlegen der Position 
 		return new Point(0.5f,4.5f);
 	}
 
 	@Override
 	public Texture getTexture() {
-         //laden der Textur
+        	//laden der Textur
 		return new Texture("./assets/textures/ui/ui_heart_full.png");
 	}
 }
 ```
 
-Die Methode `getTexture` gibt die gewünschte Grafik als `Texture` Objekt zurück, dies Funktioniert identisch zur bereits bekannten Helden Implementierung. Die Methode `getPosition` gibt die Position der Grafik auf den HUD an. In diesem Beispiel gehen wir von einer festen Position der Grafik aus. Es wird vorkommen, dass sie Grafiken in Abhängigkeit zu anderen Grafiken positionieren möchten, überlegen Sie sich daher bereits jetzt eine gute Struktur um ihre HUD Elemente abzuspeichern.  
+Die Methode `getTexture` gibt die gewünschte Grafik als `Texture`-Objekt zurück, dies funktioniert identisch zur bereits bekannten Helden-Implementierung. Die Methode `getPosition` gibt die Position der Grafik auf dem HUD zurück. In diesem Beispiel gehen wir von einer festen Position der Grafik aus. Es wird vorkommen, dass Sie Grafiken in Abhängigkeit zu anderen Grafiken positionieren möchten, überlegen Sie sich daher bereits jetzt eine gute Struktur, um Ihre HUD-Elemente abzuspeichern.  
 
-Jetzt müssen wir unsere Grafik nur noch anzeigen lassen. Ähnlich zu den bereits bekannten Controllern gibt es auch für das HUD eine Steuerungsklasse, welche im MainController mit `hud` angesprochen werden kann.
+Jetzt müssen wir unsere Grafik nur noch anzeigen lassen. Ähnlich zu den bereits bekannten Controllern gibt es auch für das HUD eine Steuerungsklasse, welche im `MainController` mit `hud` angesprochen werden kann.
 
 ```java
 public class YourClass extends MainController {
  	@Override
 	protected void setup() {   
-    	...	
+    		...	
 		// hinzufügen eines Elementes zum HUD
 		hud.addHudElement(new HeartIcon());
 		//so entfernt man ein Element
@@ -277,7 +277,7 @@ public class YourClass extends MainController {
 
 
 
-Unter Umständen möchten Sie ihre Grafiken dynamisch skalieren. Überschreiben Sie dazu die default Methoden `float getWidth()` und `float getHeight()` des `IHUDElement` Interfaces. Die Skalierung scheint nicht immer ganz logisch, scheuen Sie daher nicht mit den Werten zu experimentieren.
+Unter Umständen möchten Sie Ihre Grafiken dynamisch skalieren. Überschreiben Sie dazu die Defaultmethoden `float getWidth()` und `float getHeight()` des `IHUDElement`-Interfaces. Die Skalierung scheint nicht immer ganz logisch, scheuen Sie daher nicht, mit den Werten zu experimentieren.
 
 ## Abschlusswort 
 
