@@ -81,7 +81,7 @@ Fangen wir damit an, die Animation für unseren Helden zu erstellen. Eine Animat
 ```java
 //Anlegen einer Animation
 private Animation idleAnimation;
-public Hero() {
+private Hero() {
     //Erstellen einer ArrayList
     List <Texture> idle = new ArrayList<>();
     //Laden der Texturen für die Animation (Pfad angeben)
