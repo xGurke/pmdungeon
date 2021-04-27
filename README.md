@@ -280,7 +280,7 @@ Unter Umständen möchten Sie Ihre Grafiken dynamisch skalieren. Überschreiben 
 Sie haben nun die ersten Schritte im Dungeon gemacht. Von nun an müssen Sie selbst entscheiden, wie Sie die Aufgaben im Praktikum umsetzten möchten. Ihnen ist mit Sicherheit aufgefallen, dass einige Interface-Methoden in diesem Dokument noch nicht erläutert wurden. Machen Sie sich daher mit der Javadoc der API vertraut.
 
 ## Zusätzliche Funktionen
-Hier werden eine Liste von Funktionen präsentiert, welche Sie zum Lösen der Praktikumsaufgaben zwar nicht benötigen, aber dennoch gerne verwenden können. 
+Hier wird eine Liste von Funktionen präsentiert, welche Sie zum lösen der Praktikumsaufgaben zwar nicht benötigen, aber dennoch gerne verwenden können. 
 
 Die Liste wird in unregelmäßigen Abständen erweitert
 
