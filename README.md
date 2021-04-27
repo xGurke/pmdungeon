@@ -278,3 +278,32 @@ Unter Umständen möchten Sie Ihre Grafiken dynamisch skalieren. Überschreiben 
 ## Abschlusswort
 
 Sie haben nun die ersten Schritte im Dungeon gemacht. Von nun an müssen Sie selbst entscheiden, wie Sie die Aufgaben im Praktikum umsetzten möchten. Ihnen ist mit Sicherheit aufgefallen, dass einige Interface-Methoden in diesem Dokument noch nicht erläutert wurden. Machen Sie sich daher mit der Javadoc der API vertraut.
+
+## Zusätzliche Funktionen
+Hier werden eine Liste von Funktionen präsentiert, welche Sie zum Lösen der Praktikumsaufgaben zwar nicht benötigen, aber dennoch gerne verwenden können. 
+
+Die Liste wird in unregelmäßigen Abständen erweitert
+
+
+### Sound
+Möchten Sie Soundeffekte oder Hintergrundmusik Ihren Dungeon hinzufügen, bietet *libGDX* eine einfache Möglichkeit dafür. 
+
+Es werden die Formate *.mp3*, *.wav* und *.ogg* unterstütz. Das Vorgehen unterscheidet sich zwischen den Formaten nicht. 
+
+```java
+//Datei als Sound-Objekt einladen
+Sound bumSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/bum.mp3"));
+bumSound.play();
+//Sound leise abspielen
+bumSound.play(0.1f);
+//Sound mit maximal Lautstärke abspielen
+bumSound.play(1f);
+//Soud endlos abspielen
+bumSound.loop(); 
+```
+
+
+
+Sie können noch weitere Parameter und Methoden verwenden, um den Sound Ihren wünschen anzupassen. Schauen Sie dafür in die [**libGDX**-Dokumentation](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/audio/Sound.html)
+
+*Hinweis: Achten Sie darauf, keine Musik oder Soundeffekte in öffentliche Git Repos hochzuladen, für die Sie keine Rechte haben.* 
