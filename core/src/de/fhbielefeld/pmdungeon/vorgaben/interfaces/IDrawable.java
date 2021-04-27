@@ -34,7 +34,8 @@ public interface IDrawable{
 		//this will resize the texture. this is setuped for the textures used in the thesis
 		sprite.setSize(1, ((float) texture.getHeight() / (float) texture.getWidth()));
 		//where to draw the sprite
-		sprite.setPosition(this.getPosition().x+xOffset, this.getPosition().y+yOffset);
+		Point position= this.getPosition();
+		sprite.setPosition(position.x+xOffset, position.y+yOffset);
 
 		//need to be called before drawing
 		GameSetup.batch.begin();
