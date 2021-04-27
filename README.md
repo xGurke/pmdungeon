@@ -68,7 +68,7 @@ Jetzt, wo Sie sichergestellt haben, dass das Dungeon ausgeführt werden kann, ge
 Fangen wir damit an eine neue Klasse für den Helden anzulegen. Da unser Held eine Animation haben soll, implementieren wir das Interface `IAnimatable`. Dies erlaubt es uns, unseren Helden zu animieren. Für Objekte, die keine Animation haben, sondern nur eine Textur, würden wir das Interface `IDrawable` implementieren.
 
 ```java
-public class MyHero implements IAnimatable {
+public class Hero implements IAnimatable {
     @Override
     public Animation getActiveAnimation()
 }
@@ -111,7 +111,7 @@ Der `EntityController` verwendet das *Observer-Pattern* (vergleiche Vorlesung) u
 Dafür implementiert unser Held nun zusätzlich das `IEntity`-Interface und die `update`-Methode.
 
 ```java
-public class MyHero implements IAnimatable, IEntity {
+public class Hero implements IAnimatable, IEntity {
     ....
 
     @Override
