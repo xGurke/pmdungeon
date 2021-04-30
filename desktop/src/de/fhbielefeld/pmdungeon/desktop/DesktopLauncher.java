@@ -1,6 +1,7 @@
 package de.fhbielefeld.pmdungeon.desktop;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import de.fhbielefeld.pmdungeon.vorgaben.game.Controller.MainController;
@@ -15,6 +16,7 @@ public class DesktopLauncher {
      */
     public static void run(MainController mc) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+
         config.setTitle(Constants.WINDOWNAME);
         config.setForegroundFPS(Constants.FRAMERATE);
         config.setWindowedMode(Constants.WIDTH,Constants.HEIGHT);
