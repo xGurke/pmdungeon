@@ -2,6 +2,7 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IEntity;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 
 /**
@@ -47,6 +48,22 @@ public class EntityController {
         if (dungeonEntitys.contains(entity))
             this.dungeonEntitys.remove(entity);
     }
+
+    /**
+     * removes all entity's from the list
+     */
+    public void removeAll(){
+        this.dungeonEntitys.clear();
+    }
+
+    /**
+     * removes all instances of the class c from the list
+     * @param c referenz Class (use Class.forName("PACKAGE.CLASSNAME") )
+     */
+    public void removeAllFrom(Class<?> c){
+        dungeonEntitys.removeIf(obj -> c.isInstance(obj));
+    }
+
     /**
      * returns entity list
      */
