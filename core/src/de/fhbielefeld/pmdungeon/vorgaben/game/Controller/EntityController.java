@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 public class EntityController {
 
     /**
-     * Contains all the entity's this controller handles.
+     * Contains all the entities this controller handles.
      */
     private final ArrayList<IEntity> dungeonEntities;
     public EntityController() {
@@ -50,7 +50,7 @@ public class EntityController {
     }
 
     /**
-     * removes all entity's from the list
+     * removes all entities from the list
      */
     public void removeAll(){
         this.dungeonEntities.clear();
