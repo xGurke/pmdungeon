@@ -23,7 +23,7 @@ public class EntityController {
      */
     public void update() {
         dungeonEntities.removeIf(obj -> obj.deleteable());
-        for (IEntity obj : dungeonEntities) obj.update();
+        dungeonEntities.forEach(obj -> obj.update());
     }
 
     /**
