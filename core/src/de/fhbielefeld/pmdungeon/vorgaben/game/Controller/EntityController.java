@@ -21,11 +21,14 @@ public class EntityController {
      * removes entity if deletable is set true
      */
     public void update() {
+        ArrayList<IEntity> toRemove = new ArrayList();
         for (IEntity obj : dungeonEntitys) {
-            if (obj.deleteable()) removeEntity(obj);
+            if (obj.deleteable()) toRemove.add(obj);
             else obj.update();
         }
+        dungeonEntitys.removeAll(toRemove);
     }
+
     /**
      * add an entity to the list
      *
