@@ -13,9 +13,9 @@ public class EntityController {
     /**
      * Contains all the entity's this controller handles.
      */
-    private final ArrayList<IEntity> dungeonEntitys;
+    private final ArrayList<IEntity> dungeonEntities;
     public EntityController() {
-        this.dungeonEntitys = new ArrayList<>();
+        this.dungeonEntities = new ArrayList<>();
     }
     /**
      * calls the update method for every entity in the list.
@@ -23,11 +23,11 @@ public class EntityController {
      */
     public void update() {
         ArrayList<IEntity> toRemove = new ArrayList();
-        for (IEntity obj : dungeonEntitys) {
+        for (IEntity obj : dungeonEntities) {
             if (obj.deleteable()) toRemove.add(obj);
             else obj.update();
         }
-        dungeonEntitys.removeAll(toRemove);
+        dungeonEntities.removeAll(toRemove);
     }
 
     /**
@@ -36,8 +36,8 @@ public class EntityController {
      * @param entity
      */
     public void addEntity(IEntity entity) {
-        if (!dungeonEntitys.contains(entity))
-            this.dungeonEntitys.add(entity);
+        if (!dungeonEntities.contains(entity))
+            this.dungeonEntities.add(entity);
     }
     /**
      * removes entity from the list
@@ -45,15 +45,15 @@ public class EntityController {
      * @param entity
      */
     public void removeEntity(IEntity entity) {
-        if (dungeonEntitys.contains(entity))
-            this.dungeonEntitys.remove(entity);
+        if (dungeonEntities.contains(entity))
+            this.dungeonEntities.remove(entity);
     }
 
     /**
      * removes all entity's from the list
      */
     public void removeAll(){
-        this.dungeonEntitys.clear();
+        this.dungeonEntities.clear();
     }
 
     /**
@@ -61,11 +61,11 @@ public class EntityController {
      * @param c referenz Class (use Class.forName("PACKAGE.CLASSNAME") )
      */
     public void removeAllFrom(Class<?> c){
-        dungeonEntitys.removeIf(obj -> c.isInstance(obj));
+        dungeonEntities.removeIf(obj -> c.isInstance(obj));
     }
 
     /**
      * returns entity list
      */
-    public ArrayList<IEntity> getList(){ return this.dungeonEntitys;}
+    public ArrayList<IEntity> getList(){ return this.dungeonEntities;}
 }
