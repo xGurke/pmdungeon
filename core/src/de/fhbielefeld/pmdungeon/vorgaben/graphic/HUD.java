@@ -83,4 +83,8 @@ public class HUD {
         hudBatch.setProjectionMatrix(hudCamera.combined);
     }
 
+
+    public SpriteBatch getHudBatch() {
+        return this.hudBatch;
+    }
 }

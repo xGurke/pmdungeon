@@ -2,6 +2,7 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IEntity;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 
 /**
@@ -10,30 +11,29 @@ import java.util.ArrayList;
 public class EntityController {
 
     /**
-     * Contains all the entity's this controller handles.
+     * Contains all the entities this controller handles.
      */
-    private final ArrayList<IEntity> dungeonEntitys;
+    private final ArrayList<IEntity> dungeonEntities;
     public EntityController() {
-        this.dungeonEntitys = new ArrayList<>();
+        this.dungeonEntities = new ArrayList<>();
     }
     /**
      * calls the update method for every entity in the list.
      * removes entity if deletable is set true
      */
     public void update() {
-        for (IEntity obj : dungeonEntitys) {
-            if (obj.deleteable()) removeEntity(obj);
-            else obj.update();
-        }
+        dungeonEntities.removeIf(obj -> obj.deleteable());
+        dungeonEntities.forEach(obj -> obj.update());
     }
+
     /**
      * add an entity to the list
      *
      * @param entity
      */
     public void addEntity(IEntity entity) {
-        if (!dungeonEntitys.contains(entity))
-            this.dungeonEntitys.add(entity);
+        if (!dungeonEntities.contains(entity))
+            this.dungeonEntities.add(entity);
     }
     /**
      * removes entity from the list
@@ -41,11 +41,27 @@ public class EntityController {
      * @param entity
      */
     public void removeEntity(IEntity entity) {
-        if (dungeonEntitys.contains(entity))
-            this.dungeonEntitys.remove(entity);
+        if (dungeonEntities.contains(entity))
+            this.dungeonEntities.remove(entity);
     }
+
+    /**
+     * removes all entities from the list
+     */
+    public void removeAll(){
+        this.dungeonEntities.clear();
+    }
+
+    /**
+     * removes all instances of the class c from the list
+     * @param c referenz Class (use Class.forName("PACKAGE.CLASSNAME") )
+     */
+    public void removeAllFrom(Class<?> c){
+        dungeonEntities.removeIf(obj -> c.isInstance(obj));
+    }
+
     /**
      * returns entity list
      */
-    public ArrayList<IEntity> getList(){ return this.dungeonEntitys;}
+    public ArrayList<IEntity> getList(){ return this.dungeonEntities;}
 }
