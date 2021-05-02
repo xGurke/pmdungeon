@@ -308,11 +308,11 @@ Sie können noch weitere Parameter und Methoden verwenden, um den Sound Ihren W�
 
 ### Text
 
-Ab Version 1.1.4.0 können Sie Texte mithilfe von `TextStage` Strings auf den Bildschirm zeichnen. Verwenden Sie dafür die `TextStage` Instanz `textHUD` welche bereits in Ihren `MainController` verfügbar ist. 
+Ab Version 1.1.4.0 können Sie Texte mithilfe von `TextStage` auf den Bildschirm zeichnen. Verwenden Sie dafür die `TextStage`-Instanz `textHUD` welche bereits in Ihrem `MainController` verfügbar ist. 
 
-Verwenden Sie die Methode `TextStage.drawText` um einen String auf Ihren Bildschirm zu Zeichnen. Sie haben dabei eine Umfangreiche Auswahl an Parametern, um Ihre Einstellungen anzupassen. Beachten Sie, dass die Positionen des Texts dieses Mal in echten Pixeln angegeben werden muss (wir arbeiten bereits daran ein einheitliches Positionssystem zu entwickeln, bis dahin müssen Sie leider mit den unterschiedlichen Systemen arbeiten). 
+Verwenden Sie die Methode `TextStage.drawText` um einen String auf Ihren Bildschirm zu zeichnen. Sie haben dabei eine umfangreiche Auswahl an Parametern, um Ihre Einstellungen anzupassen. Beachten Sie, dass die Positionen des Texts dieses Mal in echten Pixeln angegeben werden muss (wir arbeiten bereits daran ein einheitliches Positionssystem zu entwickeln, bis dahin müssen Sie leider mit den unterschiedlichen Systemen arbeiten). 
 
- `TextStage.drawText` gibt Ihnen ein `Label`-Objekt zurück, dieses können Sie verwenden, um den Text später anzupassen oder ihn vom Bildschirm zu entfernen. 
+`TextStage.drawText` gibt Ihnen ein `Label`-Objekt zurück, dieses können Sie verwenden, um den Text später anzupassen oder ihn vom Bildschirm zu entfernen. 
 
  Im unteren Beispiel wird ein Text implementiert, welcher das aktuelle Level ausgibt.
 
