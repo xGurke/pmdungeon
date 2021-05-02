@@ -2,8 +2,13 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
+import de.fhbielefeld.pmdungeon.vorgaben.graphic.TextStage;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.DungeonCamera;
 import de.fhbielefeld.pmdungeon.vorgaben.graphic.HUD;
@@ -38,12 +43,14 @@ public class MainController extends ScreenAdapter {
     protected HUD hud;
 
     /**
+     * Stage for Text
+     */
+    protected TextStage textHUD;
+
+    /**
      * Marks if the firstFrame is already calculated or not (true= not calculated)
      */
     protected boolean firstFrame=true;
-
-
-
 
 
     //----------------------------- OWN IMPLEMENTATION -----------------------------
@@ -61,6 +68,7 @@ public class MainController extends ScreenAdapter {
     private void firstFrame(){
         this.entityController = new EntityController();
         this.hud = new HUD();
+        this.textHUD=new TextStage(hud.getHudBatch());
         setupCamera();
         setupWorldController();
         setup();
@@ -112,6 +120,8 @@ public class MainController extends ScreenAdapter {
 
         //updates and draw hud
         hud.draw();
+        textHUD.draw();
+
         endFrame();
 
     }

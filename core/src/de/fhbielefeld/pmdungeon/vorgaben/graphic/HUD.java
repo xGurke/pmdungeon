@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Holds the HUD.
  */
-public class HUD {
+public class HUD{
     private final SpriteBatch hudBatch;
     private final OrthographicCamera hudCamera;
     private final List<IHUDElement> hudElements;
@@ -83,4 +83,6 @@ public class HUD {
         hudBatch.setProjectionMatrix(hudCamera.combined);
     }
 
+
+    public SpriteBatch getHudBatch(){return this.hudBatch;}
 }
