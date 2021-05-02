@@ -50,25 +50,31 @@ public class MainController extends ScreenAdapter {
     /**
      * Marks if the firstFrame is already calculated or not (true= not calculated)
      */
-    protected boolean firstFrame=true;
+    protected boolean firstFrame = true;
 
 
     //----------------------------- OWN IMPLEMENTATION -----------------------------
-    protected void setup(){}
-    protected void beginFrame(){}
-    protected void endFrame(){}
-    public void onLevelLoad(){}
-    //----------------------------- END OWN IMPLEMENTATION --------------------------
+    protected void setup() {
+    }
 
+    protected void beginFrame() {
+    }
+
+    protected void endFrame() {
+    }
+
+    public void onLevelLoad() {
+    }
+    //----------------------------- END OWN IMPLEMENTATION --------------------------
 
 
     /**
      * Setup for the MainController
      */
-    private void firstFrame(){
+    private void firstFrame() {
         this.entityController = new EntityController();
         this.hud = new HUD();
-        this.textHUD=new TextStage(hud.getHudBatch());
+        this.textHUD = new TextStage(hud.getHudBatch());
         setupCamera();
         setupWorldController();
         setup();
@@ -81,7 +87,7 @@ public class MainController extends ScreenAdapter {
             e.printStackTrace();
         }
 
-        firstFrame=false;
+        firstFrame = false;
     }
 
     /**
@@ -92,7 +98,7 @@ public class MainController extends ScreenAdapter {
      */
     @Override
     public final void render(float delta) {
-        if(firstFrame) this.firstFrame();
+        if (firstFrame) this.firstFrame();
 
         beginFrame();
 
@@ -125,6 +131,7 @@ public class MainController extends ScreenAdapter {
         endFrame();
 
     }
+
     /**
      * Setting up the WorldController.
      */
@@ -132,7 +139,7 @@ public class MainController extends ScreenAdapter {
         try {
             //this method will be called every time a new level gets load
             Method functionToPass = this.getClass().getMethod("onLevelLoad");
-            System.out.println("DEBUG: "+functionToPass);
+            System.out.println("DEBUG: " + functionToPass);
             //if you need parameter four your method, add them here
             Object[] arguments = new Object[0];
             this.levelController = new LevelController(functionToPass, this, arguments);
@@ -140,6 +147,7 @@ public class MainController extends ScreenAdapter {
             e.printStackTrace();
         }
     }
+
     /**
      * Setting up the camera.
      */

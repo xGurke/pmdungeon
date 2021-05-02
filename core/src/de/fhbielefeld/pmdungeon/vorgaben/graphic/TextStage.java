@@ -19,26 +19,27 @@ public class TextStage extends Stage {
 
     private final ArrayList<Label> labels;
 
-    public TextStage(SpriteBatch batch){
-        super(new ScreenViewport(),batch);
-        labels=new ArrayList<>();
+    public TextStage(SpriteBatch batch) {
+        super(new ScreenViewport(), batch);
+        labels = new ArrayList<>();
     }
 
     /**
      * Draws a given text on the screen.
-     * @param text text to draw
+     *
+     * @param text     text to draw
      * @param fontPath font to use
-     * @param color color to use
-     * @param size font size to use
-     * @param width width of the text box
-     * @param height height of the text box
-     * @param x x-position in pixel
-     * @param y y-position in pixel
+     * @param color    color to use
+     * @param size     font size to use
+     * @param width    width of the text box
+     * @param height   height of the text box
+     * @param x        x-position in pixel
+     * @param y        y-position in pixel
      * @return Label (use this to alter text or remove the text later)
      */
-    public Label drawText(String text, String fontPath, Color color, int size, int width, int height, int x, int y){
+    public Label drawText(String text, String fontPath, Color color, int size, int width, int height, int x, int y) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter= new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = size;
         parameter.borderWidth = 1;
         parameter.color = color;
@@ -46,9 +47,9 @@ public class TextStage extends Stage {
         generator.dispose();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font24;
-        Label label = new Label(text,labelStyle);
-        label.setSize(width,height);
-        label.setPosition(x,y);
+        Label label = new Label(text, labelStyle);
+        label.setSize(width, height);
+        label.setPosition(x, y);
 
         labels.add(label);
         this.addActor(label);
@@ -57,9 +58,10 @@ public class TextStage extends Stage {
 
     /**
      * removes given label from the screen
+     *
      * @param label label to remove
      */
-    public void removeText(Label label){
+    public void removeText(Label label) {
         labels.remove(label);
         clear();
         labels.forEach(l -> addActor(l));

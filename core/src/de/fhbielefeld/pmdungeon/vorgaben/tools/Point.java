@@ -29,10 +29,11 @@ public class Point {
 
     /**
      * Copy Point
+     *
      * @param p
      */
-    public Point (Point p){
-        this.x=p.x;
-        this.y=p.y;
+    public Point(Point p) {
+        this.x = p.x;
+        this.y = p.y;
     }
 }

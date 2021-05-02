@@ -1,6 +1,7 @@
 package de.fhbielefeld.pmdungeon.vorgaben.graphic;
 
 import com.badlogic.gdx.graphics.Texture;
+
 import java.util.List;
 
 /**
@@ -28,6 +29,7 @@ public class Animation {
      * How many frames since the last texture switching
      */
     private int frameTimeCounter = 0;
+
     /**
      * Creates an animation.
      *
@@ -42,6 +44,7 @@ public class Animation {
         this.frames = animationFrames.size();
         this.frameTime = frameTime;
     }
+
     /**
      * Automatically updates currentFrame to next frame
      *
