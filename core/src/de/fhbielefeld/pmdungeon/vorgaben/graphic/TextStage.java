@@ -70,4 +70,10 @@ public class TextStage extends Stage {
         super.act();
         super.draw();
     }
+
+    @Override
+    public void clear() {
+        super.clear();
+        labels.clear();
+    }
 }
