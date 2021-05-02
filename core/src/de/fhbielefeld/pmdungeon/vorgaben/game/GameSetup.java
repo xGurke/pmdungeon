@@ -29,9 +29,7 @@ public class GameSetup extends Game {
     }
 
     @Override
-    public void dispose() {
-        batch.dispose();
-    }
+    public void dispose() {batch.dispose();}
 
 
 }

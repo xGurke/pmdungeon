@@ -306,4 +306,39 @@ bumSound.loop();
 
 Sie können noch weitere Parameter und Methoden verwenden, um den Sound Ihren Wünschen anzupassen. Schauen Sie dafür in die [`libGDX`-Dokumentation](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/audio/Sound.html)
 
+### Text
+
+Ab Version 1.1.4.0 können Sie Texte mithilfe von `TextStage` auf den Bildschirm zeichnen. Verwenden Sie dafür die `TextStage`-Instanz `textHUD` welche bereits in Ihrem `MainController` verfügbar ist. 
+
+Verwenden Sie die Methode `TextStage.drawText`, um einen String auf Ihren Bildschirm zu zeichnen. Sie haben dabei eine umfangreiche Auswahl an Parametern, um Ihre Einstellungen anzupassen. Beachten Sie, dass die Positionen des Texts dieses Mal in "echten Pixeln" angegeben werden muss (wir arbeiten bereits daran, ein einheitliches Positionssystem zu entwickeln, bis dahin müssen Sie leider mit den unterschiedlichen Systemen arbeiten). 
+
+`TextStage.drawText` gibt Ihnen ein `Label`-Objekt zurück, dieses können Sie verwenden, um den Text später anzupassen oder ihn vom Bildschirm zu entfernen. 
+
+ Im unteren Beispiel wird ein Text implementiert, welcher das aktuelle Level ausgibt.
+
+```java
+public class MyMain extends MainController {
+    .....
+    Label levelLabel; 
+    int levelCounter=0;
+    public void onLevelLoad() {
+        levelCounter++;
+        if (levelCounter==1){
+            levelLabel=textHUD.drawText("Level"+x,"PATH/TO/FONT.ttf",Color.RED,30,50,50,30,30);
+        }
+        else{
+            levelLabel.setText("Level"+x)   
+        } 
+    }
+    //remove label
+    //textHUD.removeText(levelLabel)
+    //remove all label
+    //textHUD.clear();
+}
+```
+
+Genauere Informationen zu den Parametern entnehmen Sie bitte der JavaDoc. 
+
+
+
 *Hinweis: Achten Sie darauf, Daten nur dann in öffentliche Git-Repos zu laden, wenn Sie die nötigen Rechte an diesen Daten haben. Dies gilt insbesondere auch für Artefakte wie Bilder, Bitmaps, Musik oder Soundeffekte.* 

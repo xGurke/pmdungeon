@@ -2,8 +2,13 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
+import de.fhbielefeld.pmdungeon.vorgaben.graphic.TextStage;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.DungeonCamera;
 import de.fhbielefeld.pmdungeon.vorgaben.graphic.HUD;
@@ -38,29 +43,38 @@ public class MainController extends ScreenAdapter {
     protected HUD hud;
 
     /**
+     * Stage for Text
+     */
+    protected TextStage textHUD;
+
+    /**
      * Marks if the firstFrame is already calculated or not (true= not calculated)
      */
-    protected boolean firstFrame=true;
-
-
-
+    protected boolean firstFrame = true;
 
 
     //----------------------------- OWN IMPLEMENTATION -----------------------------
-    protected void setup(){}
-    protected void beginFrame(){}
-    protected void endFrame(){}
-    public void onLevelLoad(){}
-    //----------------------------- END OWN IMPLEMENTATION --------------------------
+    protected void setup() {
+    }
 
+    protected void beginFrame() {
+    }
+
+    protected void endFrame() {
+    }
+
+    public void onLevelLoad() {
+    }
+    //----------------------------- END OWN IMPLEMENTATION --------------------------
 
 
     /**
      * Setup for the MainController
      */
-    private void firstFrame(){
+    private void firstFrame() {
         this.entityController = new EntityController();
         this.hud = new HUD();
+        this.textHUD = new TextStage(hud.getHudBatch());
         setupCamera();
         setupWorldController();
         setup();
@@ -73,7 +87,7 @@ public class MainController extends ScreenAdapter {
             e.printStackTrace();
         }
 
-        firstFrame=false;
+        firstFrame = false;
     }
 
     /**
@@ -84,7 +98,7 @@ public class MainController extends ScreenAdapter {
      */
     @Override
     public final void render(float delta) {
-        if(firstFrame) this.firstFrame();
+        if (firstFrame) this.firstFrame();
 
         beginFrame();
 
@@ -112,9 +126,12 @@ public class MainController extends ScreenAdapter {
 
         //updates and draw hud
         hud.draw();
+        textHUD.draw();
+
         endFrame();
 
     }
+
     /**
      * Setting up the WorldController.
      */
@@ -122,7 +139,7 @@ public class MainController extends ScreenAdapter {
         try {
             //this method will be called every time a new level gets load
             Method functionToPass = this.getClass().getMethod("onLevelLoad");
-            System.out.println("DEBUG: "+functionToPass);
+            System.out.println("DEBUG: " + functionToPass);
             //if you need parameter four your method, add them here
             Object[] arguments = new Object[0];
             this.levelController = new LevelController(functionToPass, this, arguments);
@@ -130,6 +147,7 @@ public class MainController extends ScreenAdapter {
             e.printStackTrace();
         }
     }
+
     /**
      * Setting up the camera.
      */

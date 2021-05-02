@@ -188,10 +188,10 @@ public class DungeonWorld implements IndexedGraph<Tile>, Disposable {
      *
      * @return Random position in the dungeon as Point
      */
-    public Point getRandomPointInDungeon(){
+    public Point getRandomPointInDungeon() {
         int roomId = (this.random.nextInt(rooms.length - 1)) + 1;
-        Coordinate c=getRandomLocationInRoom(roomId);
-        return new Point(c.getX(),c.getY());
+        Coordinate c = getRandomLocationInRoom(roomId);
+        return new Point(c.getX(), c.getY());
     }
 
 
@@ -217,8 +217,8 @@ public class DungeonWorld implements IndexedGraph<Tile>, Disposable {
      * @param p Point to check
      * @return true if tile is accessible; false if not
      */
-    public boolean isTileAccessible (Point p){
-        return this.isTileAccessible((int)p.x,(int)p.y);
+    public boolean isTileAccessible(Point p) {
+        return this.isTileAccessible((int) p.x, (int) p.y);
     }
 
     /**

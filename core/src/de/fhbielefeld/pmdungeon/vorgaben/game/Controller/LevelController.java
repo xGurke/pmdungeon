@@ -6,6 +6,7 @@ import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter.Dungeon
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -54,6 +55,7 @@ public class LevelController {
         this.klass = klass;
         this.args = args;
     }
+
     /**
      * Load a new dungeon. Calls onLevelLoad
      *
@@ -67,6 +69,7 @@ public class LevelController {
         this.dungeonWorld.makeConnections();
         onLevelLoad.invoke(klass, args);
     }
+
     /**
      * If next level is triggered, this will load it.
      * Also draws the level.
@@ -84,6 +87,7 @@ public class LevelController {
         }
         draw();
     }
+
     /**
      * Check if given Point is (rounded) a TriggerTile
      *
@@ -93,12 +97,14 @@ public class LevelController {
     public boolean checkForTrigger(Point p) {
         return (int) p.x == dungeonWorld.getNextLevelTrigger().getX() && (int) p.y == dungeonWorld.getNextLevelTrigger().getY();
     }
+
     /**
      * Used to set the trigger if the next level should be loaded
      */
     public void triggerNextStage() {
         this.nextLevelTriggered = true;
     }
+
     /**
      * Return the current level.
      *
@@ -107,6 +113,7 @@ public class LevelController {
     public DungeonWorld getDungeon() {
         return dungeonWorld;
     }
+
     /**
      * Draws the dungeon itself.
      */
@@ -115,29 +122,31 @@ public class LevelController {
         dungeonWorld.renderWalls(dungeonWorld.getHeight() - 1, 0, GameSetup.batch);
     }
     //Switch dungeon.
+
     /**
      * If next stage is triggered, change the dungeon.
      */
     private void nextStage() throws InvocationTargetException, IllegalAccessException {
         switch (nextStage) {
             case A:
-                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL+"small_dungeon.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL + "small_dungeon.json"));
                 nextStage = Stage.B;
                 break;
             case B:
-                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL+"simple_dungeon_2.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL + "simple_dungeon_2.json"));
                 nextStage = Stage.C;
                 break;
             case C:
-                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL+"simple_dungeon.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL + "simple_dungeon.json"));
                 nextStage = Stage.D;
                 break;
             case D:
-                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL+"boss_dungeon.json"));
+                loadDungeon(dungeonConverter.dungeonFromJson(Constants.PATHTOLEVEL + "boss_dungeon.json"));
                 nextStage = Stage.A;
                 break;
         }
     }
+
     /**
      * used to manage nextStage()
      */
