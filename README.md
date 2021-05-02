@@ -280,15 +280,16 @@ Unter Umständen möchten Sie Ihre Grafiken dynamisch skalieren. Überschreiben 
 Sie haben nun die ersten Schritte im Dungeon gemacht. Von nun an müssen Sie selbst entscheiden, wie Sie die Aufgaben im Praktikum umsetzten möchten. Ihnen ist mit Sicherheit aufgefallen, dass einige Interface-Methoden in diesem Dokument noch nicht erläutert wurden. Machen Sie sich daher mit der Javadoc der API vertraut.
 
 ## Zusätzliche Funktionen
-Hier wird eine Liste von Funktionen präsentiert, welche Sie zum Lösen der Praktikumsaufgaben zwar nicht benötigen, aber dennoch gerne verwenden können. 
+
+Hier wird eine Liste von Funktionen präsentiert, welche Sie zum Lösen der Praktikumsaufgaben zwar nicht benötigen, aber dennoch gerne verwenden können.
 
 Die Liste wird in unregelmäßigen Abständen erweitert.
 
-
 ### Sound
-Möchten Sie Soundeffekte oder Hintergrundmusik zu Ihrem Dungeon hinzufügen, bietet `libGDX` eine einfache Möglichkeit dafür. 
 
-Es werden die Formate `.mp3`, `.wav` und `.ogg` unterstützt. Das Vorgehen unterscheidet sich zwischen den Formaten nicht. 
+Möchten Sie Soundeffekte oder Hintergrundmusik zu Ihrem Dungeon hinzufügen, bietet `libGDX` eine einfache Möglichkeit dafür.
+
+Es werden die Formate `.mp3`, `.wav` und `.ogg` unterstützt. Das Vorgehen unterscheidet sich zwischen den Formaten nicht.
 
 ```java
 //Datei als Sound-Objekt einladen
@@ -299,27 +300,25 @@ bumSound.play(0.1f);
 //Sound mit maximal Lautstärke abspielen
 bumSound.play(1f);
 //Soud endlos abspielen
-bumSound.loop(); 
+bumSound.loop();
 ```
-
-
 
 Sie können noch weitere Parameter und Methoden verwenden, um den Sound Ihren Wünschen anzupassen. Schauen Sie dafür in die [`libGDX`-Dokumentation](https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/audio/Sound.html)
 
 ### Text
 
-Ab Version 1.1.4.0 können Sie Texte mithilfe von `TextStage` auf den Bildschirm zeichnen. Verwenden Sie dafür die `TextStage`-Instanz `textHUD` welche bereits in Ihrem `MainController` verfügbar ist. 
+Ab Version 1.1.4.0 können Sie Texte mithilfe von `TextStage` auf den Bildschirm zeichnen. Verwenden Sie dafür die `TextStage`-Instanz `textHUD`, welche bereits in Ihrem `MainController` verfügbar ist.
 
-Verwenden Sie die Methode `TextStage.drawText`, um einen String auf Ihren Bildschirm zu zeichnen. Sie haben dabei eine umfangreiche Auswahl an Parametern, um Ihre Einstellungen anzupassen. Beachten Sie, dass die Positionen des Texts dieses Mal in "echten Pixeln" angegeben werden muss (wir arbeiten bereits daran, ein einheitliches Positionssystem zu entwickeln, bis dahin müssen Sie leider mit den unterschiedlichen Systemen arbeiten). 
+Verwenden Sie die Methode `TextStage.drawText`, um einen String auf Ihren Bildschirm zu zeichnen. Sie haben dabei eine umfangreiche Auswahl an Parametern, um Ihre Einstellungen anzupassen. Beachten Sie, dass die Positionen des Texts dieses Mal in "echten Pixeln" angegeben werden muss (wir arbeiten bereits daran, ein einheitliches Positionssystem zu entwickeln, bis dahin müssen Sie leider mit den unterschiedlichen Systemen arbeiten).
 
-`TextStage.drawText` gibt Ihnen ein `Label`-Objekt zurück, dieses können Sie verwenden, um den Text später anzupassen oder ihn vom Bildschirm zu entfernen. 
+`TextStage.drawText` gibt Ihnen ein `Label`-Objekt zurück, dieses können Sie verwenden, um den Text später anzupassen oder ihn vom Bildschirm zu entfernen.
 
- Im unteren Beispiel wird ein Text implementiert, welcher das aktuelle Level ausgibt.
+Im unteren Beispiel wird ein Text implementiert, welcher das aktuelle Level ausgibt.
 
 ```java
 public class MyMain extends MainController {
     .....
-    Label levelLabel; 
+    Label levelLabel;
     int levelCounter=0;
     public void onLevelLoad() {
         levelCounter++;
@@ -327,8 +326,8 @@ public class MyMain extends MainController {
             levelLabel=textHUD.drawText("Level"+x,"PATH/TO/FONT.ttf",Color.RED,30,50,50,30,30);
         }
         else{
-            levelLabel.setText("Level"+x)   
-        } 
+            levelLabel.setText("Level"+x)
+        }
     }
     //remove label
     //textHUD.removeText(levelLabel)
@@ -337,8 +336,7 @@ public class MyMain extends MainController {
 }
 ```
 
-Genauere Informationen zu den Parametern entnehmen Sie bitte der JavaDoc. 
+Genauere Informationen zu den Parametern entnehmen Sie bitte der JavaDoc.
 
 
-
-*Hinweis: Achten Sie darauf, Daten nur dann in öffentliche Git-Repos zu laden, wenn Sie die nötigen Rechte an diesen Daten haben. Dies gilt insbesondere auch für Artefakte wie Bilder, Bitmaps, Musik oder Soundeffekte.* 
+*Hinweis: Achten Sie darauf, Daten nur dann in öffentliche Git-Repos zu laden, wenn Sie die nötigen Rechte an diesen Daten haben. Dies gilt insbesondere auch für Artefakte wie Bilder, Bitmaps, Musik oder Soundeffekte.*
