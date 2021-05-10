@@ -9,7 +9,6 @@ import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IDrawable;
 public class DungeonCamera extends OrthographicCamera {
     private IDrawable follows;
     private Point focusPoint;
-    ;
 
     /**
      * Creates a new camera.
