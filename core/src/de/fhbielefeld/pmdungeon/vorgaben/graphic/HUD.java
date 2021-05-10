@@ -17,14 +17,14 @@ import java.util.List;
  */
 public class HUD {
     private final SpriteBatch hudBatch;
-    private final OrthographicCamera hudCamera;
+    //private final OrthographicCamera hudCamera;
     private final List<IHUDElement> hudElements;
 
     public HUD() {
         hudBatch = new SpriteBatch();
-        hudCamera = new OrthographicCamera();
-        hudCamera.position.set(0, 0, 0);
-        hudCamera.update();
+        // hudCamera = new OrthographicCamera();
+       // hudCamera.position.set(0, 0, 0);
+       // hudCamera.update();
         hudElements = new ArrayList<>();
     }
 
@@ -51,8 +51,8 @@ public class HUD {
      * Main loop of the hud.
      */
     public void draw() {
-        hudCamera.update();
-        hudBatch.setProjectionMatrix(hudCamera.combined);
+        //hudCamera.update();
+        //hudBatch.setProjectionMatrix(hudCamera.combined);
         drawElements();
         resize();
 
@@ -79,8 +79,8 @@ public class HUD {
      * Resizing the camera according to the size of the window.
      */
     public void resize() {
-        hudCamera.setToOrtho(false, Constants.VIRTUALHEIGHT * Constants.WIDTH / (float) Constants.HEIGHT, Constants.VIRTUALHEIGHT);
-        hudBatch.setProjectionMatrix(hudCamera.combined);
+        //hudCamera.setToOrtho(false, Constants.VIRTUALHEIGHT * Constants.WIDTH / (float) Constants.HEIGHT, Constants.VIRTUALHEIGHT);
+        //hudBatch.setProjectionMatrix(hudCamera.combined);
     }
 
 

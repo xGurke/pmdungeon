@@ -8,6 +8,7 @@ import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IDrawable;
  */
 public class DungeonCamera extends OrthographicCamera {
     private IDrawable follows;
+    private Point focusPoint;
 
     /**
      * Creates a new camera.
@@ -18,7 +19,9 @@ public class DungeonCamera extends OrthographicCamera {
      */
     public DungeonCamera(IDrawable follows, float vw, float vh) {
         super(vw, vh);
-        this.follows = follows;
+        if (follows != null)
+            this.follows = follows;
+        else focusPoint = new Point(0, 0)
     }
 
     /**
@@ -38,13 +41,24 @@ public class DungeonCamera extends OrthographicCamera {
     }
 
     /**
+     * Stops following and set the camera on a fix position
+     *
+     * @param focusPoint Point to set the camera on
+     */
+    public void setFocusPoint(Point focusPoint) {
+        this.follows = null;
+        this.focusPoint = focusPoint;
+    }
+
+
+    /**
      * update camera position
      */
     public void update() {
         if (follows != null)
             this.position.set(this.getFollowedObject().getPosition().x, this.getFollowedObject().getPosition().y, 0);
         else
-            this.position.set(0, 0, 0);
+            this.position.set(focusPoint.x, focusPoint.y, 0);
 
         super.update();
     }
