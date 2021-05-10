@@ -21,7 +21,7 @@ public class DungeonCamera extends OrthographicCamera {
         super(vw, vh);
         if (follows != null)
             this.follows = follows;
-        else focusPoint = new Point(0, 0)
+        else focusPoint = new Point(0, 0);
     }
 
     /**
