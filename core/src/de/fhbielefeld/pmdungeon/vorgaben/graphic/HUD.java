@@ -29,6 +29,9 @@ public class HUD {
         hudElements = new ArrayList<>();
     }
 
+    /**
+     * Toogle between grid and pixel based system
+     */
     public void changeSystem(){
         this.usePixelSystem=!this.usePixelSystem;
     }
