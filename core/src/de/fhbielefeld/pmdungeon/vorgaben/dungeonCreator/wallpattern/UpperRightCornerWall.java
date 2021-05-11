@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.DungeonTextures;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter.Coordinate;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.tiles.Tile;
+
 public class UpperRightCornerWall extends WallPattern {
 
     public UpperRightCornerWall(ObjectMap<DungeonTextures, Texture> textureMap) {

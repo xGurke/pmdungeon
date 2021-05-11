@@ -19,7 +19,7 @@ public class HUD {
     private final SpriteBatch hudBatch;
     private final OrthographicCamera hudCamera;
     private final List<IHUDElement> hudElements;
-    private boolean usePixelSystem=false;
+    private boolean usePixelSystem = false;
 
     public HUD() {
         hudBatch = new SpriteBatch();
@@ -32,8 +32,8 @@ public class HUD {
     /**
      * Toogle between grid and pixel based system
      */
-    public void changeSystem(){
-        this.usePixelSystem=!this.usePixelSystem;
+    public void changeSystem() {
+        this.usePixelSystem = !this.usePixelSystem;
     }
 
     /**
@@ -59,7 +59,7 @@ public class HUD {
      * Main loop of the hud.
      */
     public void draw() {
-        if(!usePixelSystem){
+        if (!usePixelSystem) {
             hudCamera.update();
             hudBatch.setProjectionMatrix(hudCamera.combined);
         }
