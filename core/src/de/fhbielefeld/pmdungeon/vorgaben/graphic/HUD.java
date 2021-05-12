@@ -31,6 +31,7 @@ public class HUD {
 
     /**
      * Toogle between grid and pixel based system
+     *
      * @param b activate or deactivate pixel system
      */
     public void usePixelSystem(boolean b) {
