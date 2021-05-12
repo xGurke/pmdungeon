@@ -2,21 +2,17 @@ package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.dungeonconverter.DungeonConverter;
 import de.fhbielefeld.pmdungeon.vorgaben.game.GameSetup;
+import de.fhbielefeld.pmdungeon.vorgaben.graphic.HUD;
 import de.fhbielefeld.pmdungeon.vorgaben.graphic.TextStage;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.Constants;
 import de.fhbielefeld.pmdungeon.vorgaben.tools.DungeonCamera;
-import de.fhbielefeld.pmdungeon.vorgaben.graphic.HUD;
-
-import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /**
  * Controls the game.
@@ -52,6 +48,8 @@ public class MainController extends ScreenAdapter {
      */
     protected boolean firstFrame = true;
 
+    //if you call a gdx function in setup this will call draw, so this boolean will be used to stop loops of firstFrame
+    private boolean finishedSetup = false;
 
     //----------------------------- OWN IMPLEMENTATION -----------------------------
     protected void setup() {
@@ -72,12 +70,17 @@ public class MainController extends ScreenAdapter {
      * Setup for the MainController
      */
     private void firstFrame() {
-        this.entityController = new EntityController();
-        this.hud = new HUD();
-        this.textHUD = new TextStage(hud.getHudBatch());
-        setupCamera();
-        setupWorldController();
-        setup();
+        if (!finishedSetup) {
+            this.entityController = new EntityController();
+            this.hud = new HUD();
+            this.textHUD = new TextStage(hud.getHudBatch());
+            setupCamera();
+            setupWorldController();
+            finishedSetup = true;
+            setup();
+        }
+
+
         //load first level
         try {
             levelController.loadDungeon(new DungeonConverter().dungeonFromJson(Constants.STARTLEVEL));
@@ -86,8 +89,8 @@ public class MainController extends ScreenAdapter {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
         firstFrame = false;
+
     }
 
     /**

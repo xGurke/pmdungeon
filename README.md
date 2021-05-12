@@ -234,7 +234,7 @@ Unten sehen Sie eine vereinfachte Darstellung wie unser Dungeon jetzt funktionie
 
 ## Head-up-Display (HUD)
 
-Dieser Abschnitt soll Ihnen die Werkzeuge nahebringen, welche Sie für die Darstellung eines HUD benötigen. Anders als im bereits bekannten Vorgehen, verwendet das HUD Koordinaten im Bereich von `x: 0 bis 6` und `y: 0 bis 5`, dabei stehen Ihnen auch `float`-Werte zur Verfügung.
+Dieser Abschnitt soll Ihnen die Werkzeuge nahebringen, welche Sie für die Darstellung eines HUD benötigen. Anders als im bereits bekannten Vorgehen, verwendet das HUD Koordinaten im Bereich von `x: 0 bis 6` und `y: 0 bis 5`, dabei stehen Ihnen auch `float`-Werte zur Verfügung. Alternativ können Sie ab Version `1.1.5.0` mithilfe von `hud.usePixelSystem(true)` im `MainCotroller` auf ein pixelbasiertes HUD wechseln. 
 
 Um eine Grafik auf dem HUD anzeigen zu können, erstellen wir zuerst eine neue Klasse, welche das Interface `IHUDElement` implementiert.
 

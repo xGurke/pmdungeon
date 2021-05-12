@@ -1,8 +1,6 @@
 package de.fhbielefeld.pmdungeon.vorgaben.game;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.fhbielefeld.pmdungeon.vorgaben.game.Controller.MainController;
 
@@ -17,8 +15,9 @@ public class GameSetup extends Game {
      */
     public static SpriteBatch batch;
     private final MainController mc;
-    public GameSetup(MainController mc){
-        this.mc=mc;
+
+    public GameSetup(MainController mc) {
+        this.mc = mc;
     }
 
     @Override
@@ -29,7 +28,9 @@ public class GameSetup extends Game {
     }
 
     @Override
-    public void dispose() {batch.dispose();}
+    public void dispose() {
+        batch.dispose();
+    }
 
 
 }
