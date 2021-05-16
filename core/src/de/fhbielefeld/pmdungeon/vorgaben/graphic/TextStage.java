@@ -76,6 +76,5 @@ public class TextStage extends Stage {
     @Override
     public void clear() {
         super.clear();
-        labels.clear();
     }
 }
