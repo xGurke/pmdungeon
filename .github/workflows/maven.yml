@@ -25,7 +25,7 @@ jobs:
         
     # Caching Dependencies to speed up
     - name: Cache Maven packages
-      uses: action/cache@2
+      uses: actions/cache@2
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
