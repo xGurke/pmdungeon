@@ -1,0 +1,46 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: PM-Dungeon - CI with Maven
+
+on: push
+
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest  # ? Ubuntu 20.04
+
+    steps:
+    # downloads copy of repo to the runner
+    - uses: actions/checkout@v2
+    
+    # Setup JDK 11
+    - name: Set up JDK 11 #
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt' # Adopt OpenJDK HotSpot
+        java-package: 'jdk' #is default
+        # architecture: x64 --> wichtig?
+        
+    # Caching Dependencies to speed up
+    - name: Cache Maven packages
+      uses: action/cache@2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    # Building project(includes testing, and static code analysis)
+    - name: Build with Maven
+      # --errors: produce execution error messages
+      # -B: non-interactiv btach mode
+      # --file: force the use of an alternative POM
+      
+      # MAYBE: -ff, --fail-fast: Stop at first failure in reactionized builds, oder lieber mit fae(fail at end)
+      # MAYBE: -U, -update-snapshots: Forces a check for missing releases and updated snapshots on remote repositpries
+              # ggf. conflicts with caching dependencies
+      # MAYBE: verify instead of package?
+      run: mvn -B package --file pom.xml --errors
+      
+    # MAYBE: stage documentation via actions/upload-artifact@v2
