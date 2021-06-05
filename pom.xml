@@ -26,6 +26,7 @@
         <main.basedir>${project.basedir}</main.basedir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.platform.version>5.7.2</junit.platform.version>
+        <exclude.dir>**/dungeonCreator/**</exclude.dir>
     </properties>
 
     <build>
@@ -60,6 +61,11 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.7</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>${exclude.dir}</exclude>
+                        </excludes>
+                    </configuration>
                 </plugin>
                 <!-- Checkstyle -->
                 <plugin>
@@ -81,7 +87,7 @@
                         <failOnViolation>true</failOnViolation>
                         <suppressionsLocation>config/checkstyle-suppressions.xml</suppressionsLocation>
                         <configLocation>google_checks.xml</configLocation>
-                        <excludes>**/dungeonCreator/**</excludes>
+                        <excludes>${exclude.dir}</excludes>
                     </configuration>
                 </plugin>
                 <!-- Spotbugs -->
@@ -115,7 +121,7 @@
                     <configuration>
                         <sourceEncoding>utf-8</sourceEncoding>
                         <excludes>
-                            <exclude>**/dungeonCreator/**</exclude>
+                            <exclude>${exclude.dir}</exclude>
                         </excludes>
                     </configuration>
                 </plugin>
@@ -137,7 +143,7 @@
                 <version>3.1.1</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/dungeonCreator/**</exclude>
+                        <exclude>${exclude.dir}</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -155,6 +161,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.7</version>
+                <configuration>
+                    <excludes>
+                        <exclude>${exclude.dir}</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <!-- Checkstyle -->
             <plugin>
@@ -169,7 +180,7 @@
                     <failOnViolation>true</failOnViolation>
                     <suppressionsLocation>config/checkstyle-suppressions.xml</suppressionsLocation>
                     <configLocation>google_checks.xml</configLocation>
-                    <excludes>**/dungeonCreator/**</excludes>
+                    <excludes>${exclude.dir}</excludes>
                 </configuration>
             </plugin>
             <!-- Spotbugs -->
@@ -189,7 +200,7 @@
                 <configuration>
                     <sourceEncoding>utf-8</sourceEncoding>
                     <excludes>
-                        <exclude>**/dungeonCreator/**</exclude>
+                        <exclude>${exclude.dir}</exclude>
                     </excludes>
                 </configuration>
             </plugin>
