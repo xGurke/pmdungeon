@@ -41,6 +41,7 @@ jobs:
       if: ${{ failure() }}
       run: mvn -B surefire-report:report --file pom.xml
     - name: Download Report
+      if: ${{ failure() }}
       uses: actions/download-artifact@v2.0.9
       with:
         name: Surefire Report
