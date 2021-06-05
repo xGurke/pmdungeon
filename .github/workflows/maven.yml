@@ -40,6 +40,11 @@ jobs:
     - name: Error Report
       if: ${{ failure() }}
       run: mvn -B surefire-report:report --file pom.xml
+    - name: Download Report
+      uses: actions/download-artifact@v2.0.9
+      with:
+        name: Surefire Report
+        path: target/site/surefire-report.html
       
     # MAYBE: stage documentation via actions/upload-artifact@v2
 
@@ -53,7 +58,7 @@ jobs:
     - uses: actions/checkout@v2
     
     # Setup JDK 11
-    - name: Set up JDK 11 #
+    - name: Set up JDK 11
       uses: actions/setup-java@v2
       with:
         java-version: '11'
@@ -69,12 +74,17 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
         
     # Building project(includes testing, and static code analysis)
+    - name: Compile
+      run: mvn -B package --file pom.xml -DskipTests
       # --errors: produce execution error messages
       # -B: non-interactiv btach mode
       # --file: force the use of an alternative POM
     - name: Checkstyle
+      continue-on-error: true
       run: mvn -B checkstyle:checkstyle --file pom.xml --errors --fail-at-end
     - name: Spotbugs
+      continue-on-error: true
       run: mvn -B spotbugs:spotbugs --file pom.xml --errors --fail-at-end
     - name: PMD
+      continue-on-error: true
       run: mvn -B pmd:pmd pmd:cpd --file pom.xml --errors --fail-at-end
