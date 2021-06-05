@@ -166,6 +166,14 @@
                         <exclude>${exclude.dir}</exclude>
                     </excludes>
                 </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- select non-aggregate reports -->
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
             <!-- Checkstyle -->
             <plugin>
