@@ -103,7 +103,7 @@
                         </dependency>
                     </dependencies>
                     <configuration>
-                        <excludeFilterFile>config/spotbugs-exclude.xml</excludeFilterFile>
+                        <excludeFilterFile>./../config/spotbugs-exclude.xml</excludeFilterFile>
                     </configuration>
                 </plugin>
                 <!-- PMD -->
@@ -146,6 +146,14 @@
                         <exclude>${exclude.dir}</exclude>
                     </excludes>
                 </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- select non-aggregate reports -->
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
             <!-- Test Report -->
             <plugin>
@@ -166,6 +174,14 @@
                         <exclude>${exclude.dir}</exclude>
                     </excludes>
                 </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- select non-aggregate reports -->
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
             <!-- Checkstyle -->
             <plugin>
@@ -189,7 +205,7 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.2.0</version>
                 <configuration>
-                    <excludeFilterFile>config/spotbugs-exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>./../config/spotbugs-exclude.xml</excludeFilterFile>
                 </configuration>
             </plugin>
             <!-- PMD -->
