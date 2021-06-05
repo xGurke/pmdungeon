@@ -32,15 +32,16 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
         
     # Building project(includes testing, and static code analysis)
-    - name: Build with Maven
       # --errors: produce execution error messages
       # -B: non-interactiv btach mode
       # --file: force the use of an alternative POM
-      
-      # MAYBE: -ff, --fail-fast: Stop at first failure in reactionized builds, oder lieber mit fae(fail at end)
-      # MAYBE: -U, -update-snapshots: Forces a check for missing releases and updated snapshots on remote repositpries
-              # ggf. conflicts with caching dependencies
-      # MAYBE: verify instead of package?
-      run: mvn -B package --file pom.xml --errors
+    - name: Checkstyle
+      run: mvn -B checkstyle:check --file pom.xml --errors --fail-at-end
+    - name: Spotbugs
+      run: mvn -B spotbugs:check --file pom.xml --errors --fail-at-end
+    - name: PMD
+      run: mvn -B pmd:check pmd:cpd-check --file pom.xml --errors --fail-at-end
+    - name: Unit Testing
+      run: mvn -B verify --file pom.xml --errors --fail-at-end
       
     # MAYBE: stage documentation via actions/upload-artifact@v2
