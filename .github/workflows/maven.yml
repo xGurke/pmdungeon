@@ -37,6 +37,10 @@ jobs:
     - name: Execute Unit tests
       run: mvn -B test --file pom.xml --errors --fail-at-end
       
+    - name: Error Report
+      if: ${{ failure() }}
+      run: mvn -B surefire-report:report --file pom.xml
+      
     # MAYBE: stage documentation via actions/upload-artifact@v2
 
   static_analysis:
@@ -69,8 +73,8 @@ jobs:
       # -B: non-interactiv btach mode
       # --file: force the use of an alternative POM
     - name: Checkstyle
-      run: mvn -B checkstyle:check --file pom.xml --errors --fail-at-end
+      run: mvn -B checkstyle:checkstyle --file pom.xml --errors --fail-at-end
     - name: Spotbugs
-      run: mvn -B spotbugs:check --file pom.xml --errors --fail-at-end
+      run: mvn -B spotbugs:spotbugs --file pom.xml --errors --fail-at-end
     - name: PMD
-      run: mvn -B pmd:check pmd:cpd-check --file pom.xml --errors --fail-at-end
+      run: mvn -B pmd:pmd pmd:cpd --file pom.xml --errors --fail-at-end
