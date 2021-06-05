@@ -81,11 +81,8 @@ jobs:
       # -B: non-interactiv btach mode
       # --file: force the use of an alternative POM
     - name: Checkstyle
-      continue-on-error: true
       run: mvn -B checkstyle:checkstyle --file pom.xml --errors --fail-at-end
     - name: Spotbugs
-      continue-on-error: true
       run: mvn -B spotbugs:spotbugs --file pom.xml --errors --fail-at-end
     - name: PMD
-      continue-on-error: true
       run: mvn -B pmd:pmd pmd:cpd --file pom.xml --errors --fail-at-end
