@@ -15,12 +15,12 @@
         <module>desktop</module>
     </modules>
 
-    <!--distributionManagement>
+    <distributionManagement>
         <site>
             <id>${project.artifactId}-site</id>
             <url>${project.baseUri}</url>
         </site>
-    </distributionManagement-->
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -120,7 +120,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${java.version}</version>
+                    <version>${jacoco.version}</version>
                 </plugin>
                 <!-- Checkstyle -->
                 <plugin>
