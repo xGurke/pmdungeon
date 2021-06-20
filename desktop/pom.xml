@@ -1,102 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
     <modelVersion>4.0.0</modelVersion>
+    <artifactId>desktop</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
 
     <parent>
-        <groupId>pmdungeon</groupId>
-        <artifactId>parent</artifactId>
+        <groupId>de.pm-dungeon</groupId>
+        <artifactId>pmdungeon</artifactId>
         <version>1.0</version>
     </parent>
-
-    <name>PM Dungeon desktop</name>
-    <artifactId>desktop</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-backend-lwjgl3</artifactId>
-            <version>1.9.12</version>
+            <version>${gdx.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-platform</artifactId>
-            <version>1.9.12</version>
+            <version>${gdx.version}</version>
             <classifier>natives-desktop</classifier>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-box2d-platform</artifactId>
-            <version>1.9.12</version>
+            <version>${gdx.version}</version>
             <classifier>natives-desktop</classifier>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>pmdungeon</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope> <!-- gradle: runtime -->
-        </dependency>
-        <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-freetype-platform</artifactId>
-            <version>1.9.12</version>
+            <version>${gdx.version}</version>
             <classifier>natives-desktop</classifier>
-            <scope>runtime</scope>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.pm-dungeon</groupId>
+            <artifactId>core</artifactId>
+            <version>${pmd-core.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>pmdungeon-desktop</finalName>
         <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
                 <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
+                    <rules>
+                        <dependencyConvergence />
+                    </rules>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                        <phase>package</phase> <!-- bind to the packaging phase -->
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-bundle</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>desktop</artifactId>
-                                    <version>${project.version}</version>
-                                    <classifier>jar-with-dependencies</classifier>
-                                    <type>jar</type>
-                                    <overWrite>true</overWrite>
-                                    <destFileName>pmdungeon.jar</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                            <outputDirectory>${project.parent.basedir}/target</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
+
 </project>
