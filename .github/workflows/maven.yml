@@ -52,7 +52,6 @@ jobs:
   static_analysis:
     name: Static code analysis
     runs-on: ubuntu-latest  # =Ubuntu 20.04
-    continue-on-error: true
     
     steps:
     # downloads copy of repo to the runner
@@ -80,9 +79,10 @@ jobs:
       # --errors: produce execution error messages
       # -B: non-interactiv btach mode
       # --file: force the use of an alternative POM
-    - name: Checkstyle
-      run: mvn -B checkstyle:checkstyle --file pom.xml --errors --fail-at-end
+
     - name: Spotbugs
       run: mvn -B spotbugs:spotbugs --file pom.xml --errors --fail-at-end
     - name: PMD
       run: mvn -B pmd:pmd pmd:cpd --file pom.xml --errors --fail-at-end
+    - name: Checkstyle
+      run: mvn -B checkstyle:checkstyle --file pom.xml --errors --fail-at-end
