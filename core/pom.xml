@@ -44,6 +44,12 @@
             <version>1.9.12</version>
             <scope>compile</scope> <!-- gradle: runtime -->
         </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.gdx</groupId>
+            <artifactId>gdx-backend-headless</artifactId>
+            <version>1.10.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
