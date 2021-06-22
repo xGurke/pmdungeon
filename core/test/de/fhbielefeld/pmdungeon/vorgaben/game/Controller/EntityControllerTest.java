@@ -1,6 +1,5 @@
-package de.fhbielefeld.pmdungeon.vorgabe.game.Controller;
+package de.fhbielefeld.pmdungeon.vorgaben.game.Controller;
 
-import de.fhbielefeld.pmdungeon.vorgaben.game.Controller.EntityController;
 import de.fhbielefeld.pmdungeon.vorgaben.interfaces.IEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

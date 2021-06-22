@@ -1,4 +1,4 @@
-package de.fhbielefeld.pmdungeon.vorgabe;
+package de.fhbielefeld.pmdungeon.vorgaben;
 
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
