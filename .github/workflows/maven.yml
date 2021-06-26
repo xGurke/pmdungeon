@@ -50,7 +50,6 @@ jobs:
           name: Maven Surefire Report
           path: core/target/site/surefire-report.html
 
-    # MAYBE: stage documentation via actions/upload-artifact@v2
 
   static_analysis:
     name: Static code analysis
@@ -89,3 +88,16 @@ jobs:
         run: mvn -B pmd:pmd pmd:cpd --file core/pom.xml --errors --fail-at-end
       - name: Checkstyle
         run: mvn -B checkstyle:checkstyle --file core/pom.xml --errors --fail-at-end
+
+      - name: Error Report
+        if: ${{ failure() }}
+        run: |
+          cd ./core
+          mvn -B site:site
+          cd ../
+      - name: Download Report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Maven Site Report
+          path: core/target/site/
