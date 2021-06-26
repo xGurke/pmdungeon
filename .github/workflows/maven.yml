@@ -83,11 +83,11 @@ jobs:
         # --file: force the use of an alternative POM
 
       - name: Spotbugs
-        run: mvn -B spotbugs:spotbugs --file core/pom.xml --errors --fail-at-end
+        run: mvn -B spotbugs:check --file core/pom.xml --errors --fail-at-end
       - name: PMD
-        run: mvn -B pmd:pmd pmd:cpd --file core/pom.xml --errors --fail-at-end
+        run: mvn -B pmd:check pmd:cpd-check --file core/pom.xml --errors --fail-at-end
       - name: Checkstyle
-        run: mvn -B checkstyle:checkstyle --file core/pom.xml --errors --fail-at-end
+        run: mvn -B checkstyle:check --file core/pom.xml --errors --fail-at-end
 
       - name: Error Report
         if: ${{ failure() }}
