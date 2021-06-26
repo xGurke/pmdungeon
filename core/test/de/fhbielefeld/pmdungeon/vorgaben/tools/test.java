@@ -1,4 +1,4 @@
-package de.fhbielefeld.pmdungeon.desktop.tools;
+package de.fhbielefeld.pmdungeon.vorgaben.tools;
 
 import org.junit.jupiter.api.*;
 
