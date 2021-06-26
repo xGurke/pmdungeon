@@ -39,13 +39,16 @@ jobs:
 
       - name: Error Report
         if: ${{ failure() }}
-        run: mvn -B surefire-report:report --file pom.xml
+        run: |
+          cd ./core
+          mvn -B surefire-report:report
+          cd ../
       - name: Download Report
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
           name: Maven Surefire Report
-          path: target/site/surefire-report.html
+          path: core/target/site/surefire-report.html
 
     # MAYBE: stage documentation via actions/upload-artifact@v2
 
