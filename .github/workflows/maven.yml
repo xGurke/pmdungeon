@@ -91,10 +91,7 @@ jobs:
 
       - name: Error Report
         if: ${{ failure() }}
-        run: |
-          cd ./core
-          mvn -B site:site
-          cd ../
+        run: mvn -B site:site
       - name: Download Report
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
