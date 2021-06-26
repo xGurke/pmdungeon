@@ -5,17 +5,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.*;
 
-class StandardTests {
+class SampleA {
 
     @Test
     void trueAssumption() {
         assumeTrue(5 > 1);
-        assertEquals(5 + 2, 7);
+        assertEquals(5 + 2, -42);
     }
 
     @Test
     void falseAssumption() {
-        assumeFalse(5 < 1);
+        assumeTrue(5 < 1);
         assertEquals(5 + 2, 7);
     }
 
