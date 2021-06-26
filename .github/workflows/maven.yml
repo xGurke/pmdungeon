@@ -1,0 +1,88 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: PM-Dungeon - CI testing with Maven
+
+on: push
+
+jobs:
+  build:
+    name: Unit Tests
+    runs-on: ubuntu-latest  # =Ubuntu 20.04
+
+    steps:
+      # downloads copy of repo to the runner
+      - uses: actions/checkout@v2
+
+      # Setup JDK 11
+      - name: Set up JDK 11 #
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt' # Adopt OpenJDK HotSpot
+          java-package: 'jdk' #is default
+
+      # Caching Dependencies to speed up
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+        # Building project(includes testing, and static code analysis)
+        # --errors: produce execution error messages
+        # -B: non-interactiv btach mode
+        # --file: force the use of an alternative POM
+      - name: Execute Unit tests
+        run: mvn -B test --file pom.xml --errors --fail-at-end
+
+      - name: Error Report
+        if: ${{ failure() }}
+        run: mvn -B surefire-report:report --file pom.xml
+      - name: Download Report
+        if: ${{ failure() }}
+        uses: actions/download-artifact@v2.0.9
+        with:
+          name: Surefire Report
+          path: target/site/surefire-report.html
+
+    # MAYBE: stage documentation via actions/upload-artifact@v2
+
+  static_analysis:
+    name: Static code analysis
+    runs-on: ubuntu-latest  # =Ubuntu 20.04
+
+    steps:
+      # downloads copy of repo to the runner
+      - uses: actions/checkout@v2
+
+      # Setup JDK 11
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt' # Adopt OpenJDK HotSpot
+          java-package: 'jdk' #is default
+
+      # Caching Dependencies to speed up
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      # Building project(includes testing, and static code analysis)
+      - name: Compile
+        run: mvn -B package --file pom.xml -DskipTests
+        # --errors: produce execution error messages
+        # -B: non-interactiv btach mode
+        # --file: force the use of an alternative POM
+
+      - name: Spotbugs
+        run: mvn -B spotbugs:spotbugs --file core/pom.xml --errors --fail-at-end
+      - name: PMD
+        run: mvn -B pmd:pmd pmd:cpd --file core/pom.xml --errors --fail-at-end
+      - name: Checkstyle
+        run: mvn -B checkstyle:checkstyle --file core/pom.xml --errors --fail-at-end
