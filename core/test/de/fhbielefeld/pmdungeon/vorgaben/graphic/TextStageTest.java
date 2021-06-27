@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.UncheckedIOException;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -25,13 +26,14 @@ public class TextStageTest {
 
     @BeforeEach
     void setUp() {
+        // initialise the headless backend
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-
         this.headlessApplication = new HeadlessApplication(new Game() {
             @Override
             public void create() { }
         }, config);
 
+        // mock OpenGL context, because headless backend does not have it
         Gdx.gl = mock(GL20.class);
     }
 
@@ -79,5 +81,8 @@ public class TextStageTest {
 
         assertFalse(((List<Label>) labelsField.get(textStage)).contains(label));
     }
+
+    // draw() - nicht testen, da nur LibGDX Methoden aufgerufen werden
+    // clear() - nicht testen, da nur LibGDX Methoden aufgerufen werden
 
 }
