@@ -350,7 +350,7 @@ public class EntityControllerTest {
 
         assertEquals(entityController.getList().size(), 1, "list size mus decrease by the amount of objects of the deleted class: 2->1");
         assertFalse(entityController.getList().contains(entity1), "TestEntity classes should not be in list");
-        assertTrue(entityController.getList().contains(entity2), "TestEntity classes should not be in list");
+        assertFalse(entityController.getList().contains(entity2), "TestEntity classes should not be in list");
         assertTrue(entityController.getList().contains(other), "non TestEntity classes should be in list");
     }
 
