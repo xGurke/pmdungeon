@@ -16,8 +16,8 @@ import static org.mockito.Mockito.when;
 
 @DisplayName("TestCase: DungeonCamera")
 public class DungeonCameraTest {
-    private final float vw = 42;
-    private final float vh = 69;
+    private final float vw = 10;
+    private final float vh = 20;
 
     @BeforeEach
     void setUp() {
