@@ -24,8 +24,8 @@ public class PointTest {
     @DisplayName("constructor: via Coordinate")
     @Test
     void testConstructorCoordinate() {
-        final int ix = (int) x * 100;
-        final int iy = (int) y * 100;
+        final int ix = (int) x * 10;
+        final int iy = (int) y * 10;
         Coordinate coordinate = new Coordinate(ix, iy);
 
         Point point = new Point(coordinate);
