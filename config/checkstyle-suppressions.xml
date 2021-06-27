@@ -6,6 +6,4 @@
 <suppressions>
     <suppress checks="Indentation"
               files=".*\.java"/>
-    <suppress checks="Documentation"
-              files=".*\.java"/>
 </suppressions>
