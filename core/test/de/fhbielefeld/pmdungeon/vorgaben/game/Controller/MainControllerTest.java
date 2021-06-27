@@ -45,7 +45,7 @@ public class MainControllerTest {
     // für mockedConstructions siehe: https://javadoc.io/static/org.mockito/mockito-core/3.11.2/org/mockito/Mockito.html#mocked_construction
     @DisplayName("firstFrame: finishedSetup: false")
     @Test
-    void firstFrameWithSetup() throws NoSuchFieldException, IllegalAccessException {
+    void testFirstFrameWithSetup() throws NoSuchFieldException, IllegalAccessException {
         try (
                 MockedConstruction<HUD> hudMocked = mockConstruction(HUD.class);
                 MockedConstruction<TextStage> textStageMocked = mockConstruction(TextStage.class);
@@ -64,19 +64,19 @@ public class MainControllerTest {
             // render() calls private firstFrameSetup()
             mainController.render(0); // delta param is irrelevant
 
-            assertNotNull(mainController.entityController);
-            assertNotNull(mainController.camera);
-            assertNotNull(mainController.levelController);
-            assertNotNull(mainController.hud);
-            assertNotNull(mainController.textHUD);
-            assertTrue(finishedField.getBoolean(mainController));
-            assertFalse(mainController.firstFrame); // first frame was called
+            assertNotNull(mainController.entityController, "entityController must be initialised");
+            assertNotNull(mainController.camera, "camera must be initialised");
+            assertNotNull(mainController.levelController, "levelController must be initialised");
+            assertNotNull(mainController.hud, "hud must be initialised");
+            assertNotNull(mainController.textHUD, "textHUD must be initialised");
+            assertTrue(finishedField.getBoolean(mainController), "finished setup must be true");
+            assertFalse(mainController.firstFrame, "first frame must be false after firstFrame()"); // first frame was called
         }
     }
 
     @DisplayName("firstFrame: finishedSetup true")
     @Test
-    void firstFrameWithoutSetup() throws NoSuchFieldException, IllegalAccessException {
+    void testFirstFrameWithoutSetup() throws NoSuchFieldException, IllegalAccessException {
         try (
                 MockedConstruction<HUD> hudMocked = mockConstruction(HUD.class);
                 MockedConstruction<TextStage> textStageMocked = mockConstruction(TextStage.class);
@@ -98,16 +98,16 @@ public class MainControllerTest {
             // call firstFrame() again with finishedSetup false; should create new Dungeon
             mainController.render(0); // delta param is irrelevant
 
-            assertTrue(finishedField.getBoolean(mainController));
-            assertNotEquals(dungeonWorld, mainController.levelController.getDungeon());
-            assertFalse(firstField.getBoolean(mainController));
+            assertTrue(finishedField.getBoolean(mainController), "finished setup must be true");
+            assertNotEquals(dungeonWorld, mainController.levelController.getDungeon(), "New dungeon should not be the same as the old one");
+            assertFalse(firstField.getBoolean(mainController), "first frame must be false after firstFrame()");
         }
     }
 
     //-----------setUpWorldController--------------
     @DisplayName("setup LevelController")
     @Test
-    void setUpWorldController() {
+    void testSetUpWorldController() {
         try (
                 MockedConstruction<HUD> hudMocked = mockConstruction(HUD.class);
                 MockedConstruction<TextStage> textStageMocked = mockConstruction(TextStage.class)
@@ -117,14 +117,14 @@ public class MainControllerTest {
          // render() calls private setupWorldController()
          mainController.render(0); // delta param is irrelevant
 
-         assertNotNull(mainController.levelController);
+         assertNotNull(mainController.levelController, "levelController must be initialised");
         }
     }
 
     //-----------setupCamera--------------
     @DisplayName("setup camera")
     @Test
-    void setupCamera() {
+    void testSetupCamera() {
         try (
                 MockedConstruction<HUD> hudMocked = mockConstruction(HUD.class);
                 MockedConstruction<TextStage> textStageMocked = mockConstruction(TextStage.class)
@@ -134,8 +134,8 @@ public class MainControllerTest {
             // render() calls private setupCamera()
             mainController.render(0); // delta param is irrelevant
 
-            assertNotNull(mainController.camera);
-            assertEquals(mainController.camera.position, new Vector3(0,0,0));
+            assertNotNull(mainController.camera, "camera must be initialised");
+            assertEquals(mainController.camera.position, new Vector3(0,0,0), "camera must have initial position of x=0, y=0, z=0");
         }
     }
 
