@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.DungeonWorld;
 import de.fhbielefeld.pmdungeon.vorgaben.dungeonCreator.tiles.Tile;
@@ -13,12 +14,13 @@ import de.fhbielefeld.pmdungeon.vorgaben.tools.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static de.fhbielefeld.pmdungeon.vorgaben.game.Controller.LevelController.*;
+import static de.fhbielefeld.pmdungeon.vorgaben.game.Controller.LevelController.Stage;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -27,18 +29,21 @@ public class LevelControllerTest {
     protected HeadlessApplication headlessApplication;
     private LevelController levelController;
     private boolean loadedLevel;
+    private Object invokedArgs;
+    private final String args = "arg1";
 
     /**
      * invoke method is passed to LevelController instance
      */
-    public void invoke() {
+    public void invoke(String args) {
         this.loadedLevel = true;
+        this.invokedArgs = args;
     }
 
     @BeforeEach
     void setUp() throws NoSuchMethodException {
-        Method tmp = this.getClass().getMethod("invoke");
-        levelController = new LevelController(tmp, this, null);
+        Method tmp = this.getClass().getMethod("invoke", String.class);
+        levelController = new LevelController(tmp, this, new String[]{args});
         loadedLevel = false;
 
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
@@ -49,32 +54,41 @@ public class LevelControllerTest {
         }, config);
 
         GameSetup.batch = mock(SpriteBatch.class);
-
         Gdx.gl = mock(GL20.class);
     }
 
     //-----------loadDungeon--------------
     @DisplayName("load dungeon")
     @Test
-    void loadDungeon() throws InvocationTargetException, IllegalAccessException {
+    void testLoadDungeon() throws InvocationTargetException, IllegalAccessException, NoSuchFieldException {
+        Field nextField = LevelController.class.getDeclaredField("nextLevelTriggered");
+        nextField.setAccessible(true);
         DungeonWorld dungeonWorld = new DungeonWorld(0, 0);
         assertNull(this.levelController.getDungeon());
         assertFalse(this.loadedLevel);
 
         levelController.loadDungeon(dungeonWorld);
 
-        assertEquals(levelController.getDungeon(), dungeonWorld);
+        assertEquals(levelController.getDungeon(), dungeonWorld, "DungeonWorld must be set");
+        assertFalse(nextField.getBoolean(levelController));
         // ignore DungeonWorld method
-        assertTrue(this.loadedLevel);
+        // check if passed Method onLevelLoad was invoked
+        assertTrue(this.loadedLevel, "passed method must be invoked");
+        assertEquals(this.invokedArgs, args, "set args must be passed to invoke method");
     }
 
     //-----------update--------------
     @DisplayName("update: nextLevelTriggered false")
     @Test
-    void updateFalse() throws NoSuchFieldException, IllegalAccessException {
+    void testUpdateFalse() throws NoSuchFieldException, IllegalAccessException {
         Field nextField = LevelController.class.getDeclaredField("nextLevelTriggered");
         nextField.setAccessible(true);
         nextField.setBoolean(levelController, false);
+        // Set dungeon world, so we can check draw call
+        DungeonWorld dungeonWorld = mock(DungeonWorld.class);
+        Field dungeonField = LevelController.class.getDeclaredField("dungeonWorld");
+        dungeonField.setAccessible(true);
+        dungeonField.set(levelController, dungeonWorld);
         // check nextStage var
         Field stageField = LevelController.class.getDeclaredField("nextStage");
         stageField.setAccessible(true);
@@ -82,112 +96,155 @@ public class LevelControllerTest {
 
         levelController.update();
 
-        assertEquals(stageField.get(levelController), Stage.A);
+        assertEquals(stageField.get(levelController), Stage.A, "Stage must still be A: updated but nor triggered");
+        // called in draw method --> draw method was called
+        verify(dungeonWorld, times(1)).renderFloor(any(SpriteBatch.class));
+        verify(dungeonWorld, times(1)).renderWalls(anyInt(), anyInt(), any(SpriteBatch.class));
     }
 
-    @DisplayName("update stage if triggered")
+    @DisplayName("update: nextLevelTriggered true")
     @Test
-    void updateTrue() throws IllegalAccessException, NoSuchFieldException {
-        // check nextStage var
-        Field stageField = LevelController.class.getDeclaredField("nextStage");
-        stageField.setAccessible(true);
-        // Check conditions
-        levelController.triggerNextStage();
-        assertEquals(stageField.get(levelController), Stage.A);
+    void testUpdateTrue() throws IllegalAccessException, NoSuchFieldException {
+        try (
+                MockedConstruction<DungeonWorld> dungeonMocked = mockConstruction(DungeonWorld.class)
+        ) {
+            // check nextStage var
+            Field stageField = LevelController.class.getDeclaredField("nextStage");
+            stageField.setAccessible(true);
+            // Check conditions
+            levelController.triggerNextStage();
+            assertEquals(stageField.get(levelController), Stage.A);
 
-        levelController.update();
+            levelController.update();
 
-        assertEquals(stageField.get(levelController), Stage.B);
+            assertEquals(stageField.get(levelController), Stage.B, "Stage must be B: updated and triggered");
+            // called in draw method --> draw method was called
+            verify(levelController.getDungeon(), times(1)).renderFloor(any(SpriteBatch.class));
+            verify(levelController.getDungeon(), times(1)).renderWalls(anyInt(), anyInt(), any(SpriteBatch.class));
+
+        }
     }
 
     @DisplayName("update multiple times")
     @Test
-    void updateMulti() throws IllegalAccessException, NoSuchFieldException {
-        // check nextStage var
-        Field stageField = LevelController.class.getDeclaredField("nextStage");
-        stageField.setAccessible(true);
-        // Check conditions
-        levelController.triggerNextStage();
-        assertEquals(stageField.get(levelController), Stage.A);
+    void testUpdateMulti() throws IllegalAccessException, NoSuchFieldException {
+        try (
+                MockedConstruction<DungeonWorld> dungeonMocked = mockConstruction(DungeonWorld.class)
+        ) {
+            // check nextStage var
+            Field stageField = LevelController.class.getDeclaredField("nextStage");
+            stageField.setAccessible(true);
+            // Check conditions
+            levelController.triggerNextStage();
+            assertEquals(stageField.get(levelController), Stage.A);
 
-        levelController.update();
-        levelController.update();
-        levelController.update();
+            levelController.update();
+            levelController.update();
+            levelController.update();
 
-        // multiple updates, but only first has nextLevelTriggered
-        assertEquals(stageField.get(levelController), Stage.B);
+            // multiple updates, but only first has nextLevelTriggered
+            assertEquals(stageField.get(levelController), Stage.B, "stage was updated 3 times, but triggered only one time: Stage.A->Stage.B");
+            // called in draw method --> draw method was called
+            verify(levelController.getDungeon(), times(3)).renderFloor(any(SpriteBatch.class));
+            verify(levelController.getDungeon(), times(3)).renderWalls(anyInt(), anyInt(), any(SpriteBatch.class));
+
+        }
     }
 
     //-----------checkForTrigger--------------
     @DisplayName("check: null")
     @Test
-    void checkForTriggerWithNull() {
+    void testCheckForTriggerWithNull() {
         levelController.triggerNextStage();
         levelController.update();
         assertNotNull(levelController.getDungeon());
 
-        assertFalse(levelController.checkForTrigger(null));
+        assertFalse(levelController.checkForTrigger(null), "Method should handle NullPointerExceptions");
     }
 
     @DisplayName("check: is TriggerTile")
     @Test
-    void checkForTriggerTrue() {
+    void testCheckForTriggerTrue() {
         levelController.triggerNextStage();
         levelController.update();
         assertNotNull(levelController.getDungeon());
         Tile tile = levelController.getDungeon().getNextLevelTrigger();
         Point point = new Point(tile.getX(), tile.getY());
 
-        assertTrue(levelController.checkForTrigger(point));
+        assertTrue(levelController.checkForTrigger(point), "Trigger tile from Dungeon must return true");
     }
 
     @DisplayName("check: not TriggerTile")
     @Test
-    void checkForTriggerFalse() {
+    void testCheckForTriggerFalse() {
         Point point = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);  // very, very unlikely trigger point
         levelController.triggerNextStage();
         levelController.update();
         assertNotNull(levelController.getDungeon());
 
-        assertFalse(levelController.checkForTrigger(point));
+        assertFalse(levelController.checkForTrigger(point), "Should not be the trigger tile");
     }
 
     //-----------triggerNextStage--------------
     @DisplayName("triggerNextStage")
     @Test
-    void triggerNextStage() throws NoSuchFieldException, IllegalAccessException {
+    void testTriggerNextStage() throws NoSuchFieldException, IllegalAccessException {
         Field stageField = LevelController.class.getDeclaredField("nextLevelTriggered");
         stageField.setAccessible(true);
 
         levelController.triggerNextStage();
 
-        assertTrue(stageField.getBoolean(levelController));
+        assertTrue(stageField.getBoolean(levelController), "nextStage must be true");
     }
 
     //-----------getDungeon--------------
     @DisplayName("getDungeon")
     @Test
-    void getDungeon() throws IllegalAccessException, InvocationTargetException {
+    void testGetDungeon() throws IllegalAccessException, InvocationTargetException {
         DungeonWorld dungeonWorld = mock(DungeonWorld.class);
         levelController.loadDungeon(dungeonWorld);
 
-        assertEquals(levelController.getDungeon(), dungeonWorld);
+        assertEquals(levelController.getDungeon(), dungeonWorld, "Set dungeon must be returned");
     }
 
     @DisplayName("getDungeon null")
     @Test
-    void getDungeonNull() {
+    void testGetDungeonNull() {
         // initialised levelController has uninitialised dungeonWorld
-        assertNull(levelController.getDungeon());
+        assertNull(levelController.getDungeon(), "Must return null (uninitialised dungeon is nul)");
     }
 
     //-----------draw--------------
-    // wird nicht getestet ruft dungeonCreator methoden auf
+    @DisplayName("draw")
+    @Test
+    void testDraw() throws InvocationTargetException, IllegalAccessException {
+        DungeonWorld dungeonWorld = mock(DungeonWorld.class);
+        levelController.loadDungeon(dungeonWorld);
+        assertEquals(this.levelController.getDungeon(), dungeonWorld);
+
+        levelController.draw();
+
+        // called in draw method --> draw method was called
+        verify(dungeonWorld).renderFloor(any(SpriteBatch.class));
+        verify(dungeonWorld).renderWalls(anyInt(), anyInt(), any(SpriteBatch.class));
+    }
+
+    @DisplayName("draw with null")
+    @Test
+    void testDrawNull() {
+        assertNull(levelController.getDungeon());
+
+        levelController.draw();
+
+        // Check that the SpriteBatch draw() function, which is used to draw/render, is never called
+        verify(GameSetup.batch, never()).draw(any(Texture.class), anyFloat(), anyFloat(), anyFloat(), anyFloat());
+        assertNull(levelController.getDungeon());
+    }
 
     //-----------nextStage--------------
     @DisplayName("nextStage: A->B")
     @Test
-    void nextStageAToB() throws IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
+    void testNextStageAToB() throws IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
         Field stageField = LevelController.class.getDeclaredField("nextStage");
         stageField.setAccessible(true);
         Method nextStageMethod = LevelController.class.getDeclaredMethod("nextStage");
@@ -197,12 +254,12 @@ public class LevelControllerTest {
 
         nextStageMethod.invoke(levelController);
 
-        assertEquals(stageField.get(levelController), Stage.B);
+        assertEquals(stageField.get(levelController), Stage.B, "nextStage from A should be B");
     }
 
     @DisplayName("nextStage: B->C")
     @Test
-    void nextStageBToC() throws IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
+    void testNextStageBToC() throws IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
         Field stageField = LevelController.class.getDeclaredField("nextStage");
         stageField.setAccessible(true);
         Method nextStageMethod = LevelController.class.getDeclaredMethod("nextStage");
@@ -214,12 +271,12 @@ public class LevelControllerTest {
 
         nextStageMethod.invoke(levelController);
 
-        assertEquals(stageField.get(levelController), Stage.C);
+        assertEquals(stageField.get(levelController), Stage.C, "nextStage from B should be C");
     }
 
     @DisplayName("nextStage: C->D")
     @Test
-    void nextStageCToD() throws IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
+    void testNextStageCToD() throws IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
         Field stageField = LevelController.class.getDeclaredField("nextStage");
         stageField.setAccessible(true);
         Method nextStageMethod = LevelController.class.getDeclaredMethod("nextStage");
@@ -231,12 +288,12 @@ public class LevelControllerTest {
 
         nextStageMethod.invoke(levelController);
 
-        assertEquals(stageField.get(levelController), Stage.D);
+        assertEquals(stageField.get(levelController), Stage.D, "nextStage from C should be D");
     }
 
     @DisplayName("nextStage: D->A")
     @Test
-    void nextStageDToA() throws IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
+    void testNextStageDToA() throws IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
         Field stageField = LevelController.class.getDeclaredField("nextStage");
         stageField.setAccessible(true);
         Method nextStageMethod = LevelController.class.getDeclaredMethod("nextStage");
@@ -248,10 +305,7 @@ public class LevelControllerTest {
 
         nextStageMethod.invoke(levelController);
 
-        assertEquals(stageField.get(levelController), Stage.A);
+        assertEquals(stageField.get(levelController), Stage.A, "nextStage from D should be A");
     }
-
-
-
 
 }
