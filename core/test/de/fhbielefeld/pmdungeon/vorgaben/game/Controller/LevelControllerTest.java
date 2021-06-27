@@ -151,16 +151,6 @@ public class LevelControllerTest {
     }
 
     //-----------checkForTrigger--------------
-    @DisplayName("checkTrigger: null")
-    @Test
-    void testCheckForTriggerWithNull() {
-        levelController.triggerNextStage();
-        levelController.update();
-        assertNotNull(levelController.getDungeon());
-
-        assertFalse(levelController.checkForTrigger(null), "Method should handle NullPointerExceptions");
-    }
-
     @DisplayName("checkTrigger: is trigger tile")
     @Test
     void testCheckForTriggerTrue() {
