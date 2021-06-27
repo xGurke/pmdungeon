@@ -23,15 +23,13 @@ public class AnimationTest {
     }
 
     //-----------constructor--------------
-    @DisplayName("normal constructor")
+    @DisplayName("constructor: normal")
     @Test
-    void normalConstructor() throws NoSuchFieldException, IllegalAccessException {
+    void testConstructorNormal() throws NoSuchFieldException, IllegalAccessException {
         List<Texture> frames = new ArrayList<>();
         frames.add(mock(Texture.class));
-        int fTime = 2;
-
+        int fTime = 1;
         this.animation = new Animation(frames, fTime);
-
         // Get private fields and check them
         Field animationField = Animation.class.getDeclaredField("animationFrames");
         Field framesField = Animation.class.getDeclaredField("frames");
@@ -39,70 +37,64 @@ public class AnimationTest {
         animationField.setAccessible(true);
         framesField.setAccessible(true);
         frameTimeField.setAccessible(true);
-        assertEquals(animationField.get(this.animation), frames);
-        assertEquals(framesField.get(this.animation), frames.size());
-        assertEquals(frameTimeField.get(this.animation), fTime);
+
+        assertEquals(animationField.get(this.animation), frames, "frames must be equal");
+        assertEquals(framesField.get(this.animation), frames.size(), "amount of frames must be equal");
+        assertEquals(frameTimeField.get(this.animation), fTime, "frameTime must be equal");
     }
 
-    @DisplayName("empty list constructor")
+    @DisplayName("constructor: empty list ")
     @Test
-    void emptyListConstructor() {
+    void testConstructorEmptyList() {
         List<Texture> frames = new ArrayList<>();
-        int fTime = 2;
+        int fTime = 1;
 
         assertThrows(IllegalArgumentException.class, () -> {
            this.animation = new Animation(frames, fTime);
-        });
+        }, "Empty List must throw IllegalArgumentException");
     }
 
-    @DisplayName("negative frameTime constructor")
+    @DisplayName("constructor: negative frameTime")
     @Test
-    void negativeTimeConstructor() {
+    void testConstructorNegativeTime() {
         List<Texture> frames = new ArrayList<>();
         frames.add(mock(Texture.class));
-        int fTime = -2;
+        int fTime = -1;
 
         assertThrows(IllegalArgumentException.class, () -> {
             this.animation = new Animation(frames, fTime);
-        });
+        }, "Negative frameTime must throw IllegalArgumentException");
     }
 
     //-----------getNextAnimation--------------
-    @DisplayName("getNextAnimation needs to get next")
+    @DisplayName("getNextAnimation: no next needed")
     @Test
-    // TODO: macht das überhaupt Sinn mit currntFrameIndex 1?
-    void getNextTextureNeeded() throws NoSuchFieldException, IllegalAccessException {
+    void testGetNextTextureNotNeeded() {
         Texture texture1 = mock(Texture.class);
         Texture texture2 = mock(Texture.class);
         ArrayList<Texture> frames = new ArrayList<>();
         frames.add(texture1);
         frames.add(texture2);
-        int fTime = 0; // texture needs to change
+        int fTime = 1000; // texture does not need to change for a long time
         this.animation = new Animation(frames, fTime);
-        // think that first texture was already loaded
-        Field animationField = Animation.class.getDeclaredField("currentFrameIndex");
-        animationField.setAccessible(true);
-        animationField.setInt(this.animation, 1);
 
-        Texture next = this.animation.getNextAnimationTexture();
-
-        assertEquals(next, texture2); // first texture loaded
+        assertEquals(animation.getNextAnimationTexture(), texture1, "texture must be first texture in list: ->texture1");
+        assertEquals(animation.getNextAnimationTexture(), texture1, "texture should not change: texture1->texture1");
     }
 
-    @DisplayName("getNextAnimation not time to switch")
+    @DisplayName("getNextAnimation: next")
     @Test
-    void getNextTextureNotNeeded() throws NoSuchFieldException, IllegalAccessException {
+    void testGetNextTextureNeeded() {
         Texture texture1 = mock(Texture.class);
         Texture texture2 = mock(Texture.class);
         ArrayList<Texture> frames = new ArrayList<>();
         frames.add(texture1);
         frames.add(texture2);
-        int fTime = 10; // texture does not need to change
+        int fTime = 0; // texture needs to change immediately
         this.animation = new Animation(frames, fTime);
 
-        Texture next = this.animation.getNextAnimationTexture();
-
-        assertEquals(next, texture1);
+        assertEquals(animation.getNextAnimationTexture(), texture1, "texture must be first texture in list: ->texture1");
+        assertEquals(animation.getNextAnimationTexture(), texture2, "texture must be next texture from list: texture1->texture2");
     }
 
 }
