@@ -40,6 +40,14 @@ public class LevelControllerTest {
         this.invokedArgs = args;
     }
 
+    // private invoke Method used for testing IllegalAccessException
+    private void invokeAccessError(){ }
+
+    // public invoke Method used for testing InvocationTargetException
+    public void invokeInvocationError() throws InvocationTargetException {
+        throw new InvocationTargetException(new Throwable("Test Exception"));
+    }
+
     @BeforeEach
     void setUp() throws NoSuchMethodException {
         Method tmp = this.getClass().getMethod("invoke", String.class);
@@ -148,6 +156,28 @@ public class LevelControllerTest {
             verify(levelController.getDungeon(), times(3)).renderFloor(any(SpriteBatch.class));
             verify(levelController.getDungeon(), times(3)).renderWalls(anyInt(), anyInt(), any(SpriteBatch.class));
         }
+    }
+
+    @DisplayName("update catch access exception")
+    @Test
+    void testUpdateAccessException() throws NoSuchMethodException {
+
+        Method method = LevelControllerTest.class.getDeclaredMethod("invokeAccessError");
+        LevelController levelException = new LevelController(method, this, null);
+
+        levelException.triggerNextStage();
+        assertDoesNotThrow(levelException::update, "IllegalAccessException must be caught");
+    }
+
+    @DisplayName("update catch invocation exception")
+    @Test
+    void testUpdateInvocationException() throws NoSuchMethodException {
+
+        Method method = LevelControllerTest.class.getDeclaredMethod("invokeInvocationError");
+        LevelController levelException = new LevelController(method, this, null);
+
+        levelException.triggerNextStage();
+        assertDoesNotThrow(levelException::update, "InvocationTargetException must be caught");
     }
 
     //-----------checkForTrigger--------------
