@@ -8,39 +8,41 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("TestCase: Point")
 public class PointTest {
-    private final float x = 0.42f;
-    private final float y = 0.69f;
+    private final float x = 2.0f;
+    private final float y = 4.5f;
 
     //-----------constructor--------------
-    @DisplayName("float constructor")
+    @DisplayName("constructor: via floats")
     @Test
-    void floatConstructor() {
+    void testConstructorFloats() {
         Point point = new Point(x, y);
-        assertEquals(point.x, x);
-        assertEquals(point.y, y);
+
+        assertEquals(point.x, x, "x position must be the same");
+        assertEquals(point.y, y, "y position must be the same");
     }
 
-    @DisplayName("coordinate constructor")
+    @DisplayName("constructor: via Coordinate")
     @Test
-    void CoordinateConstructor() {
+    void testConstructorCoordinate() {
         final int ix = (int) x * 100;
         final int iy = (int) y * 100;
         Coordinate coordinate = new Coordinate(ix, iy);
 
         Point point = new Point(coordinate);
 
-        assertEquals(point.x, ix);
-        assertEquals(point.x, iy);
+        assertEquals(point.x, ix, "x position must be the same");
+        assertEquals(point.y, iy, "y position must be the same");
     }
 
-    @DisplayName("point constructor")
+    @DisplayName("constructor: via Point")
     @Test
-    void PointConstructor() {
+    void testConstructorPoint() {
         Point tmp = new Point(x, y);
+
         Point point = new Point(tmp);
 
-        assertEquals(point.x, x);
-        assertEquals(point.y, y);
+        assertEquals(point.x, x, "x position must be the same");
+        assertEquals(point.y, y, "y position must be the same");
     }
 
 }
