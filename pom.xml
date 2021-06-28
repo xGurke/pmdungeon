@@ -114,6 +114,8 @@
                     </dependencies>
                     <configuration>
                         <excludeFilterFile>config/spotbugs-exclude.xml</excludeFilterFile>
+                        <effort>Max</effort>
+                        <threshold>Low</threshold>
                     </configuration>
                 </plugin>
                 <!-- PMD -->
@@ -163,7 +165,7 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>3.0.0-M5</version>
                 <configuration>
-                    <showSuccess>false</showSuccess>
+                    <showSuccess>true</showSuccess>
                 </configuration>
             </plugin>
             <!-- JaCoCo -->
@@ -208,6 +210,8 @@
                 <version>${spotbugs.version}</version>
                 <configuration>
                     <excludeFilterFile>config/spotbugs-exclude.xml</excludeFilterFile>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
                 </configuration>
             </plugin>
             <!-- PMD -->
