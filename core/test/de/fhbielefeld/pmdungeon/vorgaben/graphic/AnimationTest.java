@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-@DisplayName("TestCase: Point")
+@DisplayName("TestCase: Animation")
 public class AnimationTest {
     private Animation animation;
 
